@@ -10,6 +10,11 @@
   	<description></description>
   	<servlet-class>net.daw.control.json</servlet-class>
   </servlet>
+  
+  <welcome-file-list>
+      <welcome-file>formulario.html</welcome-file>
+  </welcome-file-list>
+  
   <servlet-mapping>
   	<servlet-name>json</servlet-name>
   	<url-pattern>/json</url-pattern>
