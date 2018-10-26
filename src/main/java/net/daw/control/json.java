@@ -35,24 +35,30 @@ public class json extends HttpServlet {
         //TODO Auto-generated constructor stub
     }
 
-    /**
-     * @param request
-     * @param response
-     * @throws javax.servlet.ServletException
-     * @throws java.io.IOException
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     * response)
-     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //TODO Auto-generated method stub
-        response.setContentType("applicationjson;charset=UTF-8");
+        processRequest(request, response);
+    }
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setHeader("Access-Control-Allow-Origin", request.getHeader("origin"));
+        response.setHeader("Access-Control-Allow-Methods", "GET,POST");
+        response.setHeader("Access-Control-Max-Age", "86400");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Allow-Headers", "Origin, Accept, x-requested-with, Content-Type");
         String strJson = "";
         JsonHelper json = new JsonHelper();
         String strOb = request.getParameter("ob");
         String strOp = request.getParameter("op");
-        
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (Exception ex) {
@@ -66,7 +72,7 @@ public class json extends HttpServlet {
             strJson = json.strJson(500, "Server Error");
             if (ConfigurationConstants.environment == EnvironmentConstans.Debug) {
                 //response.getWriter().println(e.getMessage());
-               // e.printStackTrace(response.getWriter());
+                // e.printStackTrace(response.getWriter());
                 //PrintWriter out = response.getWriter();
                 //out.println(e.getMessage());
                 //e.printStackTrace(out);
@@ -74,8 +80,7 @@ public class json extends HttpServlet {
         }
 
         //*******************************************************************************
-        
-        if (strOb.equalsIgnoreCase("usuario")) {
+        /*if (strOb.equalsIgnoreCase("usuario")) {
             if (strOp.equalsIgnoreCase("connect")) {
                 try {
                     ConnectionInterface oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
@@ -94,7 +99,7 @@ public class json extends HttpServlet {
                 }
 
             }
-            
+
             HttpSession oSession = request.getSession();
 
             if (strOp.equalsIgnoreCase("login")) {
@@ -114,7 +119,7 @@ public class json extends HttpServlet {
             if (strOp.equalsIgnoreCase("logout")) {
                 oSession.invalidate();
                 response.setStatus(200);
-                 strJson = "{\"status\":200,\"msg\":\"Session is closed\"}";
+                strJson = "{\"status\":200,\"msg\":\"Session is closed\"}";
                 //strJson = json.strJson(200, "Session is closed");
             }
             if (strOp.equalsIgnoreCase("check")) {
@@ -146,8 +151,7 @@ public class json extends HttpServlet {
             response.setStatus(500);
             //strJson = "{\"status\":500,\"msg\":\"operation or object empty\"}";
             strJson = json.strJson(500, "operation or object empty");
-        }
-
+        }*/
         response.getWriter().append(strJson);
     }
 }

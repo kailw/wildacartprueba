@@ -197,6 +197,33 @@ public class ProductoDao {
 			throw new Exception("Error en Dao getpage de " + ob);
 		}
 		return alProductoBean;
-
 	}
+        
+        	public ArrayList<?> getAllid() throws Exception {
+		String strSQL = "SELECT `id` FROM " + ob;
+		ArrayList<Integer> alProductoBean;
+			ResultSet oResultSet = null;
+			PreparedStatement oPreparedStatement = null;
+			try {
+				oPreparedStatement = oConnection.prepareStatement(strSQL);
+				oResultSet = oPreparedStatement.executeQuery();
+				alProductoBean= new ArrayList<Integer>();
+				while (oResultSet.next()) {
+					ProductoBean oProductoBean = new ProductoBean();
+					oProductoBean.setId(oResultSet.getInt("id"));
+                                        
+				}
+			} catch (SQLException e) {
+				throw new Exception("Error en Dao getpage de " + ob, e);
+			} finally {
+				if (oResultSet != null) {
+					oResultSet.close();
+				}
+				if (oPreparedStatement != null) {
+					oPreparedStatement.close();
+				}
+			}
+		return alProductoBean;
+	}                                
+        
 }
