@@ -35,6 +35,12 @@
             </center>
             <form>
                 <div class="form-group">
+                    <label for="dni" id="ldni">DNI</label> 
+                    <input type="text" class="form-control" id="dni" placeholder="Dame un Dni">
+                    <!--                    <div id="msgUser"></div>-->
+                </div>                
+                
+                <div class="form-group">
                     <label for="user" id="luser">Nombre</label> 
                     <input type="text" class="form-control" id="user" placeholder="Introduce usuario">
                     <!--                    <div id="msgUser"></div>-->
@@ -144,17 +150,7 @@
                 $("#login").click(function () {
                     peticion("create");
                 });
-                $("#connect").click(function () {
-                    limpiar();
-                    peticion("connect");
-                });
-                $("#logout").click(function () {
-                    peticion("logout");
-                    limpiar();
-                });
-                $("#getsecret").click(function () {
-                    peticion("getsecret");
-                });
+
 
                 function esconder() {
                     $("#msgUser").hide();
@@ -194,8 +190,19 @@
                         var ape1 = $("#ape1").val();
                         var ape2 = $("#ape2").val();
                         var login = $("#logintext").val();
-                        var id_tipoUsuario = $("#id_tipoUsuario").val();
-                        var url = "/trolleyes/json?ob=" + ob + "&op=" + op+"&json=";
+                        var id_tipoUsuario = $("#id_tipousuario").val();
+                        var pass = $("#pass").val(); 
+                        var url = "/trolleyes/json?ob=" + ob + "&op=" + op;
+                        json = {
+                            nombre: nombre,
+                            login: login,
+                            pass: pass,
+                            dni: dni,
+                            ape1: ape1,
+                            ape2: ape2,
+                            id_tipoUsuario: id_tipoUsuario
+                        }
+                        console.log(json);
                     }
 
 
@@ -203,8 +210,10 @@
                         url: url,
                         cache: false,
                         method: "POST",
-                        dataType: "json",                
-                        data: {"dni": dni, "nombre": nombre, "ape1": ape1, "ape2": ape2, "login": login, "pass": pass, "id_tipoUsuario": id_tipoUsuario},
+                        type:  "POST",
+                        contentType: 'application/json',                        
+                        dataType: "json",
+                        data: JSON.stringify(json),
                         success: function (data) {
                             $("#alerta").attr("class", "alert alert-success");
                             $("#alerta").empty().append("<h3>" + data.status + ": " + data.msg + "</h3>");
@@ -212,7 +221,7 @@
                         error: function (error) {
                             $("#alerta").attr("class", "alert alert-danger");
                             $("#alerta").empty().append("<h3> status " + error.status + ": " + error.responseText + "</h3>");
-                        }
+                        }                        
 
                     });
                 }
@@ -224,6 +233,7 @@
                     $("#pass").val('');
                     $("#ape1").val('');
                     $("#ape2").val('');
+                    $("#dni").val('');
                     $("#id_tipousuario").val('');
                     $("#logintext").val('');
                     $("#msgUser").attr("class", "");
@@ -231,7 +241,7 @@
                     $("#msgUser").empty();
                     $("#msgPass").empty();
                     $("#user").css("border-color", "");
-                    $("#pass").css("border-color", "");                    
+                    $("#pass").css("border-color", "");
                 }
 
             });
