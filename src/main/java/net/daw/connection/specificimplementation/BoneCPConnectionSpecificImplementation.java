@@ -13,6 +13,7 @@ public class BoneCPConnectionSpecificImplementation implements ConnectionInterfa
 	private Connection oConnection;
 	private BoneCP oConnectionPool;
 
+        @Override
 	public Connection newConnection() throws Exception {
 
 		BoneCPConfig config = new BoneCPConfig();
@@ -35,8 +36,9 @@ public class BoneCPConnectionSpecificImplementation implements ConnectionInterfa
 			throw new Exception(msgError, ex);
 		}
 
-	}
+        }
 
+        @Override
 	public void disposeConnection() throws Exception {
 		if (oConnection != null) {
 			oConnection.close();

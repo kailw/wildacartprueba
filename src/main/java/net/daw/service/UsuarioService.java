@@ -34,7 +34,7 @@ public class UsuarioService {
         ob = oRequest.getParameter("ob");
     }
 
-    public ReplyBean get() throws Exception {
+    public ReplyBean get() throws Exception{
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
         Connection oConnection;
@@ -154,7 +154,7 @@ public class UsuarioService {
     }
 
     public ReplyBean getpage() throws Exception {
-        ReplyBean oReplyBean;
+        ReplyBean oReplyBean;        
         ConnectionInterface oConnectionPool = null;
         Connection oConnection;
         try {
