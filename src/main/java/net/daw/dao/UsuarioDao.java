@@ -185,7 +185,7 @@ public class UsuarioDao {
                     oUsuarioBean.setApe1(oResultSet.getString("ape1"));
                     oUsuarioBean.setApe2(oResultSet.getString("ape2"));
                     oUsuarioBean.setLogin(oResultSet.getString("login"));
-                    oUsuarioBean.setPass(null);
+                    oUsuarioBean.setPass(oResultSet.getString("pass"));
                     oUsuarioBean.setId_tipoUsuario(oResultSet.getInt("id_tipoUsuario"));
                     alUsuarioBean.add(oUsuarioBean);
                 }
