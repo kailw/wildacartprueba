@@ -66,6 +66,9 @@ public class ServiceFactory {
                     case "getpage":
                         oReplyBean = oUsuarioService.getpage();
                         break;
+                    case "fill":
+                        oReplyBean = oUsuarioService.cargarUsuarios();
+                        break;
                     default:
                         oReplyBean = new ReplyBean(500, "Operation doesn't exist");
                         break;

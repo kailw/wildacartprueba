@@ -175,13 +175,13 @@ public class ProductoService {
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
         Connection oConnection;
-        RellenarProductoService rellenar = new RellenarProductoService();
+        RellenarService rellenar = new RellenarService();
         try {
             Integer numero = Integer.parseInt(oRequest.getParameter("numero"));            
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
             ProductoDao oProductoDao = new ProductoDao(oConnection, ob);
-            ArrayList<ProductoBean> alProductoBean = rellenar.fill(numero);
+            ArrayList<ProductoBean> alProductoBean = rellenar.fillProducto(numero);
             
             for(ProductoBean productos : alProductoBean){
                 oProductoDao.create(productos);

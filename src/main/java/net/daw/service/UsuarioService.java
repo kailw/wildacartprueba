@@ -8,16 +8,21 @@ package net.daw.service;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.reflect.Parameter;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
+import net.daw.bean.ProductoBean;
 import net.daw.bean.ReplyBean;
 import net.daw.bean.UsuarioBean;
 import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
+import net.daw.dao.ProductoDao;
 import net.daw.dao.UsuarioDao;
 import net.daw.factory.ConnectionFactory;
 import net.daw.helper.EncodingHelper;
+import net.daw.helper.ParameterCook;
 
 /**
  *
@@ -34,7 +39,7 @@ public class UsuarioService {
         ob = oRequest.getParameter("ob");
     }
 
-    public ReplyBean get() throws Exception{
+    public ReplyBean get() throws Exception {
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
         Connection oConnection;
@@ -119,7 +124,7 @@ public class UsuarioService {
             oConnection = oConnectionPool.newConnection();
             UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
             oUsuarioBean = oUsuarioDao.create(oUsuarioBean);
-            oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));                                                                                                           
+            oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
         } catch (Exception ex) {
             oReplyBean = new ReplyBean(500,
                     "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
@@ -154,16 +159,17 @@ public class UsuarioService {
     }
 
     public ReplyBean getpage() throws Exception {
-        ReplyBean oReplyBean;        
+        ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
         Connection oConnection;
         try {
             Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
             Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
+            HashMap<String, String> hmOrder = ParameterCook.getOrderParams(oRequest.getParameter("order"));
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
             UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
-            ArrayList<UsuarioBean> alUsuarioBean = oUsuarioDao.getpage(iRpp, iPage);
+            ArrayList<UsuarioBean> alUsuarioBean = oUsuarioDao.getpage(iRpp, iPage, hmOrder);
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(alUsuarioBean));
         } catch (Exception ex) {
@@ -175,5 +181,31 @@ public class UsuarioService {
 
         return oReplyBean;
 
+    }
+
+    public ReplyBean cargarUsuarios() throws Exception {
+        ReplyBean oReplyBean;
+        ConnectionInterface oConnectionPool = null;
+        Connection oConnection;
+        RellenarService rellenar = new RellenarService();
+        try {
+            Integer numero = Integer.parseInt(oRequest.getParameter("numero"));
+            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+            oConnection = oConnectionPool.newConnection();
+            UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
+            ArrayList<UsuarioBean> alUsuarioBean = rellenar.fillUsuario(numero);
+
+            for (UsuarioBean usuarios : alUsuarioBean) {
+                oUsuarioDao.create(usuarios);
+            }
+            Gson oGson = new Gson();
+            oReplyBean = new ReplyBean(200, oGson.toJson(alUsuarioBean));
+        } catch (Exception ex) {
+            oReplyBean = new ReplyBean(500,
+                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+        } finally {
+            oConnectionPool.disposeConnection();
+        }
+        return oReplyBean;
     }
 }
