@@ -6,6 +6,7 @@
 package net.daw.service;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.reflect.Parameter;
@@ -49,7 +50,8 @@ public class UsuarioService {
             oConnection = oConnectionPool.newConnection();
             UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
             UsuarioBean oUsuarioBean = oUsuarioDao.get(id);
-            Gson oGson = new Gson();
+//            Gson oGson = new Gson();
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
         } catch (Exception ex) {
             oReplyBean = new ReplyBean(500,
@@ -92,7 +94,7 @@ public class UsuarioService {
             oConnection = oConnectionPool.newConnection();
             UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
             int registros = oUsuarioDao.getcount();
-            Gson oGson = new Gson();
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(registros));
         } catch (Exception ex) {
             oReplyBean = new ReplyBean(500,
@@ -117,7 +119,7 @@ public class UsuarioService {
             }
 
             //String strJsonFromClient = oRequest.getParameter("json");
-            Gson oGson = new Gson();
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             UsuarioBean oUsuarioBean = new UsuarioBean();
             oUsuarioBean = oGson.fromJson(json, UsuarioBean.class);
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
@@ -141,7 +143,7 @@ public class UsuarioService {
         Connection oConnection;
         try {
             String strJsonFromClient = oRequest.getParameter("json");
-            Gson oGson = new Gson();
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             UsuarioBean oUsuarioBean = new UsuarioBean();
             oUsuarioBean = oGson.fromJson(strJsonFromClient, UsuarioBean.class);
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
@@ -170,7 +172,7 @@ public class UsuarioService {
             oConnection = oConnectionPool.newConnection();
             UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
             ArrayList<UsuarioBean> alUsuarioBean = oUsuarioDao.getpage(iRpp, iPage, hmOrder);
-            Gson oGson = new Gson();
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(alUsuarioBean));
         } catch (Exception ex) {
             oReplyBean = new ReplyBean(500,

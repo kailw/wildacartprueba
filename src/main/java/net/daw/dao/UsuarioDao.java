@@ -170,7 +170,7 @@ public class UsuarioDao {
     }
 
     public ArrayList<UsuarioBean> getpage(int iRpp, int iPage, HashMap<String, String> hmOrder) throws Exception {
-        String strSQL = "SELECT u.id, u.dni, u.nombre, u.ape1,u.ape2, u.login, u.id_tipoUsuario, t.desc FROM usuario u, tipousuario t "
+        String strSQL = "SELECT u.id, u.dni, u.nombre, u.ape1,u.ape2, u.login, u.id_tipoUsuario, t.id, t.desc FROM usuario u, tipousuario t "
                 + " WHERE u.id_tipoUsuario = t.id ";                          
         strSQL += SqlBuilder.buildSqlOrder(hmOrder);
         ArrayList<UsuarioBean> alUsuarioBean;

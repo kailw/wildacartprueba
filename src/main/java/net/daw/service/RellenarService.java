@@ -31,8 +31,7 @@ public class RellenarService {
             oProductoBean.setCodigo(codigo[numeroAleatorio(codigo.length)]);
             oProductoBean.setDesc(descUno[numeroAleatorio(descUno.length)] + " " + descDos[numeroAleatorio(descDos.length)] + " " + descTres[numeroAleatorio(descTres.length)]);
             oProductoBean.setExistencias(numeroAleatorio(5) + 1);
-            oProductoBean.setFoto("fotoProducto");
-            oProductoBean.setId_tipoProducto(numeroAleatorio(5));
+            oProductoBean.setFoto("fotoProducto");            
             oProductoBean.setPrecio((float) (Math.round((Math.random() * 100) * 100) / 100.0 + 1));
             oProductoBean.setId_tipoProducto((int) Math.random() * 5 + 1);
             alProdcutoBean.add(oProductoBean);
@@ -46,11 +45,10 @@ public class RellenarService {
         String[] ape1 = {"Dominguez", "Rodriguez", "Segundo", "Martinez", "Garcia"};
         String[] ape2 = {"Lopez", "Fernandez", "Gonzalez", "Mohamed", "Sanchez"};
         String[] login = {"jauan", "tuuiy", "tupa", "aatr", "fdf"};
-        String[] pass = {"1111", "2222", "3333", "4444", "5555"};
-        int[] id_tipoUsuario = {1, 2, 3, 4, 5};
+        String[] pass = {"1111", "2222", "3333", "4444", "5555"};        
 
         ArrayList<UsuarioBean> alUsuarioBean = new ArrayList<>();        
-        for (int i = 1; i < numero; i++) {
+        for (int i = 0; i < numero; i++) {
             UsuarioBean oUsuarioBean = new UsuarioBean();
 //            TipousuarioBean oTipousuarioBean = new TipousuarioBean();
             oUsuarioBean.setDni(dni[numeroAleatorio(dni.length)]);
@@ -59,7 +57,7 @@ public class RellenarService {
             oUsuarioBean.setApe2(ape2[numeroAleatorio(ape2.length)]);
             oUsuarioBean.setLogin(login[numeroAleatorio(login.length)]);
             oUsuarioBean.setPass(pass[numeroAleatorio(pass.length)]);
-            oUsuarioBean.setId_tipoUsuario(numeroAleatorio(id_tipoUsuario.length));
+            oUsuarioBean.setId_tipoUsuario((int) Math.random() * 5 + 1);
 //            oTipousuarioBean.setId(id_tipoUsuario[numeroAleatorio(id_tipoUsuario.length)]);
 //            oUsuarioBean.setObj_tipoUsuario(oTipousuarioBean);
             alUsuarioBean.add(oUsuarioBean);
