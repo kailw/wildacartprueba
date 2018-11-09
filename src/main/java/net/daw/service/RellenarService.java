@@ -57,7 +57,7 @@ public class RellenarService {
             oUsuarioBean.setApe2(ape2[numeroAleatorio(ape2.length)]);
             oUsuarioBean.setLogin(login[numeroAleatorio(login.length)]);
             oUsuarioBean.setPass(pass[numeroAleatorio(pass.length)]);
-            oUsuarioBean.setId_tipoUsuario((int) Math.random() * 5 + 1);
+            oUsuarioBean.setId_tipoUsuario((int) (Math.random() * 5) + 1);
 //            oTipousuarioBean.setId(id_tipoUsuario[numeroAleatorio(id_tipoUsuario.length)]);
 //            oUsuarioBean.setObj_tipoUsuario(oTipousuarioBean);
             alUsuarioBean.add(oUsuarioBean);
