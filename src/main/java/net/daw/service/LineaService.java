@@ -8,6 +8,7 @@ package net.daw.service;
 import com.google.gson.Gson;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import net.daw.bean.LineaBean;
 import net.daw.bean.ReplyBean;
@@ -18,6 +19,7 @@ import net.daw.dao.LineaDao;
 import net.daw.dao.TipousuarioDao;
 import net.daw.factory.ConnectionFactory;
 import net.daw.helper.EncodingHelper;
+import net.daw.helper.ParameterCook;
 
 /**
  *
@@ -44,7 +46,7 @@ public class LineaService {
 			LineaDao oLineaDao = new LineaDao(oConnection, ob);
 			LineaBean oLineaBean = oLineaDao.get(id);
 			Gson oGson = new Gson();
-			oReplyBean = new ReplyBean(200, oGson.toJson(oLineaDao));
+			oReplyBean = new ReplyBean(200, oGson.toJson(oLineaBean));
 		} catch (Exception ex) {
 			oReplyBean = new ReplyBean(500,
 					"ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
@@ -136,8 +138,7 @@ public class LineaService {
 			oConnection = oConnectionPool.newConnection();
 			LineaDao oLineaDao = new LineaDao(oConnection, ob);
 			iRes = oLineaDao.update(oLineaBean);
-			oReplyBean.setStatus(200);
-			oReplyBean.setJson(Integer.toString(iRes));
+			oReplyBean = new ReplyBean(200, Integer.toString(iRes));
 		} catch (Exception ex) {
 			oReplyBean = new ReplyBean(500,
 					"ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
@@ -154,10 +155,11 @@ public class LineaService {
 		try {
 			Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
 			Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
+                        HashMap<String, String> hmOrder = ParameterCook.getOrderParams(oRequest.getParameter("order"));
 			oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
 			oConnection = oConnectionPool.newConnection();
 			LineaDao oLineaDao = new LineaDao(oConnection, ob);
-			ArrayList<LineaBean> alLineaBean = oLineaDao.getpage(iRpp, iPage);
+			ArrayList<LineaBean> alLineaBean = oLineaDao.getpage(iRpp, iPage,hmOrder);
 			Gson oGson = new Gson();
 			oReplyBean = new ReplyBean(200, oGson.toJson(alLineaBean));
 		} catch (Exception ex) {

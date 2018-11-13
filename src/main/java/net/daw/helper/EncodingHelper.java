@@ -30,4 +30,8 @@ public class EncodingHelper {
         return String.valueOf(strFinal);
     }
 
+    public static String quotate(String strCadena) {
+        return "\"" + strCadena + "\"";
+    }
+
 }

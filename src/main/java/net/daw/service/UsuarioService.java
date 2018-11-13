@@ -7,19 +7,14 @@ package net.daw.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.lang.reflect.Parameter;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
-import net.daw.bean.ProductoBean;
 import net.daw.bean.ReplyBean;
 import net.daw.bean.UsuarioBean;
 import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
-import net.daw.dao.ProductoDao;
 import net.daw.dao.UsuarioDao;
 import net.daw.factory.ConnectionFactory;
 import net.daw.helper.EncodingHelper;
@@ -49,7 +44,7 @@ public class UsuarioService {
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
             UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
-            UsuarioBean oUsuarioBean = oUsuarioDao.get(id,1);
+            UsuarioBean oUsuarioBean = oUsuarioDao.get(id, 1);
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
         } catch (Exception ex) {
@@ -111,16 +106,15 @@ public class UsuarioService {
         ConnectionInterface oConnectionPool = null;
         Connection oConnection;
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(oRequest.getInputStream()));
-            String json = "";
-            if (br != null) {
-                json = br.readLine();
-            }
-
-            //String strJsonFromClient = oRequest.getParameter("json");
+//            BufferedReader br = new BufferedReader(new InputStreamReader(oRequest.getInputStream()));
+//            String json = "";
+//            if (br != null) {
+//                json = br.readLine();
+//            }
+            String strJsonFromClient = oRequest.getParameter("json");
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             UsuarioBean oUsuarioBean = new UsuarioBean();
-            oUsuarioBean = oGson.fromJson(json, UsuarioBean.class);
+            oUsuarioBean = oGson.fromJson(strJsonFromClient, UsuarioBean.class);
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
             UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
@@ -170,7 +164,7 @@ public class UsuarioService {
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
             UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
-            ArrayList<UsuarioBean> alUsuarioBean = oUsuarioDao.getpage(iRpp, iPage, hmOrder,1);
+            ArrayList<UsuarioBean> alUsuarioBean = oUsuarioDao.getpage(iRpp, iPage, hmOrder, 1);
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(alUsuarioBean));
         } catch (Exception ex) {

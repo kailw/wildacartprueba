@@ -9,6 +9,7 @@ import com.google.gson.annotations.Expose;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import net.daw.dao.TipousuarioDao;
+import net.daw.helper.EncodingHelper;
 
 /**
  *
@@ -132,6 +133,46 @@ public class UsuarioBean {
             this.setId_tipoUsuario(oResultSet.getInt("id_tipoUsuario"));
         }
         return this;
+    }
+
+    public String getColumns() {
+        String strColumns = "";
+        strColumns += "id,";
+        strColumns += "dni,";
+        strColumns += "nombre,";
+        strColumns += "ape1,";
+        strColumns += "ape2,";
+        strColumns += "login,";
+        strColumns += "pass,";
+        strColumns += "id_tipoUsuario";
+        return strColumns;
+    }
+
+    public String getValues() {
+        String strColumns = "";
+        strColumns += "null,";
+        strColumns += EncodingHelper.quotate(dni) + ",";
+        strColumns += EncodingHelper.quotate(nombre) + ",";
+        strColumns += EncodingHelper.quotate(ape1) + ",";
+        strColumns += EncodingHelper.quotate(ape2) + ",";
+        strColumns += EncodingHelper.quotate(login) + ",";
+        strColumns += EncodingHelper.quotate(null) + ",";
+        strColumns += id_tipoUsuario;
+        return strColumns;
+    }    
+
+    public String getPairs(String ob) {
+        String strPairs = "";
+        strPairs += "dni =" + EncodingHelper.quotate(dni) + ",";
+        strPairs += "nombre =" + EncodingHelper.quotate(nombre) + ",";
+        strPairs += "ape1 =" + EncodingHelper.quotate(ape1) + ",";
+        strPairs += "ape2 =" + EncodingHelper.quotate(ape2) + ",";
+        strPairs += "login =" + EncodingHelper.quotate(login) + ",";
+        strPairs += "pass =" + EncodingHelper.quotate(pass) + ",";
+        strPairs += "id_tipoUsuario =" + id_tipoUsuario;
+        strPairs += " WHERE id=" + id ;
+        return strPairs;
+
     }
 
 }

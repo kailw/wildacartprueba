@@ -10,8 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import net.daw.bean.ProductoBean;
 import net.daw.bean.ProductoBean;
+import net.daw.bean.TipoproductoBean;
+import net.daw.helper.SqlBuilder;
 
 /**
  *
@@ -28,9 +31,9 @@ public class ProductoDao {
         this.ob = ob;
     }
 
-    public ProductoBean get(int id) throws Exception {
+    public ProductoBean get(int id, Integer expand) throws Exception {
         String strSQL = "SELECT * FROM " + ob + " WHERE id=?";
-        ProductoBean oProductoBean;
+        ProductoBean oProductoBean;        
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
@@ -39,13 +42,8 @@ public class ProductoDao {
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
                 oProductoBean = new ProductoBean();
-                oProductoBean.setId(oResultSet.getInt("id"));
-                oProductoBean.setCodigo(oResultSet.getString("codigo"));
-                oProductoBean.setDesc(oResultSet.getString("desc"));
-                oProductoBean.setExistencias(oResultSet.getInt("existencias"));
-                oProductoBean.setPrecio(oResultSet.getFloat("precio"));
-                oProductoBean.setFoto(oResultSet.getString("foto"));
-                oProductoBean.setId_tipoProducto(oResultSet.getInt("id_tipoProducto"));
+                oProductoBean.fill(oResultSet, oConnection, expand);
+                                          
             } else {
                 oProductoBean = null;
             }
@@ -138,7 +136,7 @@ public class ProductoDao {
 
     public int update(ProductoBean oProductoBean) throws Exception {
         int iResult = 0;
-        String strSQL = "UPDATE " + ob + " SET " + ob + ".codigo = ?,  " + ob + ".desc = ?,  " + ob + ".existencias = ?, " + ob + ".precio = ?, " + ob + ".foto = ?, " + ob + ".id_tipoProducto = ?  WHERE  " + ob + ".id = ?;";
+        String strSQL = "UPDATE " + ob + " SET codigo = ?, `desc` = ?, existencias = ?, precio = ?, foto = ?, id_tipoProducto = ? WHERE "+ ob + ".id = ? ;";
 
         PreparedStatement oPreparedStatement = null;
         try {
@@ -162,13 +160,9 @@ public class ProductoDao {
         return iResult;
     }
 
-    public ArrayList<ProductoBean> getpage(int iRpp, int iPage, String column, String order) throws Exception {
-        String strSQL = "";
-        if (column != null) {
-            strSQL = "SELECT * FROM " + ob + "  ORDER BY  " + "`"+column+"`" + " " + order;
-        } else {
-            strSQL = "SELECT * FROM " + ob;
-        }
+    public ArrayList<ProductoBean> getpage(int iRpp, int iPage, HashMap<String, String> hmOrder,Integer expand) throws Exception {
+        String strSQL = "SELECT * FROM " + ob;
+        strSQL += SqlBuilder.buildSqlOrder(hmOrder);
         ArrayList<ProductoBean> alProductoBean;
         if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {
             strSQL += " LIMIT " + (iPage - 1) * iRpp + ", " + iRpp;
@@ -177,16 +171,12 @@ public class ProductoDao {
             try {
                 oPreparedStatement = oConnection.prepareStatement(strSQL);
                 oResultSet = oPreparedStatement.executeQuery();
-                alProductoBean = new ArrayList<>();
+                alProductoBean = new ArrayList<ProductoBean>();
                 while (oResultSet.next()) {
                     ProductoBean oProductoBean = new ProductoBean();
-                    oProductoBean.setId(oResultSet.getInt("id"));
-                    oProductoBean.setCodigo(oResultSet.getString("codigo"));
-                    oProductoBean.setDesc(oResultSet.getString("desc"));
-                    oProductoBean.setExistencias(oResultSet.getInt("existencias"));
-                    oProductoBean.setPrecio(oResultSet.getFloat("precio"));
-                    oProductoBean.setFoto(oResultSet.getString("foto"));
-                    oProductoBean.setId_tipoProducto(oResultSet.getInt("id_tipoProducto"));
+                    
+                    oProductoBean.fill(oResultSet, oConnection, expand);
+                    
                     alProductoBean.add(oProductoBean);
                 }
             } catch (SQLException e) {

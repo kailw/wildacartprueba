@@ -15,7 +15,7 @@ public class FacturaBean {
 
     private int id;
     private Date fecha;
-    private double iva;
+    private Float iva;
     private int id_usuario;
 
     public int getId() {
@@ -38,7 +38,7 @@ public class FacturaBean {
         return iva;
     }
 
-    public void setIva(double iva) {
+    public void setIva(Float iva) {
         this.iva = iva;
     }
 
