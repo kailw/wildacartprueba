@@ -1,12 +1,16 @@
 'use strict'
 
-moduleUsuario.controller('usuarioRemoveController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
-    function ($scope, $http, $location, toolService, $routeParams) {
+moduleUsuario.controller('usuarioRemoveController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
+    function ($scope, $http, $location, toolService, $routeParams,sessionService) {
         $scope.ob = "usuario";
         $scope.id = $routeParams.id;
+        if (sessionService) {
+            $scope.usarioLogeado = sessionService.getUserName();
+            $scope.loginH = true;
+        }
         $http({
             method: 'GET',
-            url: '/json?ob='+$scope.ob+'&op=get&id=' + $scope.id
+            url: '/json?ob=' + $scope.ob + '&op=get&id=' + $scope.id
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDatoUsuario = response.data.message;
@@ -21,7 +25,7 @@ moduleUsuario.controller('usuarioRemoveController', ['$scope', '$http', '$locati
             if (accion === "eliminar") {
                 $http({
                     method: 'GET',
-                    url: '/json?ob='+$scope.ob+'&op=remove&id=' + $scope.id
+                    url: '/json?ob=' + $scope.ob + '&op=remove&id=' + $scope.id
                 }).then(function (response) {
                     $scope.mensaje = true;
                     $scope.mensaje2 = false;

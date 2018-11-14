@@ -1,9 +1,13 @@
 'use strict';
 
-moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location', 'toolService', '$routeParams', '$uibModal',
-    function ($scope, $http, $location, toolService, $routeParams, $uibModal) {
+moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location', 'toolService', '$routeParams', '$uibModal','sessionService',
+    function ($scope, $http, $location, toolService, $routeParams, $uibModal,sessionService) {
         $scope.id = $routeParams.id;
         $scope.ob = "usuario";
+        if (sessionService) {
+            $scope.usarioLogeado = sessionService.getUserName();
+            $scope.loginH = true;
+        }
         $http({
             method: 'GET',
             url: '/json?ob=' + $scope.ob + '&op=get&id=' + $scope.id
@@ -24,7 +28,7 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
                 ape1: $scope.ajaxDatoUsuario.ape1,
                 ape2: $scope.ajaxDatoUsuario.ape2,
                 login: $scope.ajaxDatoUsuario.login,
-                pass: forge_sha256($scope. jaxDatoUsuario.pass),
+                pass: forge_sha256($scope.jaxDatoUsuario.pass),
                 id_tipoUsuario: $scope.ajaxDatoUsuario.obj_tipoUsuario.id
             }
             $http({
@@ -55,5 +59,6 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
 //                resolve: {
 //                    ajaxDatoUsuario.obj_tipoUsuario.id = id;             
 //                }               
-            })};
+            })
+        };
     }]);

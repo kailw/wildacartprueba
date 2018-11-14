@@ -34,6 +34,7 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
         if(sessionService){
             $scope.usarioLogeado = sessionService.getUserName();
             $scope.loginH = true;
+            $scope.usarioLogeadoID = sessionService.getId;
         }
         
 

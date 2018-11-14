@@ -72,7 +72,7 @@
             <a href="usuario/login"><button type="button" class="btn btn-danger">Login</button></a>
         </div>
         <div ng-show="loginH">
-            <span class="mr-3 text-info" style="text-transform: capitalize;">Bienvenido {{usarioLogeado}}</span>
+            <a href="usuario/view/{{usarioLogeadoID}}"><span class="mr-3 text-info" style="text-transform: capitalize;">Bienvenido {{usarioLogeado}}</span></a>
             <a href="usuario/logout" ><button type="button" class="btn btn-primary">Logout</button></a>
         </div>
     </div>
