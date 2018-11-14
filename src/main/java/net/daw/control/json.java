@@ -72,7 +72,7 @@ public class json extends HttpServlet {
             strJson = json.strJson(500, "Server Error");
             if (ConfigurationConstants.environment == EnvironmentConstans.Debug) {
                 response.getWriter().println(e.getMessage());
-                 e.printStackTrace(response.getWriter());
+                e.printStackTrace(response.getWriter());
                 PrintWriter out = response.getWriter();
                 out.println(e.getMessage());
                 e.printStackTrace(out);

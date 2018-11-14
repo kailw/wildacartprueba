@@ -35,25 +35,37 @@ public class UsuarioService {
         ob = oRequest.getParameter("ob");
     }
 
+    protected Boolean checkPermission(String strMethodName) {
+        UsuarioBean oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
+        if (oUsuarioBean != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public ReplyBean get() throws Exception {
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
         Connection oConnection;
-        try {
-            Integer id = Integer.parseInt(oRequest.getParameter("id"));
-            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
-            oConnection = oConnectionPool.newConnection();
-            UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
-            UsuarioBean oUsuarioBean = oUsuarioDao.get(id, 1);
-            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
-        } catch (Exception ex) {
-            oReplyBean = new ReplyBean(500,
-                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
-        } finally {
-            oConnectionPool.disposeConnection();
+        if (this.checkPermission("get")) {
+            try {
+                Integer id = Integer.parseInt(oRequest.getParameter("id"));
+                oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+                oConnection = oConnectionPool.newConnection();
+                UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
+                UsuarioBean oUsuarioBean = oUsuarioDao.get(id, 1);
+                Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
+                oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
+            } catch (Exception ex) {
+                oReplyBean = new ReplyBean(500,
+                        "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+            } finally {
+                oConnectionPool.disposeConnection();
+            }
+        } else {
+            oReplyBean = new ReplyBean(401, "Unauthorized");
         }
-
         return oReplyBean;
 
     }
@@ -62,19 +74,24 @@ public class UsuarioService {
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
         Connection oConnection;
-        try {
-            Integer id = Integer.parseInt(oRequest.getParameter("id"));
-            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
-            oConnection = oConnectionPool.newConnection();
-            UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
-            int iRes = oUsuarioDao.remove(id);
-            oReplyBean = new ReplyBean(200, Integer.toString(iRes));
-        } catch (Exception ex) {
-            oReplyBean = new ReplyBean(500,
-                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
-        } finally {
-            oConnectionPool.disposeConnection();
+        if (this.checkPermission("remove")) {
+            try {
+                Integer id = Integer.parseInt(oRequest.getParameter("id"));
+                oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+                oConnection = oConnectionPool.newConnection();
+                UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
+                int iRes = oUsuarioDao.remove(id);
+                oReplyBean = new ReplyBean(200, Integer.toString(iRes));
+            } catch (Exception ex) {
+                oReplyBean = new ReplyBean(500,
+                        "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+            } finally {
+                oConnectionPool.disposeConnection();
+            }
+        } else {
+            oReplyBean = new ReplyBean(401, "Unauthorized");
         }
+
         return oReplyBean;
 
     }
@@ -83,18 +100,22 @@ public class UsuarioService {
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
         Connection oConnection;
-        try {
-            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
-            oConnection = oConnectionPool.newConnection();
-            UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
-            int registros = oUsuarioDao.getcount();
-            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            oReplyBean = new ReplyBean(200, oGson.toJson(registros));
-        } catch (Exception ex) {
-            oReplyBean = new ReplyBean(500,
-                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
-        } finally {
-            oConnectionPool.disposeConnection();
+        if (this.checkPermission("getcount")) {
+            try {
+                oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+                oConnection = oConnectionPool.newConnection();
+                UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
+                int registros = oUsuarioDao.getcount();
+                Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
+                oReplyBean = new ReplyBean(200, oGson.toJson(registros));
+            } catch (Exception ex) {
+                oReplyBean = new ReplyBean(500,
+                        "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+            } finally {
+                oConnectionPool.disposeConnection();
+            }
+        } else {
+            oReplyBean = new ReplyBean(401, "Unauthorized");
         }
 
         return oReplyBean;
@@ -105,26 +126,30 @@ public class UsuarioService {
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
         Connection oConnection;
-        try {
+        if (this.checkPermission("create")) {
+            try {
 //            BufferedReader br = new BufferedReader(new InputStreamReader(oRequest.getInputStream()));
 //            String json = "";
 //            if (br != null) {
 //                json = br.readLine();
 //            }
-            String strJsonFromClient = oRequest.getParameter("json");
-            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            UsuarioBean oUsuarioBean = new UsuarioBean();
-            oUsuarioBean = oGson.fromJson(strJsonFromClient, UsuarioBean.class);
-            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
-            oConnection = oConnectionPool.newConnection();
-            UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
-            oUsuarioBean = oUsuarioDao.create(oUsuarioBean);
-            oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
-        } catch (Exception ex) {
-            oReplyBean = new ReplyBean(500,
-                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
-        } finally {
-            oConnectionPool.disposeConnection();
+                String strJsonFromClient = oRequest.getParameter("json");
+                Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
+                UsuarioBean oUsuarioBean = new UsuarioBean();
+                oUsuarioBean = oGson.fromJson(strJsonFromClient, UsuarioBean.class);
+                oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+                oConnection = oConnectionPool.newConnection();
+                UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
+                oUsuarioBean = oUsuarioDao.create(oUsuarioBean);
+                oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
+            } catch (Exception ex) {
+                oReplyBean = new ReplyBean(500,
+                        "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+            } finally {
+                oConnectionPool.disposeConnection();
+            }
+        } else {
+            oReplyBean = new ReplyBean(401, "Unauthorized");
         }
         return oReplyBean;
     }
@@ -134,21 +159,25 @@ public class UsuarioService {
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
         Connection oConnection;
-        try {
-            String strJsonFromClient = oRequest.getParameter("json");
-            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            UsuarioBean oUsuarioBean = new UsuarioBean();
-            oUsuarioBean = oGson.fromJson(strJsonFromClient, UsuarioBean.class);
-            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
-            oConnection = oConnectionPool.newConnection();
-            UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
-            iRes = oUsuarioDao.update(oUsuarioBean);
-            oReplyBean = new ReplyBean(200, Integer.toString(iRes));
-        } catch (Exception ex) {
-            oReplyBean = new ReplyBean(500,
-                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
-        } finally {
-            oConnectionPool.disposeConnection();
+        if (this.checkPermission("update")) {
+            try {
+                String strJsonFromClient = oRequest.getParameter("json");
+                Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
+                UsuarioBean oUsuarioBean = new UsuarioBean();
+                oUsuarioBean = oGson.fromJson(strJsonFromClient, UsuarioBean.class);
+                oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+                oConnection = oConnectionPool.newConnection();
+                UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
+                iRes = oUsuarioDao.update(oUsuarioBean);
+                oReplyBean = new ReplyBean(200, Integer.toString(iRes));
+            } catch (Exception ex) {
+                oReplyBean = new ReplyBean(500,
+                        "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+            } finally {
+                oConnectionPool.disposeConnection();
+            }
+        } else {
+            oReplyBean = new ReplyBean(401, "Unauthorized");
         }
         return oReplyBean;
     }
@@ -157,21 +186,25 @@ public class UsuarioService {
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
         Connection oConnection;
-        try {
-            Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
-            Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
-            HashMap<String, String> hmOrder = ParameterCook.getOrderParams(oRequest.getParameter("order"));
-            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
-            oConnection = oConnectionPool.newConnection();
-            UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
-            ArrayList<UsuarioBean> alUsuarioBean = oUsuarioDao.getpage(iRpp, iPage, hmOrder, 1);
-            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            oReplyBean = new ReplyBean(200, oGson.toJson(alUsuarioBean));
-        } catch (Exception ex) {
-            oReplyBean = new ReplyBean(500,
-                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
-        } finally {
-            oConnectionPool.disposeConnection();
+        if (this.checkPermission("getpage")) {
+            try {
+                Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
+                Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
+                HashMap<String, String> hmOrder = ParameterCook.getOrderParams(oRequest.getParameter("order"));
+                oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+                oConnection = oConnectionPool.newConnection();
+                UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
+                ArrayList<UsuarioBean> alUsuarioBean = oUsuarioDao.getpage(iRpp, iPage, hmOrder, 1);
+                Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
+                oReplyBean = new ReplyBean(200, oGson.toJson(alUsuarioBean));
+            } catch (Exception ex) {
+                oReplyBean = new ReplyBean(500,
+                        "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+            } finally {
+                oConnectionPool.disposeConnection();
+            }
+        } else {
+            oReplyBean = new ReplyBean(401, "Unauthorized");
         }
 
         return oReplyBean;
@@ -183,24 +216,70 @@ public class UsuarioService {
         ConnectionInterface oConnectionPool = null;
         Connection oConnection;
         RellenarService rellenar = new RellenarService();
-        try {
-            Integer numero = Integer.parseInt(oRequest.getParameter("numero"));
-            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
-            oConnection = oConnectionPool.newConnection();
-            UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
-            ArrayList<UsuarioBean> alUsuarioBean = rellenar.fillUsuario(numero);
+        if (this.checkPermission("fill")) {
+            try {
+                Integer numero = Integer.parseInt(oRequest.getParameter("numero"));
+                oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+                oConnection = oConnectionPool.newConnection();
+                UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
+                ArrayList<UsuarioBean> alUsuarioBean = rellenar.fillUsuario(numero);
 
-            for (UsuarioBean usuarios : alUsuarioBean) {
-                oUsuarioDao.create(usuarios);
+                for (UsuarioBean usuarios : alUsuarioBean) {
+                    oUsuarioDao.create(usuarios);
+                }
+                Gson oGson = new Gson();
+                oReplyBean = new ReplyBean(200, oGson.toJson(alUsuarioBean));
+            } catch (Exception ex) {
+                oReplyBean = new ReplyBean(500,
+                        "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+            } finally {
+                oConnectionPool.disposeConnection();
             }
-            Gson oGson = new Gson();
-            oReplyBean = new ReplyBean(200, oGson.toJson(alUsuarioBean));
-        } catch (Exception ex) {
-            oReplyBean = new ReplyBean(500,
-                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
-        } finally {
-            oConnectionPool.disposeConnection();
+        } else {
+            oReplyBean = new ReplyBean(401, "Unauthorized");
         }
         return oReplyBean;
     }
+
+    public ReplyBean login() throws Exception {
+        ReplyBean oReplyBean;
+        ConnectionInterface oConnectionPool = null;
+        Connection oConnection;
+        String strLogin = oRequest.getParameter("user");
+        String strPassword = oRequest.getParameter("pass");
+
+        oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+        oConnection = oConnectionPool.newConnection();
+        UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
+
+        UsuarioBean oUsuarioBean = oUsuarioDao.login(strLogin, strPassword);
+        if (oUsuarioBean.getId() > 0) {
+            oRequest.getSession().setAttribute("user", oUsuarioBean);
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
+            oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
+        } else {
+//            throw new Exception("ERROR Bad Authentication: Service level: get page: " + ob + " object");
+            oReplyBean = new ReplyBean(401, EncodingHelper.quotate("Bad Authentication"));
+        }
+        return oReplyBean;
+    }
+
+    public ReplyBean logout() throws Exception {
+        oRequest.getSession().invalidate();
+        return new ReplyBean(200,  EncodingHelper.quotate("OK"));
+    }
+
+    public ReplyBean check() throws Exception {
+        ReplyBean oReplyBean;
+        UsuarioBean oUsuarioBean;
+        oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
+        if (oUsuarioBean != null) {
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
+            oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
+        } else {
+            oReplyBean = new ReplyBean(401, "No active session");
+        }
+        return oReplyBean;
+    }
+
 }

@@ -1,0 +1,19 @@
+.alineacion {
+    text-align: center;
+}
+
+.primeraParte, terceraParte{
+    margin-top: 75px;    
+    margin-bot: 25px;    
+}
+.segundaParte {
+    margin-top: 30px;
+}
+
+.primeraPartev{
+    margin-top: 25px;    
+
+}
+.mensaje {
+    margin:15px;
+}

@@ -156,7 +156,7 @@ public class UsuarioBean {
         strColumns += EncodingHelper.quotate(ape1) + ",";
         strColumns += EncodingHelper.quotate(ape2) + ",";
         strColumns += EncodingHelper.quotate(login) + ",";
-        strColumns += EncodingHelper.quotate(null) + ",";
+        strColumns += EncodingHelper.quotate(pass) + ",";
         strColumns += id_tipoUsuario;
         return strColumns;
     }    

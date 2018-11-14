@@ -1,0 +1,68 @@
+<header ng-include="'js/app/header.html'"></header>
+<main role="main" class="container" style="margin-bottom: 100px;">
+
+    <!--    <h3>Resultado de la llamada AJAX: {{ajaxData}}</h3>-->
+    <div class="primeraParte"></div>
+    <a href="javascript:window.history.back();"> <button class="btn btn-success">Volver</button> </a>    
+    <form name="userForm" style="margin-bottom: 50px;" ng-show="!mensaje">
+        <h3 style="text-align: center">Editar Factura</h3>
+
+        <div class="form-group row">
+            <label for="id" class="col-2 col-form-label">ID</label>
+            <div class="col-10">
+                <input type="text" class="form-control" id="id" name="id" ng-disabled="true" ng-model="ajaxDatoLinea.id" />
+            </div>                
+        </div>   
+
+        <div class="form-group row">
+            <label for="cantidad" class="col-2 col-form-label">Cantidad</label>
+            <div class="col-10">
+                <input type="text" class="form-control" id="cantidad" name="cantidad" ng-model="ajaxDatoLinea.cantidad" ng-required="true" ng-pattern="/^[0-9][0-9]*$/"/>
+                <div ng-show="userForm.cantidad.$error.pattern" class="alert alert-danger" role="alert">
+                    Cantidad no valida
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="id_producto" class="col-2 col-form-label">Tipo Producto</label>
+            <div class="col-10">
+                <input type="text" class="form-control " id="id_producto" name="id_producto" ng-model="ajaxDatoLinea.id_producto" ng-required="true" />
+                <div ng-show="!userForm.id_producto.$valid" class="alert alert-danger" role="alert">
+                    Nombre obligatorio
+                </div>
+            </div>
+        </div>
+
+       
+        <div class="form-group row">
+            <label for="id_factura" class="col-2 col-form-label">Tipo Factura</label>
+            <div class="col-8">
+                <input type="text" class="form-control" id="id_factura" name="id_factura" ng-model="ajaxDatoLinea.id_factura" ng-required="true" />                                                   
+                <div ng-show="!userForm.id_factura.$valid" class="alert alert-danger" role="alert">
+                    Tipo usuario obligatorio
+                </div>                
+            </div>
+            <div class="form-control col-2" style="border: 0px;" >
+                <button class="btn btn-primary" ng-click="oModal()" ><i class="fas fa-search"></i></button>                
+            </div>
+        </div>        
+        <!--            <div class="form-group row">
+                        <label for="pass" class="col-2 col-form-label">>Contraseña</label>
+                        <input type="password" class="form-control" ng-class="{' is-invalid': userForm.pass.$invalid && !userForm.pass.$pristine}"
+                               id="pass" name="pass" ng-model="ajaxDatoUsuario.pass" ng-minlength="6" ng-required="true"/>
+                        <div ng-show="userForm.pass.$error.minlength" class="alert alert-danger" role="alert">
+                            La longitud de la constraseña es demasiado corta
+                        </div>
+                        <div ng-show="!userForm.pass.$valid" class="alert alert-danger" role="alert">
+                            Contraseña obligatorio
+                        </div>
+                    </div>-->
+        <button ng-click="guardar()" type="button" class="btn btn-primary" ng-disabled="userForm.$invalid">Guardar</button>
+    </form>
+
+    <div class="alert alert-success" ng-show="mensaje">
+        Datos actualizados correctamente del {{ob}} {{ajaxDatoLinea.id}}
+    </div>
+</main>
+<footer class="footer" ng-include="'js/app/footer.html'"></footer>

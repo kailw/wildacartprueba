@@ -1,0 +1,59 @@
+<header ng-include="'js/app/header.html'"></header>
+
+<main class="container">
+<div class="primeraParte"></div>    
+    <h2>TipoUsuario</h2>
+    <div class="row segundaParte">        
+        <div class="col-4">
+            <h4>Número de registros por página:</h4> 
+        </div>
+        <div class="col-2">                               
+            <select class="custom-select" ng-model="numeroRegistrosPagina" ng-change="mostrarDatos()">
+                <option selected value="5">5</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>                        
+        </div>
+        <div class="col-3">
+            <h4>Página a mostrar :</h4> 
+        </div>
+        <div class="col-1">
+            <input type="text" class="form-control" ng-model="numeroPagina" ng-change="mostrarDatos()">
+        </div>
+        <div class="col-2">
+            <button ng-click="mostrarDatos()" class="btn btn-info">Mostrar Tipo Usuarios</button>
+        </div>
+
+    </div>
+    <h3 class="{{cssAlertSuccess}} mensaje">{{ajaxMensajeTipousuario}} </h3>
+    <div class="terceraParte">
+        <table class="table table-striped table-hover">
+            <caption>Lista de tipoUsuario</caption
+            <tr class="alineacion">
+                <th>ID</th>                
+                <th>DESCRIPCIÓN</th>                                                                
+            </tr>
+            <tr ng-repeat="tipousuario in ajaxDatoTipousuario">
+                <th>{{tipousuario.id}}</th>                
+                <td>{{tipousuario.desc}}</td>
+              
+            </tr>
+        </table> 
+
+    </div>
+    
+<!--        <div class="mt-5" ng-show="mostrar">
+            <div class="row form-group text-center">
+                <div class="col-4 mx-auto">
+                    <label>Número de página</label>
+                    <select ng-model="pagina" ng-change="elegirPagina()" class="form-control">
+                        <option ng-repeat="option in arrayPages" value="{{(arrayPages.indexOf(option) + 1)}}">{{option}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>-->
+
+</main>
+<footer class="footer" ng-include="'js/app/footer.html'"></footer>

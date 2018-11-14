@@ -1,0 +1,26 @@
+
+
+<main class="container">
+    <div class="primeraParte"></div>    
+    <div class="terceraParte">
+        <table class="table table-bordered table-sm table-condensed" style="width: 60%;">
+            <caption>Lista de tipoUsuario</caption>
+            <thead>
+            <tr class="thead-dark">
+                <th class="col-sm-2">ID</th>                
+                <th class="col-sm-2">Descripcioin</th>
+                <th class="col-sm-2"s>Seleccionar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="tipousuario in ajaxDatoTipousuario">
+                <th>{{tipousuario.id}}</th>                
+                <td>{{tipousuario.desc}}</td>
+                <td style="text-align: left"><input type="radio" value="tipousuario.id" name="radio" ng-click="seleccionar(tipousuario.id)"></td>            
+            </tr>
+            </tbody>
+        </table> 
+        <p> {{ajaxDatoTipousuarioID.id}} HOLA</p>
+
+    </div>    
+</main>

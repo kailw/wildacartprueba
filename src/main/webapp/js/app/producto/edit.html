@@ -1,0 +1,92 @@
+<header ng-include="'js/app/header.html'"></header>
+<main role="main" class="container" style="margin-bottom: 100px;">
+
+    <!--    <h3>Resultado de la llamada AJAX: {{ajaxData}}</h3>-->
+    <div class="primeraParte"></div>
+    <a href="javascript:window.history.back();"> <button class="btn btn-success">Volver</button> </a>    
+    <form name="userForm" style="margin-bottom: 50px;" ng-show="!mensaje">
+        <h3 style="text-align: center">Editar producto</h3>
+
+        <div class="form-group row">
+            <label for="id" class="col-2 col-form-label">ID</label>
+            <div class="col-10">
+                <input type="text" class="form-control" id="id" name="id" ng-disabled="true" ng-model="ajaxDatoProducto.id" />
+            </div>                
+        </div>   
+
+        <div class="form-group row">
+            <label for="codigo" class="col-2 col-form-label">Codigo</label>
+            <div class="col-10">
+                <input type="text" class="form-control" id="codigo" name="codigo" ng-model="ajaxDatoProducto.codigo" ng-required="true"/>                       
+                <div ng-show="userForm.codigo.$invalid && !userForm.codigo.$pristine" class="alert alert-danger" >codigo requerido.</div>
+                
+                <div ng-show="userForm.codigo.$error.pattern" class="alert alert-danger" role="alert">
+                    Formato codigo no valido
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="descripcion" class="col-2 col-form-label">Descripción</label>
+            <div class="col-10">
+                <input type="text" class="form-control " id="descripcion" name="descripcion" ng-model="ajaxDatoProducto.desc" ng-required="true" />
+                <div ng-show="!userForm.descripcion.$valid" class="alert alert-danger" role="alert">
+                    Descripcion obligatorio
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="existencias" class="col-2 col-form-label">Existencias</label>
+            <div class="col-10">
+                <input type="text" class="form-control" id="existencias" name="existencias" ng-model="ajaxDatoProducto.existencias" ng-required="true" />
+                <div ng-show="!userForm.existencias.$valid" class="alert alert-danger" role="alert">
+                    Existencias obligatorio
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="precio" class="col-2 col-form-label">Precio</label>
+            <div class="col-10">
+                <input type="text" class="form-control" id="precio" name="precio" ng-model="ajaxDatoProducto.precio" ng-required="true"/>
+                <div ng-show="!userForm.precio.$valid" class="alert alert-danger" role="alert">
+                    Precio obligatorio
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="foto" class="col-2 col-form-label">Foto</label>
+            <div class="col-10">
+                <input type="text" class="form-control" id="foto" name="foto" ng-model="ajaxDatoProducto.foto" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="id_tipoProducto" class="col-2 col-form-label">Tipo Producto</label>
+            <div class="col-8">
+                <input type="text" class="form-control" id="id_tipoProducto" name="id_tipoProducto" ng-model="ajaxDatoProducto.obj_tipoProducto.id" ng-required="true" /> 
+                <div ng-show="!userForm.id_tipoProducto.$valid" class="alert alert-danger" role="alert">
+                    Tipo producto obligatorio
+                </div>                
+            </div>
+            <div class="form-control col-2" style="border: 0px;" >
+                <button class="btn btn-primary" ng-click="openModal('lg')" ><i class="fas fa-search"></i></button>                
+            </div>
+        </div>        
+        <!--            <div class="form-group row">
+                        <label for="pass" class="col-2 col-form-label">>Contraseña</label>
+                        <input type="password" class="form-control" ng-class="{' is-invalid': userForm.pass.$invalid && !userForm.pass.$pristine}"
+                               id="pass" name="pass" ng-model="ajaxDatoProducto.pass" ng-minlength="6" ng-required="true"/>
+                        <div ng-show="userForm.pass.$error.minlength" class="alert alert-danger" role="alert">
+                            La longitud de la constraseña es demasiado corta
+                        </div>
+                        <div ng-show="!userForm.pass.$valid" class="alert alert-danger" role="alert">
+                            Contraseña obligatorio
+                        </div>
+                    </div>-->
+        <button ng-click="guardar()" type="button" class="btn btn-primary" ng-disabled="userForm.$invalid">Guardar</button>
+    </form>    
+    <div class="alert alert-success" ng-show="mensaje">
+        Datos actualizados correctamente del {{ob}} {{ajaxDatoProducto.id}}
+    </div>
+</main>
+<footer class="footer" ng-include="'js/app/footer.html'"></footer>

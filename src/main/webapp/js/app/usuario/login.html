@@ -1,0 +1,36 @@
+<header ng-include="'js/app/header.html'"></header>
+
+<div class="container">
+    <form name="userForm"  style="margin-top: 80px" ng-show="formulario">
+        <div class="form-group">
+            <label for="login">Login</label>
+            <input type="text" class="form-control" id="login" placeholder="Introduce tu nombre de usuario" ng-model="login" ng-required="true">
+            <small id="emailHelp" class="form-text text-muted">Escribe correctamente tu nombre de usuario.</small>
+            <div ng-show="!userForm.login.$valid && userForm.login.$pristine" class="alert alert-danger" role="alert">
+                Login obligatorio
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="pass">Password</label>
+            <input type="password" class="form-control" id="pass" placeholder="Introduce tu contraseña" ng-model="pass" ng-required="true">
+            <div ng-show="!userForm.pass.$valid && userForm.pass.$pristine" class="alert alert-danger" role="alert">
+                La contraseña es obligatoria.
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="log()">Login</button>
+    </form>
+
+    <div ng-show="errorLogin">
+        <div class="alert alert-danger" role="alert">
+            Te has equivocado.
+        </div>
+    </div>
+    <div ng-show="yesLogin" style="margin-top: 80px">
+        <div class="alert alert-success" role="alert">
+            Estas dentro.
+        </div>
+    </div>
+    
+
+</div>
+<footer class="footer" ng-include="'js/app/footer.html'"></footer>
