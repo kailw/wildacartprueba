@@ -27,7 +27,7 @@ moduleUsuario.controller("usuarioLoginController", ["$scope", "$http", "$routePa
                 $scope.errorLogin = true;
                 $scope.ajaxDatoLogin = response.data.message || 'Request Failed';
             });
-        }
+        };
         $scope.isActive = toolService.isActive;
     }
 ]);

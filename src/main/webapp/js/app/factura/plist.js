@@ -1,7 +1,7 @@
 'use strict';
 
-moduleFactura.controller('facturaPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
-    function ($scope, $http, $location, toolService, $routeParams) {
+moduleFactura.controller('facturaPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
+    function ($scope, $http, $location, toolService, $routeParams,sessionService) {
 
         $scope.totalPages = 1;
         $scope.select = ["5", "10", "25", "50", "500"];
@@ -30,10 +30,14 @@ moduleFactura.controller('facturaPlistController', ['$scope', '$http', '$locatio
                 $scope.page = 1;
             }
         }
+        if (sessionService) {
+            $scope.usarioLogeado = sessionService.getUserName();
+            $scope.loginH = true;
+        }
 
 
         $scope.resetOrder = function () {
-            $location.url($scope.ob + "/plist/" + $scope.rpp + "/1");            
+            $location.url($scope.ob + "/plist/" + $scope.rpp + "/1");
         };
 
 
@@ -46,15 +50,15 @@ moduleFactura.controller('facturaPlistController', ['$scope', '$http', '$locatio
                 $scope.orderURLCliente += "-" + order + "," + align;
             }
 
-            
+
             ;
-            $location.url($scope.ob+ "/plist/" + $scope.rpp + "/" + $scope.page + "/" + $scope.orderURLCliente);
+            $location.url($scope.ob + "/plist/" + $scope.rpp + "/" + $scope.page + "/" + $scope.orderURLCliente);
         };
 
         //getcount
         $http({
             method: 'GET',
-            url: '/json?ob=' + $scope.ob +'&op=getcount'
+            url: '/json?ob=' + $scope.ob + '&op=getcount'
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataFacturasNumber = response.data.message;
@@ -71,7 +75,7 @@ moduleFactura.controller('facturaPlistController', ['$scope', '$http', '$locatio
 
         $http({
             method: 'GET',
-            url: '/json?ob=' + $scope.ob +'&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
+            url: '/json?ob=' + $scope.ob + '&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataFacturas = response.data.message;

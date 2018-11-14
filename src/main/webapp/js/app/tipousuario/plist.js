@@ -1,12 +1,11 @@
 'use strict'
 
-moduleTipousuario.controller('tipousuarioPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
-    function ($scope, $http, $location, toolService, $routeParams) {
+moduleTipousuario.controller('tipousuarioPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
+    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
 
         $scope.ob = "tipousuario";
         $scope.totalPages = 1;
         $scope.select = ["5", "10", "25", "50", "500"];
-
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
             $scope.orderURLCliente = "";
@@ -30,11 +29,15 @@ moduleTipousuario.controller('tipousuarioPlistController', ['$scope', '$http', '
                 $scope.page = 1;
             }
         }
+        if (sessionService) {
+            $scope.usarioLogeado = sessionService.getUserName();
+            $scope.loginH = true;
+        }
 
 
         $scope.resetOrder = function () {
             $location.url($scope.ob + "/plist/" + $scope.rpp + "/1");
-            $scope.activar= "false";
+            $scope.activar = "false";
         };
 
 
@@ -45,8 +48,9 @@ moduleTipousuario.controller('tipousuarioPlistController', ['$scope', '$http', '
             } else {
                 $scope.orderURLServidor += "-" + order + "," + align;
                 $scope.orderURLCliente += "-" + order + "," + align;
-            };
-            $location.url( $scope.ob + "/plist/" + $scope.rpp + "/" + $scope.page + "/" + $scope.orderURLCliente);
+            }
+            ;
+            $location.url($scope.ob + "/plist/" + $scope.rpp + "/" + $scope.page + "/" + $scope.orderURLCliente);
         };
 
         //getcount
@@ -69,7 +73,7 @@ moduleTipousuario.controller('tipousuarioPlistController', ['$scope', '$http', '
 
         $http({
             method: 'GET',
-            url: "/json?ob="+ $scope.ob +"&op=getpage&rpp=" + $scope.rpp + "&page=" + $scope.page + $scope.orderURLServidor
+            url: "/json?ob=" + $scope.ob + "&op=getpage&rpp=" + $scope.rpp + "&page=" + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataTipousuarios = response.data.message;

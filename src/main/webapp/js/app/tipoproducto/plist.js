@@ -1,9 +1,9 @@
 'use strict';
 
-moduleTipoproducto.controller('tipoproductoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
-    function ($scope, $http, $location, toolService, $routeParams) {
+moduleTipoproducto.controller('tipoproductoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
+    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
 
-    $scope.ob = "tipoproducto";
+        $scope.ob = "tipoproducto";
         $scope.totalPages = 1;
         $scope.select = ["5", "10", "25", "50", "500"];
 
@@ -30,11 +30,15 @@ moduleTipoproducto.controller('tipoproductoPlistController', ['$scope', '$http',
                 $scope.page = 1;
             }
         }
+        if (sessionService) {
+            $scope.usarioLogeado = sessionService.getUserName();
+            $scope.loginH = true;
+        }
 
 
         $scope.resetOrder = function () {
             $location.url($scope.ob + "/plist/" + $scope.rpp + "/1");
-            $scope.activar= "false";
+            $scope.activar = "false";
         };
 
 
@@ -45,8 +49,9 @@ moduleTipoproducto.controller('tipoproductoPlistController', ['$scope', '$http',
             } else {
                 $scope.orderURLServidor += "-" + order + "," + align;
                 $scope.orderURLCliente += "-" + order + "," + align;
-            };
-            $location.url( $scope.ob + "/plist/" + $scope.rpp + "/" + $scope.page + "/" + $scope.orderURLCliente);
+            }
+            ;
+            $location.url($scope.ob + "/plist/" + $scope.rpp + "/" + $scope.page + "/" + $scope.orderURLCliente);
         };
 
         //getcount
@@ -69,7 +74,7 @@ moduleTipoproducto.controller('tipoproductoPlistController', ['$scope', '$http',
 
         $http({
             method: 'GET',
-            url: "/json?ob="+ $scope.ob +"&op=getpage&rpp=" + $scope.rpp + "&page=" + $scope.page + $scope.orderURLServidor
+            url: "/json?ob=" + $scope.ob + "&op=getpage&rpp=" + $scope.rpp + "&page=" + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataTipoproducto = response.data.message;

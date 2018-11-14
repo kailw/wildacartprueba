@@ -2,8 +2,8 @@
 
 'use strict';
 
-moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
-    function ($scope, $http, $location, toolService, $routeParams) {
+moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
+    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
 
         $scope.totalPages = 1;
         $scope.select = ["5", "10", "25", "50", "500"];
@@ -32,10 +32,13 @@ moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 
                 $scope.page = 1;
             }
         }
-
+        if (sessionService) {
+            $scope.usarioLogeado = sessionService.getUserName();
+            $scope.loginH = true;
+        }
 
         $scope.resetOrder = function () {
-            $location.url($scope.ob + "/plist/" + $scope.rpp + "/1");            
+            $location.url($scope.ob + "/plist/" + $scope.rpp + "/1");
         };
 
 
@@ -46,14 +49,15 @@ moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 
             } else {
                 $scope.orderURLServidor += "-" + order + "," + align;
                 $scope.orderURLCliente += "-" + order + "," + align;
-            };
-            $location.url($scope.ob+ "/plist/" + $scope.rpp + "/" + $scope.page + "/" + $scope.orderURLCliente);
+            }
+            ;
+            $location.url($scope.ob + "/plist/" + $scope.rpp + "/" + $scope.page + "/" + $scope.orderURLCliente);
         };
 
         //getcount
         $http({
             method: 'GET',
-            url: '/json?ob=' + $scope.ob +'&op=getcount'
+            url: '/json?ob=' + $scope.ob + '&op=getcount'
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataLineasNumber = response.data.message;
@@ -70,7 +74,7 @@ moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 
 
         $http({
             method: 'GET',
-            url: '/json?ob=' + $scope.ob +'&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
+            url: '/json?ob=' + $scope.ob + '&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataLineas = response.data.message;

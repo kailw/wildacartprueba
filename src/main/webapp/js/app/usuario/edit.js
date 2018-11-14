@@ -28,7 +28,7 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
                 ape1: $scope.ajaxDatoUsuario.ape1,
                 ape2: $scope.ajaxDatoUsuario.ape2,
                 login: $scope.ajaxDatoUsuario.login,
-                pass: forge_sha256($scope.jaxDatoUsuario.pass),
+//                pass: forge_sha256($scope.jaxDatoUsuario.pass),
                 id_tipoUsuario: $scope.ajaxDatoUsuario.obj_tipoUsuario.id
             }
             $http({
