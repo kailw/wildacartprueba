@@ -1,7 +1,7 @@
 'use strict';
 
-moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location', 'toolService', '$routeParams', '$uibModal','sessionService',
-    function ($scope, $http, $location, toolService, $routeParams, $uibModal,sessionService) {
+moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
+    function ($scope, $http, $location, toolService, $routeParams,sessionService) {
         $scope.id = $routeParams.id;
         $scope.ob = "usuario";
         if (sessionService) {

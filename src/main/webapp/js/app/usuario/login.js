@@ -12,7 +12,7 @@ moduleUsuario.controller("usuarioLoginController", ["$scope", "$http", "$routePa
                     'Content-Type': 'application/json;charset=utf-8'
                 },
                 url: '/json?ob=usuario&op=login&user=' + $scope.login + '&pass=' + forge_sha256($scope.pass)
-            }).then(function (response, data) {
+            }).then(function (response) {
                 if (response.status == 200) {
                     sessionService.setSessionActive();
                     sessionService.setUserName(response.data.message.nombre + " " + response.data.message.ape1);

@@ -19,7 +19,7 @@
             <div class="col-10">
                 <input type="text" class="form-control" id="dni" name="dni" ng-model="ajaxDatoUsuario.dni" ng-required="true" ng-pattern="/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/"
                        />
-                <div ng-show="userForm.dni.$invalid && !userForm.dni.$pristine" class="alert alert-danger" >DNI requerido.</div>
+                <div ng-show="userForm.dni.$invalid && !userForm.dni.$pristine && !userForm.dni.$error.pattern" class="alert alert-danger" >DNI requerido.</div>
                 
                 <div ng-show="userForm.dni.$error.pattern" class="alert alert-danger" role="alert">
                     Formato DNI no valido

@@ -5,6 +5,7 @@
  */
 package net.daw.bean;
 
+import com.google.gson.annotations.Expose;
 import java.util.Date;
 
 /**
@@ -13,10 +14,18 @@ import java.util.Date;
  */
 public class FacturaBean {
 
+    @Expose
     private int id;
+    @Expose
     private Date fecha;
+    @Expose
     private Float iva;
+    
+    @Expose(serialize = false)
     private int id_usuario;
+
+    @Expose(deserialize = false)
+    private UsuarioBean obj_Usuario;
 
     public int getId() {
         return id;

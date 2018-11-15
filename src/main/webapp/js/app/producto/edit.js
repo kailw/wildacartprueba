@@ -1,7 +1,7 @@
 'use strict';
 
-moduleProducto.controller('productoEditController', ['$scope', '$http', '$location', 'toolService', '$routeParams', '$uibModal',
-    function ($scope, $http, $location, toolService, $routeParams, $uibModal) {
+moduleProducto.controller('productoEditController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
+    function ($scope, $http, $location, toolService, $routeParams) {
         $scope.id = $routeParams.id;
         $scope.ob = "producto";
         $http({
@@ -41,16 +41,16 @@ moduleProducto.controller('productoEditController', ['$scope', '$http', '$locati
         };
         $scope.isActive = toolService.isActive;
 
-        $scope.openModal = function (size) {
-            $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/trolleyes-client/public_html/js/app/tipoproducto/selection.html',
-                controller: 'tipoproductoSelectionController',
-                size: size
-//                resolve: {
-//                    ajaxDatoUsuario.obj_tipoUsuario.id = id;             
-//                }               
-            })};
+//        $scope.openModal = function (size) {
+//            $uibModal.open({
+//                animation: true,
+//                ariaLabelledBy: 'modal-title',
+//                ariaDescribedBy: 'modal-body',
+//                templateUrl: '/trolleyes-client/public_html/js/app/tipoproducto/selection.html',
+//                controller: 'tipoproductoSelectionController',
+//                size: size
+////                resolve: {
+////                    ajaxDatoUsuario.obj_tipoUsuario.id = id;             
+////                }               
+//            })};
     }]);

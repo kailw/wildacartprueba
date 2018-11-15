@@ -15,13 +15,13 @@ wildcart.run(['$rootScope', 'sessionService', '$location', '$http',
                 } else {
                     oSessionService.setSessionInactive;
                     if (nextUrl != "/" && nextUrl != "/home" && nextUrl != "/usuario/login") {
-                        $location.path("/");
+                        $location.path("/home");
                     }
                 }
             }, function (response) {
                 oSessionService.setSessionInactive;
                 if (nextUrl != '/' && nextUrl != '/home' && nextUrl != '/usuario/login') {
-                    $location.path("/");
+                    $location.path("/home");
                 }
 
             });

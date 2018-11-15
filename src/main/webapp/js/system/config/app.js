@@ -9,8 +9,7 @@ var wildcart = angular.module('MyApp', [
     'productoControllers',
     'tipoproductoControllers',
     'facturaControllers',
-    'lineaControllers',
-    'ui.bootstrap'
+    'lineaControllers'    
 ]);
 
 

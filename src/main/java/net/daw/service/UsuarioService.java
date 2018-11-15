@@ -263,7 +263,7 @@ public class UsuarioService {
                 oReplyBean = new ReplyBean(401, EncodingHelper.quotate("Bad Authentication"));
             }
         } catch (Exception ex) {
-            throw new Exception("ERROR Bad Authentication: Service level: get page: " + ob + " object");
+            throw new Exception("ERROR Bad Authentication: Service level: login: " + ob + " object");
         } finally {
             oConnectionPool.disposeConnection();
         }
