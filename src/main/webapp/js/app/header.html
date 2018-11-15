@@ -69,11 +69,11 @@
 
         </ul>
         <div ng-show="!loginH">
-            <a href="usuario/login"><button type="button" class="btn btn-danger">Login</button></a>
+            <a href="usuario/login"><button type="button" class="btn btn-danger"><i class="fas fa-sign-in-alt"> Login</i></button></a>
         </div>
         <div ng-show="loginH">
-            <a href="usuario/view/{{usarioLogeadoID}}"><span class="mr-3 text-info" style="text-transform: capitalize;">Bienvenido {{usarioLogeado}}</span></a>
-            <a href="usuario/logout" ><button type="button" class="btn btn-primary">Logout</button></a>
+            <a href="usuario/view/{{usuariologeadoID}}"><button type="button" class="btn btn-info"><i class="fa fa-user-circle"> Bienvenido/a <strong style="color: black;">{{usuariologeado}}</strong> </i></button></a>
+            <a href="usuario/logout" ><button type="button" class="btn btn-primary"> <i class="fas fa-sign-out-alt">Logout</i></button></a>
         </div>
     </div>
 </nav>

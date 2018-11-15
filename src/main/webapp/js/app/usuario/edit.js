@@ -5,7 +5,7 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
         $scope.id = $routeParams.id;
         $scope.ob = "usuario";
         if (sessionService) {
-            $scope.usarioLogeado = sessionService.getUserName();
+            $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
         }
         $http({

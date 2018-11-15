@@ -31,7 +31,7 @@ moduleTipoproducto.controller('tipoproductoPlistController', ['$scope', '$http',
             }
         }
         if (sessionService) {
-            $scope.usarioLogeado = sessionService.getUserName();
+            $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
         }
 

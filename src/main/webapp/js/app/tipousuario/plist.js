@@ -30,8 +30,9 @@ moduleTipousuario.controller('tipousuarioPlistController', ['$scope', '$http', '
             }
         }
         if (sessionService) {
-            $scope.usarioLogeado = sessionService.getUserName();
+            $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
+            $scope.usuariologeadoID = sessionService.getId();
         }
 
 

@@ -3,10 +3,6 @@
 moduleUsuario.controller("usuarioLoginController", ["$scope", "$http", "$routeParams", "toolService", "$location", "sessionService",
     function ($scope, $http, $routeParams, toolService, $location, sessionService) {
 
-        if (sessionService) {
-            $scope.usarioLogeado = sessionService.getUserName();
-            $scope.loginH = false;
-        }
 
         $scope.formulario = true;
         $scope.log = function () {
@@ -17,10 +13,17 @@ moduleUsuario.controller("usuarioLoginController", ["$scope", "$http", "$routePa
                 },
                 url: '/json?ob=usuario&op=login&user=' + $scope.login + '&pass=' + forge_sha256($scope.pass)
             }).then(function (response, data) {
-                $scope.yesLogin = true;
-                $scope.errorLogin = false;
-                $scope.loginH = true;
-                $scope.formulario = false;
+                if (response.status == 200) {
+                    sessionService.setSessionActive();
+                    sessionService.setUserName(response.data.message.nombre + " " + response.data.message.ape1);
+                    sessionService.setId(response.data.message.id);
+                    $scope.usuariologeado = sessionService.getUserName();
+                    $scope.usuariologeadoID = sessionService.getId();
+                    $scope.yesLogin = true;
+                    $scope.errorLogin = false;
+                    $scope.loginH = true;
+                    $scope.formulario = false;
+                }
 
                 $scope.ajaxDatoLogin = response.data.message;
             }, function (response) {

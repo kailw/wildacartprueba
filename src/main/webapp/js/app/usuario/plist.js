@@ -32,9 +32,9 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
         }
         
         if(sessionService){
-            $scope.usarioLogeado = sessionService.getUserName();
+            $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
-            $scope.usarioLogeadoID = sessionService.getId;
+            $scope.usuariologeadoID = sessionService.getId();
         }
         
 

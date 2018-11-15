@@ -35,7 +35,7 @@ moduleTipousuario.controller('tipousuarioSelectionController', ['$scope', '$http
             $http({
                 method: "GET",
                 withCredential: true,
-                url: "/json?ob=" + $scope.ob + "&op=get&id="+ id
+                url: "/json?ob=" + $scope.ob + "&op=get&id=" + id
             }).then(function (response) {
                 $scope.status = response.status;
                 $scope.ajaxDatoTipousuarioID = response.data.message;
@@ -45,6 +45,29 @@ moduleTipousuario.controller('tipousuarioSelectionController', ['$scope', '$http
             });
 
         };
+
+        moduloDirectivas.directive('addModalVar', [function () {
+                return {
+                    restrict: 'A',
+                    templateUrl: 'modal/selection.html',
+                    scope: {
+                        arrayDeVariables: '=arrayDeVariables'
+                    },
+                    link: function (scope, element, attrs) {
+                        scope.newVariableAndValue = {
+                            name: '',
+                            value: ''
+                        };
+                        scope.save = function () {
+                            var tempVariableAndValue = {
+                                name: scope.newVariableAndValue.name,
+                                value: scope.newVariableAndValue.value
+                            }
+                            scope.arrayDeVariables.push(tempVariableAndValue);
+                        };
+                    }
+                };
+            }]);
 
 
         $scope.isActive = toolService.isActive;

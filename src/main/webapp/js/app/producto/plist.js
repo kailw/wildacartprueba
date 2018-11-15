@@ -31,7 +31,7 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
             }
         }
         if (sessionService) {
-            $scope.usarioLogeado = sessionService.getUserName();
+            $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
         }
 

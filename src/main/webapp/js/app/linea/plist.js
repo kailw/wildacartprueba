@@ -33,7 +33,7 @@ moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 
             }
         }
         if (sessionService) {
-            $scope.usarioLogeado = sessionService.getUserName();
+            $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
         }
 

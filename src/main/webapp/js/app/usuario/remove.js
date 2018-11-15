@@ -5,7 +5,7 @@ moduleUsuario.controller('usuarioRemoveController', ['$scope', '$http', '$locati
         $scope.ob = "usuario";
         $scope.id = $routeParams.id;
         if (sessionService) {
-            $scope.usarioLogeado = sessionService.getUserName();
+            $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
         }
         $http({

@@ -16,7 +16,7 @@ moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', '$locati
         });
                 
         if(sessionService){
-            $scope.usarioLogeado = sessionService.getUserName();
+            $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
         }
         

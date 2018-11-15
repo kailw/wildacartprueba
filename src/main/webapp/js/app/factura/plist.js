@@ -31,7 +31,7 @@ moduleFactura.controller('facturaPlistController', ['$scope', '$http', '$locatio
             }
         }
         if (sessionService) {
-            $scope.usarioLogeado = sessionService.getUserName();
+            $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
         }
 
