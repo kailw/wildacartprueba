@@ -1,4 +1,4 @@
-trolleyes.run(['$rootScope', 'sessionService', '$location', '$http',
+wildcart.run(['$rootScope', 'sessionService', '$location', '$http',
     function ($rootScope, oSessionService, $location, $http) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
 

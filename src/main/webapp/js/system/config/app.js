@@ -1,6 +1,6 @@
 'use strict'
 
-var trolleyes = angular.module('MyApp', [
+var wildcart = angular.module('MyApp', [
     'ngRoute',
     'services',
     'commonControllers',
