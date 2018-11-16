@@ -35,35 +35,24 @@
             </div>
         </div>
 
-
         <div class="form-group row">
-            <label for="id_usuario" class="col-2 col-form-label">Tipo Usuario</label>
+            <label for="id_usuario" class="col-2 col-form-label">Usuario</label>
             <div class="col-8">
-                <input type="text" class="form-control" id="login" name="id_usuario" ng-model="ajaxDatoFactura.id_usuario" ng-required="true" />                                                   
+                <input type="text" class="form-control" id="login" name="id_usuario" ng-model="ajaxDatoFactura.obj_Usuario.id" ng-required="true" />                                                   
                 <div ng-show="!userForm.id_usuario.$valid" class="alert alert-danger" role="alert">
-                    Tipo usuario obligatorio
+                    Usuario obligatorio
                 </div>                
             </div>
             <div class="form-control col-2" style="border: 0px;" >
                 <button class="btn btn-primary" ng-click="oModal()" ><i class="fas fa-search"></i></button>                
             </div>
-        </div>        
-        <!--            <div class="form-group row">
-                        <label for="pass" class="col-2 col-form-label">>Contraseña</label>
-                        <input type="password" class="form-control" ng-class="{' is-invalid': userForm.pass.$invalid && !userForm.pass.$pristine}"
-                               id="pass" name="pass" ng-model="ajaxDatoUsuario.pass" ng-minlength="6" ng-required="true"/>
-                        <div ng-show="userForm.pass.$error.minlength" class="alert alert-danger" role="alert">
-                            La longitud de la constraseña es demasiado corta
-                        </div>
-                        <div ng-show="!userForm.pass.$valid" class="alert alert-danger" role="alert">
-                            Contraseña obligatorio
-                        </div>
-                    </div>-->
+        </div>  
+
         <button ng-click="guardar()" type="button" class="btn btn-primary" ng-disabled="userForm.$invalid">Guardar</button>
     </form>
 
     <div class="alert alert-success" ng-show="mensaje">
-        Datos actualizados correctamente del {{ob}} {{ajaxDatoFactura.id}}
+        Datos actualizados correctamente de la {{ob}} {{ajaxDatoFactura.id}}
     </div>
 </main>
 <footer class="footer" ng-include="'js/app/footer.html'"></footer>

@@ -16,19 +16,12 @@
         </tr>
         <tr>
             <th>Tipo Producto</th>
-            <td>{{ajaxDatoLinea.id_producto}}</td>        
+            <td>{{ajaxDatoLinea.obj_Producto.desc}}</td>        
         </tr>
         <tr>
             <th>Tipo Factura</th>
-            <td>{{ajaxDatoLinea.id_factura}}</td>
+            <td>{{ajaxDatoLinea.obj_Producto.id}}</td>
         </tr>
-
-<!--        <tr>
-            <th>TIPO DE Factura</th>      
-            <td>
-                <a href="tipoFactura/view/{{ajaxDatoFactura.obj_tipoFactura.id}}">{{ajaxDatoFactura.obj_tipoFactura.desc}}</a>
-            </td> 
-        </tr>      -->
     </table>   
 </main>
 <footer class="footer" ng-include="'js/app/footer.html'"></footer>

@@ -1,7 +1,7 @@
 'use strict';
 
-moduleFactura.controller('facturaPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
-    function ($scope, $http, $location, toolService, $routeParams,sessionService) {
+moduleFactura.controller('facturaPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
+    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
 
         $scope.totalPages = 1;
         $scope.select = ["5", "10", "25", "50", "500"];

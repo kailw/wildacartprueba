@@ -22,7 +22,7 @@ public class FacturaDao {
         this.ob = ob;
     }
 
-    public FacturaBean get(int id) throws Exception {
+    public FacturaBean get(int id, Integer expand) throws Exception {
         String strSQL = "SELECT * FROM " + ob + " WHERE id=?";
         FacturaBean oFacturaBean;
         ResultSet oResultSet = null;
@@ -33,10 +33,9 @@ public class FacturaDao {
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
                 oFacturaBean = new FacturaBean();
-                oFacturaBean.setId(oResultSet.getInt("id"));
-                oFacturaBean.setFecha(oResultSet.getDate("fecha"));
-                oFacturaBean.setIva(oResultSet.getFloat("iva"));
-                oFacturaBean.setId_usuario(oResultSet.getInt("id_usuario"));
+
+                oFacturaBean.fill(oResultSet, oConnection, expand);
+
             } else {
                 oFacturaBean = null;
             }
@@ -126,7 +125,7 @@ public class FacturaDao {
 
     public int update(FacturaBean oFacturaBean) throws Exception {
         int iResult = 0;
-        String strSQL = "UPDATE " + ob + " SET fecha = ?, iva = ?, id_usuario = ? WHERE "+ob+".id= ?;";
+        String strSQL = "UPDATE " + ob + " SET fecha = ?, iva = ?, id_usuario = ? WHERE " + ob + ".id= ?;";
 
         PreparedStatement oPreparedStatement = null;
         try {
@@ -147,41 +146,37 @@ public class FacturaDao {
         return iResult;
     }
 
+    public ArrayList<FacturaBean> getpage(int iRpp, int iPage, HashMap<String, String> hmOrder, Integer expand) throws Exception {
+        String strSQL = "SELECT * FROM " + ob;
+        strSQL += SqlBuilder.buildSqlOrder(hmOrder);
+        ArrayList<FacturaBean> alFacturaBean;
+        if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {
+            strSQL += " LIMIT " + (iPage - 1) * iRpp + ", " + iRpp;
+            ResultSet oResultSet = null;
+            PreparedStatement oPreparedStatement = null;
+            try {
+                oPreparedStatement = oConnection.prepareStatement(strSQL);
+                oResultSet = oPreparedStatement.executeQuery();
+                alFacturaBean = new ArrayList<FacturaBean>();
+                while (oResultSet.next()) {
+                    FacturaBean oFacturaBean = new FacturaBean();
+                    oFacturaBean.fill(oResultSet, oConnection, expand);
+                    alFacturaBean.add(oFacturaBean);
+                }
+            } catch (SQLException e) {
+                throw new Exception("Error en Dao getpage de " + ob, e);
+            } finally {
+                if (oResultSet != null) {
+                    oResultSet.close();
+                }
+                if (oPreparedStatement != null) {
+                    oPreparedStatement.close();
+                }
+            }
+        } else {
+            throw new Exception("Error en Dao getpage de " + ob);
+        }
+        return alFacturaBean;
 
-	public ArrayList<FacturaBean> getpage(int iRpp, int iPage, HashMap<String, String> hmOrder) throws Exception {
-		String strSQL = "SELECT * FROM " + ob;
-                strSQL += SqlBuilder.buildSqlOrder(hmOrder);
-		ArrayList<FacturaBean> alFacturaBean;
-		if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {
-			strSQL += " LIMIT " + (iPage - 1) * iRpp + ", " + iRpp;
-			ResultSet oResultSet = null;
-			PreparedStatement oPreparedStatement = null;
-			try {
-				oPreparedStatement = oConnection.prepareStatement(strSQL);
-				oResultSet = oPreparedStatement.executeQuery();
-				alFacturaBean = new ArrayList<FacturaBean>();
-				while (oResultSet.next()) {
-					FacturaBean oFacturaBean = new FacturaBean();
-                                        oFacturaBean.setId(oResultSet.getInt("id"));
-                                        oFacturaBean.setFecha(oResultSet.getDate("fecha"));
-                                        oFacturaBean.setIva(oResultSet.getFloat("iva"));
-                                        oFacturaBean.setId_usuario(oResultSet.getInt("id_usuario"));
-					alFacturaBean.add(oFacturaBean);
-				}
-			} catch (SQLException e) {
-				throw new Exception("Error en Dao getpage de " + ob, e);
-			} finally {
-				if (oResultSet != null) {
-					oResultSet.close();
-				}
-				if (oPreparedStatement != null) {
-					oPreparedStatement.close();
-				}
-			}
-		} else {
-			throw new Exception("Error en Dao getpage de " + ob);
-		}
-		return alFacturaBean;
-
-	}
+    }
 }

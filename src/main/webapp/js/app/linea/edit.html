@@ -27,9 +27,9 @@
         <div class="form-group row">
             <label for="id_producto" class="col-2 col-form-label">Tipo Producto</label>
             <div class="col-10">
-                <input type="text" class="form-control " id="id_producto" name="id_producto" ng-model="ajaxDatoLinea.id_producto" ng-required="true" />
+                <input type="text" class="form-control " id="id_producto" name="id_producto" ng-model="ajaxDatoLinea.obj_Producto.desc" ng-required="true" />
                 <div ng-show="!userForm.id_producto.$valid" class="alert alert-danger" role="alert">
-                    Nombre obligatorio
+                    Producto obligatorio
                 </div>
             </div>
         </div>
@@ -38,26 +38,15 @@
         <div class="form-group row">
             <label for="id_factura" class="col-2 col-form-label">Tipo Factura</label>
             <div class="col-8">
-                <input type="text" class="form-control" id="id_factura" name="id_factura" ng-model="ajaxDatoLinea.id_factura" ng-required="true" />                                                   
+                <input type="text" class="form-control" id="id_factura" name="id_factura" ng-model="ajaxDatoLinea.obj_Factura.id" ng-required="true" />                                                   
                 <div ng-show="!userForm.id_factura.$valid" class="alert alert-danger" role="alert">
-                    Tipo usuario obligatorio
+                    Factura obligatorio
                 </div>                
             </div>
             <div class="form-control col-2" style="border: 0px;" >
                 <button class="btn btn-primary" ng-click="oModal()" ><i class="fas fa-search"></i></button>                
             </div>
         </div>        
-        <!--            <div class="form-group row">
-                        <label for="pass" class="col-2 col-form-label">>Contraseña</label>
-                        <input type="password" class="form-control" ng-class="{' is-invalid': userForm.pass.$invalid && !userForm.pass.$pristine}"
-                               id="pass" name="pass" ng-model="ajaxDatoUsuario.pass" ng-minlength="6" ng-required="true"/>
-                        <div ng-show="userForm.pass.$error.minlength" class="alert alert-danger" role="alert">
-                            La longitud de la constraseña es demasiado corta
-                        </div>
-                        <div ng-show="!userForm.pass.$valid" class="alert alert-danger" role="alert">
-                            Contraseña obligatorio
-                        </div>
-                    </div>-->
         <button ng-click="guardar()" type="button" class="btn btn-primary" ng-disabled="userForm.$invalid">Guardar</button>
     </form>
 

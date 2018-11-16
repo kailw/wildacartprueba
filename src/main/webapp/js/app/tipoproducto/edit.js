@@ -1,12 +1,16 @@
 'use strict';
 
-moduleTipoproducto.controller('tipoproductoEditController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
-    function ($scope, $http, $location, toolService, $routeParams) {
+moduleTipoproducto.controller('tipoproductoEditController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
+    function ($scope, $http, $location, toolService, $routeParams,sessionService) {
         $scope.id = $routeParams.id;
         $scope.ob = "tipoproducto";
+        if (sessionService) {
+            $scope.usuariologeado = sessionService.getUserName();
+            $scope.loginH = true;
+        }
         $http({
             method: 'GET',
-            url: '/json?ob='+$scope.ob+'&op=get&id=' + $scope.id
+            url: '/json?ob=' + $scope.ob + '&op=get&id=' + $scope.id
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDatoTipoproducto = response.data.message;
@@ -24,7 +28,7 @@ moduleTipoproducto.controller('tipoproductoEditController', ['$scope', '$http', 
             $http({
                 method: 'GET',
                 withCredentials: true,
-                url: '/json?ob='+$scope.ob+'&op=update',
+                url: '/json?ob=' + $scope.ob + '&op=update',
                 params: {json: JSON.stringify(json)}
             }).then(function (response) {
                 $scope.status = response.status;

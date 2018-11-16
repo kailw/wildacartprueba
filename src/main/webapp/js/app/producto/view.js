@@ -1,10 +1,16 @@
 'use strict'
 
-moduleProducto.controller('productoViewController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
-    function ($scope, $http, $location, toolService, $routeParams) {
-        $scope.id = $routeParams.id;        
+moduleProducto.controller('productoViewController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
+    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
+        $scope.id = $routeParams.id;
+
+        if (sessionService) {
+            $scope.usuariologeado = sessionService.getUserName();
+            $scope.loginH = true;
+        }
+
         $http({
-            method: 'GET',            
+            method: 'GET',
             url: '/json?ob=producto&op=get&id=' + $scope.id
         }).then(function (response) {
             $scope.status = response.status;

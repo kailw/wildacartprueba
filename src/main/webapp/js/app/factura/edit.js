@@ -1,10 +1,15 @@
 'use strict';
 
-moduleFactura.controller('facturaEditController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
-    function ($scope, $http, $location, toolService, $routeParams) {
+moduleFactura.controller('facturaEditController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
+    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
         $scope.id = $routeParams.id;
         $scope.myDate = new Date();
         $scope.ob = "factura";
+        if (sessionService) {
+            $scope.usuariologeado = sessionService.getUserName();
+            $scope.loginH = true;
+        }
+
         $http({
             method: 'GET',
             url: '/json?ob=' + $scope.ob + '&op=get&id=' + $scope.id
@@ -22,8 +27,7 @@ moduleFactura.controller('facturaEditController', ['$scope', '$http', '$location
                 id: $scope.ajaxDatoFactura.id,
                 fecha: null,
                 iva: $scope.ajaxDatoFactura.iva,
-                id_usuario: $scope.ajaxDatoFactura.id_usuario
-//                id_tipoUsuario: $scope.ajaxDatoUsuario.obj_tipoUsuario.id
+                id_usuario: $scope.ajaxDatoFactura.obj_Usuario.id
             };
             $http({
                 method: 'GET',

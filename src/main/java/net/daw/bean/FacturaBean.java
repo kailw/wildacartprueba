@@ -6,7 +6,10 @@
 package net.daw.bean;
 
 import com.google.gson.annotations.Expose;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.Date;
+import net.daw.dao.UsuarioDao;
 
 /**
  *
@@ -20,12 +23,20 @@ public class FacturaBean {
     private Date fecha;
     @Expose
     private Float iva;
-    
+
     @Expose(serialize = false)
     private int id_usuario;
 
     @Expose(deserialize = false)
     private UsuarioBean obj_Usuario;
+
+    public UsuarioBean getObj_Usuario() {
+        return obj_Usuario;
+    }
+
+    public void setObj_Usuario(UsuarioBean obj_Usuario) {
+        this.obj_Usuario = obj_Usuario;
+    }
 
     public int getId() {
         return id;
@@ -57,6 +68,21 @@ public class FacturaBean {
 
     public void setId_usuario(int id_usuario) {
         this.id_usuario = id_usuario;
+    }
+
+    public FacturaBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws Exception {
+
+        this.setId(oResultSet.getInt("id"));
+        this.setFecha(oResultSet.getDate("fecha"));
+        this.setIva(oResultSet.getFloat("iva"));
+
+        if (expand > 0) {
+            UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, "usuario");
+            this.setObj_Usuario(oUsuarioDao.get(oResultSet.getInt("id_usuario"), expand - 1));
+        } else {
+            this.setId_usuario(oResultSet.getInt("id_usuario"));
+        }
+        return this;
     }
 
 }

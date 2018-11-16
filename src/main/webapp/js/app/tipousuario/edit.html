@@ -17,11 +17,11 @@
         <div class="form-group row">
             <label for="descripcion" class="col-2 col-form-label">Descripción</label>
             <div class="col-8">
-                <input type="text" class="form-control" id="descripcion" name="descripcion" ng-model="ajaxDatoTipousuario.desc" ng-required="true" ng-pattern="/^[a-zA-Z]*$/"/>
+                <input type="text" class="form-control" id="descripcion" name="descripcion" ng-model="ajaxDatoTipousuario.desc" ng-required="true" ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/"/>
                 <div ng-show="userForm.descripcion.$error.pattern" class="alert alert-danger" role="alert">
                     Descripcion no válida
                 </div>
-                <div ng-show="userForm.descripcion.$invalid" class="alert alert-danger" role="alert">
+                <div ng-show="userForm.descripcion.$invalid && !userForm.descripcion.$pristine && !userForm.descripcion.$error.pattern" class="alert alert-danger" role="alert">
                     Descripción obligatorio
                 </div>
             </div>

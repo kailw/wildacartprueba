@@ -2,12 +2,16 @@
 
 'use strict';
 
-moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
+moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
 
         $scope.totalPages = 1;
         $scope.select = ["5", "10", "25", "50", "500"];
         $scope.ob = "linea";
+        if (sessionService) {
+            $scope.usuariologeado = sessionService.getUserName();
+            $scope.loginH = true;
+        }
 
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
@@ -31,10 +35,6 @@ moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 
             } else {
                 $scope.page = 1;
             }
-        }
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
         }
 
         $scope.resetOrder = function () {

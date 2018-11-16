@@ -1,9 +1,16 @@
 'use strict';
 
-moduleFactura.controller('facturaRemoveController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
-    function ($scope, $http, $location, toolService, $routeParams) {
+moduleFactura.controller('facturaRemoveController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
+    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
         $scope.ob = "factura";
         $scope.id = $routeParams.id;
+
+        if (sessionService) {
+            $scope.usuariologeado = sessionService.getUserName();
+            $scope.loginH = true;
+        }
+
+
         $http({
             method: 'GET',
             url: '/json?ob=' + $scope.ob + '&op=get&id=' + $scope.id

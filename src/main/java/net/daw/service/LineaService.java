@@ -12,11 +12,9 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import net.daw.bean.LineaBean;
 import net.daw.bean.ReplyBean;
-import net.daw.bean.TipousuarioBean;
 import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
 import net.daw.dao.LineaDao;
-import net.daw.dao.TipousuarioDao;
 import net.daw.factory.ConnectionFactory;
 import net.daw.helper.EncodingHelper;
 import net.daw.helper.ParameterCook;
@@ -44,7 +42,7 @@ public class LineaService {
 			oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
 			oConnection = oConnectionPool.newConnection();
 			LineaDao oLineaDao = new LineaDao(oConnection, ob);
-			LineaBean oLineaBean = oLineaDao.get(id);
+			LineaBean oLineaBean = oLineaDao.get(id, 1);
 			Gson oGson = new Gson();
 			oReplyBean = new ReplyBean(200, oGson.toJson(oLineaBean));
 		} catch (Exception ex) {
@@ -159,7 +157,7 @@ public class LineaService {
 			oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
 			oConnection = oConnectionPool.newConnection();
 			LineaDao oLineaDao = new LineaDao(oConnection, ob);
-			ArrayList<LineaBean> alLineaBean = oLineaDao.getpage(iRpp, iPage,hmOrder);
+			ArrayList<LineaBean> alLineaBean = oLineaDao.getpage(iRpp, iPage,hmOrder,1);
 			Gson oGson = new Gson();
 			oReplyBean = new ReplyBean(200, oGson.toJson(alLineaBean));
 		} catch (Exception ex) {

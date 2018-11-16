@@ -1,12 +1,16 @@
 'use strict';
 
-moduleTipousuario.controller('tipousuarioRemoveController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
-    function ($scope, $http, $location, toolService, $routeParams) {
+moduleTipousuario.controller('tipousuarioRemoveController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
+    function ($scope, $http, $location, toolService, $routeParams,sessionService) {
         $scope.id = $routeParams.id;
         $scope.ob = "tipousuario";
+        if (sessionService) {
+            $scope.usuariologeado = sessionService.getUserName();
+            $scope.loginH = true;
+        }
         $http({
             method: 'GET',
-            url: '/json?ob='+ $scope.ob + '&op=get&id=' + $scope.id
+            url: '/json?ob=' + $scope.ob + '&op=get&id=' + $scope.id
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDatoTipousuario = response.data.message;
@@ -21,7 +25,7 @@ moduleTipousuario.controller('tipousuarioRemoveController', ['$scope', '$http', 
             if (accion === "eliminar") {
                 $http({
                     method: 'GET',
-                    url: '/json?ob='+ $scope.ob +'&op=remove&id=' + $scope.id
+                    url: '/json?ob=' + $scope.ob + '&op=remove&id=' + $scope.id
                 }).then(function (response) {
                     $scope.mensaje = true;
                     $scope.mensaje2 = false;

@@ -22,9 +22,12 @@
         <div class="form-group row">
             <label for="nombre" class="col-2 col-form-label">Nombre</label>
             <div class="col-10">
-                <input type="text" class="form-control " id="nombre" name="nombre" ng-model="nombre" ng-required="true" />
-                <div ng-show="userForm.nombre.$invalid && !userForm.nombre.$pristine" class="alert alert-danger" role="alert">
+                <input type="text" class="form-control " id="nombre" name="nombre" ng-model="nombre" ng-required="true" ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/" />
+                <div ng-show="userForm.nombre.$invalid && !userForm.nombre.$pristine && !userForm.nombre.$error.pattern" class="alert alert-danger" role="alert">
                     Nombre obligatorio
+                </div>
+                <div ng-show="userForm.nombre.$error.pattern" class="alert alert-danger" role="alert">
+                    Nombre no válido
                 </div>
             </div>
         </div>
@@ -32,18 +35,24 @@
         <div class="form-group row">
             <label for="ape1" class="col-2 col-form-label">Primer apellido</label>
             <div class="col-10">
-                <input type="text" class="form-control" id="ape1" name="ape1" ng-model="ape1" ng-required="true" />
-                <div ng-show="userForm.ape1.$invalid && !userForm.ape1.$pristine" class="alert alert-danger" role="alert">
+                <input type="text" class="form-control" id="ape1" name="ape1" ng-model="ape1" ng-required="true" ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/" />
+                <div ng-show="userForm.ape1.$invalid && !userForm.ape1.$pristine && !userForm.ape1.$error.pattern" class="alert alert-danger" role="alert">
                     Primer apellido obligatorio
+                </div>
+                <div ng-show="userForm.ape1.$error.pattern" class="alert alert-danger" role="alert">
+                    Primer apellido no válido
                 </div>
             </div>
         </div>
         <div class="form-group row">
             <label for="ape2" class="col-2 col-form-label">Segundo apellido</label>
             <div class="col-10">
-                <input type="text" class="form-control" id="ape2" name="ape2" ng-model="ape2" ng-required="true"/>
-                <div ng-show="userForm.ape2.$invalid && !userForm.ape2.$pristine" class="alert alert-danger" role="alert">
+                <input type="text" class="form-control" id="ape2" name="ape2" ng-model="ape2" ng-required="true" ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/" />
+                <div ng-show="userForm.ape2.$invalid && !userForm.ape2.$pristine && !userForm.ape2.$error.pattern" class="alert alert-danger" role="alert">
                     Segundo apellido obligatorio
+                </div>
+                <div ng-show="userForm.ape2.$error.pattern" class="alert alert-danger" role="alert">
+                    Segundo apellido no válido
                 </div>
             </div>
         </div>
@@ -51,7 +60,7 @@
             <label for="login" class="col-2 col-form-label">Login</label>
             <div class="col-10">
                 <input type="text" class="form-control" id="login" name="login" ng-model="login" ng-required="true" />
-                <div ng-show="!userForm.login.$valid  && !userForm.login.$pristine" class="alert alert-danger" role="alert">
+                <div ng-show="!userForm.login.$valid && !userForm.login.$pristine" class="alert alert-danger" role="alert">
                     Login obligatorio
                 </div>
             </div>
@@ -63,7 +72,7 @@
                 <div ng-show="userForm.pass.$error.minlength" class="alert alert-danger" role="alert">
                     La longitud de la constraseña es demasiado corta
                 </div>
-                <div ng-show="!userForm.pass.$valid  && !userForm.pass.$pristine && !userForm.pass.$error.minlength" class="alert alert-danger" role="alert">
+                <div ng-show="!userForm.pass.$valid && !userForm.pass.$pristine && !userForm.pass.$error.minlength" class="alert alert-danger" role="alert">
                     Contraseña obligatorio
                 </div>
             </div>

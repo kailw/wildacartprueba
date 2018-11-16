@@ -19,16 +19,10 @@
             <td>{{ajaxDatoFactura.iva}}</td>        
         </tr>
         <tr>
-            <th>Tipo Usuario</th>
-            <td>{{ajaxDatoFactura.id_usuario}}</td>
+            <th>Usuario</th>
+            <td><a href="usuario/view/{{ajaxDatoFactura.obj_Usuario.id}}">{{ajaxDatoFactura.obj_Usuario.nombre}} {{ajaxDatoFactura.obj_Usuario.ape1}} {{ajaxDatoFactura.obj_Usuario.ape2}}</a></td>             
         </tr>
 
-<!--        <tr>
-            <th>TIPO DE Factura</th>      
-            <td>
-                <a href="tipoFactura/view/{{ajaxDatoFactura.obj_tipoFactura.id}}">{{ajaxDatoFactura.obj_tipoFactura.desc}}</a>
-            </td> 
-        </tr>      -->
     </table>   
 </main>
 <footer class="footer" ng-include="'js/app/footer.html'"></footer>

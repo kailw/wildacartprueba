@@ -30,7 +30,7 @@ public class LineaDao {
         this.ob = ob;
     }
 
-    public LineaBean get(int id) throws Exception {
+    public LineaBean get(int id, Integer expand) throws Exception {
         String strSQL = "SELECT * FROM " + ob + " WHERE id=?";
         LineaBean oLineaBean;
         ResultSet oResultSet = null;
@@ -41,10 +41,7 @@ public class LineaDao {
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
                 oLineaBean = new LineaBean();
-                oLineaBean.setId(oResultSet.getInt("id"));
-                oLineaBean.setCantidad(oResultSet.getInt("cantidad"));
-                oLineaBean.setId_producto(oResultSet.getInt("id_producto"));
-                oLineaBean.setId_factura(oResultSet.getInt("id_factura"));
+                oLineaBean.fill(oResultSet, oConnection, expand);
             } else {
                 oLineaBean = null;
             }
@@ -155,7 +152,7 @@ public class LineaDao {
         return iResult;
     }
 
-    public ArrayList<LineaBean> getpage(int iRpp, int iPage, HashMap<String, String> hmOrder) throws Exception {
+    public ArrayList<LineaBean> getpage(int iRpp, int iPage, HashMap<String, String> hmOrder, Integer expand) throws Exception {
         String strSQL = "SELECT * FROM " + ob;
         strSQL += SqlBuilder.buildSqlOrder(hmOrder);
         ArrayList<LineaBean> alLineaBean;
@@ -170,9 +167,7 @@ public class LineaDao {
                 while (oResultSet.next()) {
                     LineaBean oLineaBean = new LineaBean();
                     oLineaBean.setId(oResultSet.getInt("id"));
-                    oLineaBean.setCantidad(oResultSet.getInt("cantidad"));
-                    oLineaBean.setId_producto(oResultSet.getInt("id_producto"));
-                    oLineaBean.setId_factura(oResultSet.getInt("id_factura"));
+                    oLineaBean.fill(oResultSet, oConnection, expand);
                     alLineaBean.add(oLineaBean);
                 }
             } catch (SQLException e) {

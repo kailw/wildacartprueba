@@ -17,18 +17,16 @@
         <div class="form-group row">
             <label for="descripcion" class="col-2 col-form-label">Descripción</label>
             <div class="col-8">
-                <input type="text" class="form-control" id="descripcion" name="descripcion" ng-model="desc" ng-required="true" ng-pattern="/^[a-zA-Z]*$/" placeholder="Dime un descripcion"/>
+                <input type="text" class="form-control" id="descripcion" name="descripcion" ng-model="desc" ng-required="true" ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/" placeholder="Dime un descripcion"/>
                 <div ng-show="userForm.descripcion.$error.pattern" class="alert alert-danger" role="alert">
                     Descripcion no válida
                 </div>
                 
-                <div ng-show="userForm.descripcion.$invalid && !userForm.descripcion.$pristine" class="alert alert-danger" role="alert">
+                <div ng-show="userForm.descripcion.$invalid && !userForm.descripcion.$pristine && !userForm.descripcion.$error.pattern" class="alert alert-danger" role="alert">
                     Descripción obligatorio
                 </div>
             </div>
         </div>
-
-
 
         <button ng-click="guardar()" type="button" class="btn btn-primary" ng-disabled="userForm.$invalid">Crear</button>
     </form>

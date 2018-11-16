@@ -92,10 +92,7 @@
                 <td>{{fila.id}}</td>
                 <td>{{fila.fecha}}</td>
                 <td>{{fila.iva}}</td>
-                <td>{{fila.id_usuario}}</td>             
-<!--                <td>
-                    <a href="tipousuario/view/{{fila.obj_tipoUsuario.id}}">{{fila.obj_tipoUsuario.desc}}</a>
-                </td>-->
+                <td><a href="usuario/view/{{fila.obj_Usuario.id}}">{{fila.obj_Usuario.nombre}} {{fila.obj_Usuario.ape1}} {{fila.obj_Usuario.ape2}}</a></td>             
                 <td> 
                     <a  href="{{ob}}/view/{{fila.id}}"> 
                         <button style="font-size:15px" class="btn btn-info"><i class="fa fa-eye"></i></button>
