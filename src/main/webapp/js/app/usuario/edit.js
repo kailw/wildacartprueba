@@ -48,17 +48,17 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
         };
         $scope.isActive = toolService.isActive;
 
-        $scope.openModal = function (size) {
-            $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/trolleyes-client/public_html/js/app/tipousuario/selection.html',
-                controller: 'tipousuarioSelectionController',
-                size: size
-//                resolve: {
-//                    ajaxDatoUsuario.obj_tipoUsuario.id = id;             
-//                }               
-            })
-        };
+//        $scope.openModal = function (size) {
+//            $uibModal.open({
+//                animation: true,
+//                ariaLabelledBy: 'modal-title',
+//                ariaDescribedBy: 'modal-body',
+//                templateUrl: '/trolleyes-client/public_html/js/app/tipousuario/selection.html',
+//                controller: 'tipousuarioSelectionController',
+//                size: size
+////                resolve: {
+////                    ajaxDatoUsuario.obj_tipoUsuario.id = id;             
+////                }               
+//            })
+//        };
     }]);

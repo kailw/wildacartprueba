@@ -20,10 +20,10 @@ moduleService.service('sessionService', ['$location', function ($location) {
             getId : function(){
                 return usuariologeadoID;
             },
-            setSessionActive: function (name) {
+            setSessionActive: function () {
                 isSessionActive = true;
             },
-            setSessionInactive: function (name) {
+            setSessionInactive: function () {
                 isSessionActive = false;
             }
         }
