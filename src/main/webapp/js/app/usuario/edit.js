@@ -1,7 +1,7 @@
 'use strict';
 
-moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
-    function ($scope, $http, $location, toolService, $routeParams,sessionService) {
+moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
+    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
         $scope.id = $routeParams.id;
         $scope.ob = "usuario";
         if (sessionService) {
@@ -42,11 +42,34 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
                 $scope.status = response.status;
                 $scope.mensaje = true;
             }, function (response) {
-                $scope.ajaxDataUsuario = response.data.message || 'Request failed';
+                $scope.ajaxDatoUsuario= response.data.message || 'Request failed';
                 $scope.status = response.status;
             });
         };
         $scope.isActive = toolService.isActive;
+
+
+        $scope.tipoUsuarioRefresh = function () {
+            $http({
+                method: 'GET',
+                //withCredentials: true,
+                url: 'json?ob=tipousuario&op=get&id=' + $scope.ajaxDatoUsuario.obj_tipoUsuario.id
+            }).then(function (response) {
+                //$scope.status = response.status;
+                $scope.ajaxDatoUsuario.obj_tipoUsuario = response.data.message;
+            }, function (response) {
+                $scope.ajaxDatoUsuario = response.data.message || 'Request failed';
+                $scope.status = response.status;
+
+                //$scope.outerForm.obj_tipousuario.$setValidity('exists', false);
+
+            });
+
+
+
+
+        }
+
 
 //        $scope.openModal = function (size) {
 //            $uibModal.open({
