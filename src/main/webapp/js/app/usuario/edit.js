@@ -2,8 +2,13 @@
 
 moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
+
         $scope.id = $routeParams.id;
-        $scope.ob = "usuario";
+        $scope.ob = "usuario";        
+        $scope.mensajeOK=false;
+        $scope.mensajeError=false;
+        
+
         if (sessionService) {
             $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
@@ -15,7 +20,8 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
             $scope.status = response.status;
             $scope.ajaxDatoUsuario = response.data.message;
         }, function (response) {
-            $scope.ajaxDatoUsuario = response.data.message || 'Request failed';
+            $scope.mensajeError=true;
+            //$scope.ajaxDatoUsuario = response.data.message || 'Request failed';
             $scope.status = response.status;
         });
 
@@ -40,28 +46,41 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
                 params: {json: JSON.stringify(json)}
             }).then(function (response) {
                 $scope.status = response.status;
-                $scope.mensaje = true;
+                $scope.mensajeOK=true;
             }, function (response) {
-                $scope.ajaxDatoUsuario= response.data.message || 'Request failed';
+                $scope.mensajeError=true;
+                $scope.ajaxDatoUsuario = response.data.message || 'Request failed';
                 $scope.status = response.status;
             });
         };
         $scope.isActive = toolService.isActive;
 
 
-        $scope.tipoUsuarioRefresh = function () {
+
+
+          $scope.$watch('ajaxDatoUsuario.obj_usuario.id', function() {
+        $scope.tipoUsuarioRefresh();
+        //this.userForm.obj_tipousuario.$setValidity('valid', true);
+    });
+       
+       
+        $scope.tipoUsuarioRefresh = function (quiensoy) {
+            var form=quiensoy;
             $http({
                 method: 'GET',
                 //withCredentials: true,
                 url: 'json?ob=tipousuario&op=get&id=' + $scope.ajaxDatoUsuario.obj_tipoUsuario.id
             }).then(function (response) {
-                //$scope.status = response.status;
+                form.userForm.obj_tipousuario.$setValidity('valid', true);
                 $scope.ajaxDatoUsuario.obj_tipoUsuario = response.data.message;
             }, function (response) {
-                $scope.ajaxDatoUsuario = response.data.message || 'Request failed';
-                $scope.status = response.status;
-
-                //$scope.outerForm.obj_tipousuario.$setValidity('exists', false);
+                form.userForm.obj_tipousuario.$setValidity('valid', false);
+                $scope.ajaxDatoUsuario.obj_tipoUsuario.desc = "Error al acceder al tipo de usuario";
+                
+                
+                //$scope.ajaxDatoUsuario = response.data.message || 'Request failed';
+                //$scope.status = response.status;
+                //$scope.forms.userform.obj_tipousuario.$setValidity('exists', false);
 
             });
 

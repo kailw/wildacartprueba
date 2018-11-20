@@ -14,7 +14,7 @@
                     <div class="btn-group" style="width:400px;">
                         <p class="mt-2" style="width:200px;">Selecciona RPP: </p>
                         <select class="form-control"
-                                ng-change="c.update()"
+                                ng-change="c.update(1)"
                                 ng-model="c.rpp">
                             <option value="5">5</option>
                             <option value="10">10</option>
@@ -71,16 +71,16 @@
                 <nav aria-label="paginacion">
                     <ul class="pagination">
                         <li class="page-item">
-                            <a class="page-link" ng-show="c.page > 2" ng-click="c.pagina(1)">First</a>
+                            <a class="page-link" ng-show="c.page > 2" ng-click="c.update(1)">First</a>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" ng-show="c.page > 1" ng-click="c.pagina(c.page - 1)">Previous</a>
+                            <a class="page-link" ng-show="c.page > 1" ng-click="c.update(c.page - 1)">Previous</a>
                         </li>
                         <li class="page-item" ng-class="{'active':(p == c.page), 'disabled': (p == '...')}" ng-repeat="p in c.list2 track by $index" >
-                            <a class="page-link"  ng-click="c.pagina(p)">{{p}}</a>
+                            <a class="page-link"  ng-click="c.update(p)">{{p}}</a>
                         </li>
                         <li class="page-item" ng-show="c.page != c.totalPages" >
-                            <a class="page-link" ng-click="c.pagina(c.page--1)" >Next</a>
+                            <a class="page-link" ng-click="c.update(c.page--1)" >Next</a>
                         </li>
                         <li class="page-item">
                             <a class="page-link" ng-show="c.page != c.totalPages - 1 && c.page != c.totalPages" ng-click="c.pagina(c.totalPages)">Last</a>

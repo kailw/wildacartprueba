@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 moduleComponent.component('tipousuarioSelection', {
     templateUrl: 'js/app/tipousuario/selection.html',
     controllerAs: 'c',
@@ -18,7 +18,8 @@ function cController($http) {
     self.rpp = "5";
 
 
-    self.update = function () {
+    self.update = function (p) {
+        self.page = p;
         $http({
             method: 'GET',
             url: 'json?ob=' + self.ob + '&op=getcount'
@@ -47,7 +48,7 @@ function cController($http) {
         });
     };
 
-    self.update();
+    self.update(1);
 
 
 
@@ -57,13 +58,6 @@ function cController($http) {
 
     };
 
-
-    self.pagina = function (p) {
-        self.page = p;
-        self.update();
-    };
-
-
     self.ordena = function (order, align) {
         if (self.orderURLServidor === "") {
             self.orderURLServidor = "&order=" + order + "," + align;
@@ -72,7 +66,7 @@ function cController($http) {
             self.orderURLServidor += "-" + order + "," + align;
             self.orderURLCliente += "-" + order + "," + align;
         }
-        self.update();
+        self.update(1);
     };
 
     self.resetOrder = function () {
