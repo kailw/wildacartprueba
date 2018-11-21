@@ -41,16 +41,21 @@ moduleProducto.controller('productoEditController', ['$scope', '$http', '$locati
         };
         $scope.isActive = toolService.isActive;
 
-//        $scope.openModal = function (size) {
-//            $uibModal.open({
-//                animation: true,
-//                ariaLabelledBy: 'modal-title',
-//                ariaDescribedBy: 'modal-body',
-//                templateUrl: '/trolleyes-client/public_html/js/app/tipoproducto/selection.html',
-//                controller: 'tipoproductoSelectionController',
-//                size: size
-////                resolve: {
-////                    ajaxDatoUsuario.obj_tipoUsuario.id = id;             
-////                }               
-//            })};
+        $scope.tipoProductoRefresh = function (quiensoy, consulta) {
+            var form = quiensoy;
+            if (consulta) {
+                $http({
+                    method: 'GET',
+                    url: 'json?ob=tipoproducto&op=get&id=' + $scope.ajaxDatoProducto.obj_tipoProducto.id
+                }).then(function (response) {
+                    form.userForm.obj_tipoProducto.$setValidity('valid', true);
+                    $scope.ajaxDatoProducto.obj_tipoProducto = response.data.message;
+                }, function (response) {
+                    form.userForm.obj_tipoProducto.$setValidity('valid', false);
+                    $scope.ajaxDatoProducto.obj_tipoProducto.desc = "Error al acceder al tipo de producto";
+                });
+            } else {
+                form.userForm.obj_tipoProducto.$setValidity('valid', true);
+            }
+        }
     }]);

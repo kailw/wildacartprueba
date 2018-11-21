@@ -6,7 +6,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item" ng-class="{'active': (isActive('/home') || isActive('/'))}">
+            <li class="nav-item" ng-class="{'active': isActive('/home')}">
                 <a class="nav-link" href="home"><i class="fa fa-home"> Home</i> <span class="sr-only">(current)</span></a>
             </li>
 
@@ -14,7 +14,7 @@
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false" ng-class="{'active': (isActive('/usuario/plist') || isActive('/tipousuario/plist') || isActive('/usuario/view') || isActive('/usuario/edit') || isActive('/usuario/remove') || isActive('/tipousuario/view')
                                || isActive('/tipousuario/edit') || isActive('/tipousuario/remove') || isActive('/tipousuario/create') || isActive('/usuario/create'))}">
-                    <i class="fa fa-users"> Usuario</i>
+                    <i class="fa fa-users"> Usuarios</i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="usuario/plist">Usuario</a>

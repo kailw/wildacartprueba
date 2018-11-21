@@ -4,7 +4,7 @@
     <!--    <h3>Resultado de la llamada AJAX: {{ajaxData}}</h3>-->
     <div class="primeraParte"></div>
     <a href="javascript:window.history.back();"> <button class="btn btn-success">Volver</button> </a>    
-    <form name="userForm" style="margin-bottom: 50px;" ng-show="!mensaje">
+    <ng-form name="userForm" style="margin-bottom: 50px;" ng-show="!mensaje">
         <h3 style="text-align: center">Editar producto</h3>
 
         <div class="form-group row">
@@ -63,20 +63,53 @@
                 <input type="text" class="form-control" id="foto" name="foto" ng-model="ajaxDatoProducto.foto" />
             </div>
         </div>
+
+        <tipoproducto-selection class="modal fade" id="cadd-location-modal" obj="ajaxDatoProducto.obj_tipoProducto" 
+                               on-tipoproducto-set="tipoProductoRefresh(this,false)"></tipoproducto-selection>
+
         <div class="form-group row">
-            <label for="id_tipoProducto" class="col-2 col-form-label">Tipo Producto</label>
-            <div class="col-8">
-                <input type="text" class="form-control" id="id_tipoProducto" name="id_tipoProducto" ng-model="ajaxDatoProducto.obj_tipoProducto.id" ng-required="true" /> 
-                <div ng-show="!userForm.id_tipoProducto.$valid" class="alert alert-danger" role="alert">
-                    Tipo producto obligatorio
-                </div>                
+            <label for="obj_tipoProducto" class="col-2 col-form-label">Tipo Producto</label>
+            <div class="col-2">          
+                <div class="input-group">
+                    <input ng-model="ajaxDatoProducto.obj_tipoProducto.id"
+                           ng-change="tipoProductoRefresh(this, true)"
+                           aria-describedby="basic-addon2"
+                           id="obj_tipoProducto"
+                           name="obj_tipoProducto"
+                           type="text"
+                           size="5"
+                           ng-model-options="{debounce: 1000}"
+                           maxlength="5" ng-required="true"  class="form-control is-valid" ng-class="{ 'is-invalid' : userForm.obj_tipoProducto.$invalid && !userForm.obj_tipoProducto.$pristine }" />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text fas fa-search"
+                              data-toggle="modal"
+                              data-target="#cadd-location-modal">                                  
+                        </span>
+                    </div>
+                </div>
             </div>
-            <div class="form-control col-2" style="border: 0px;" >
-                <button class="btn btn-primary" ng-click="openModal('lg')" ><i class="fas fa-search"></i></button>                
+
+
+            <div class="form-group" style="width: auto;">
+                <a href="tipoproducto/view/{{ajaxDatoProducto.obj_tipoProducto.id}}" class="input-group-text">
+                    <span >Tipo de producto: {{ajaxDatoProducto.obj_tipoProducto.desc}}</span>
+                </a>
             </div>
-        </div>        
+        </div>      
+
+
+        <div class="row">
+            <label for="obj_tipoProducto" class="col-2 col-form-label"></label>
+            <div class="col-5">
+                <div ng-show="!userForm.obj_tipoProducto.$valid" class="alert alert-danger" style="width: auto;" role="alert">
+                    El tipo de producto es incorrecto.. {{userForm.obj_tipoProducto.$valid}}
+                </div>
+            </div>
+
+        </div>
+
         <button ng-click="guardar()" type="button" class="btn btn-primary" ng-disabled="userForm.$invalid">Guardar</button>
-    </form>    
+    </ng-form>    
     <div class="alert alert-success" ng-show="mensaje">
         Datos actualizados correctamente del {{ob}} {{ajaxDatoProducto.id}}
     </div>

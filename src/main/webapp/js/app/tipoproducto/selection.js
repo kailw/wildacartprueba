@@ -1,18 +1,17 @@
 'use strict';
-moduleComponent.component('tipousuarioSelection', {
-    templateUrl: 'js/app/tipousuario/selection.html',
+moduleComponent.component('tipoproductoSelection', {
+    templateUrl: 'js/app/tipoproducto/selection.html',
     controllerAs: 'c',
     controller: cController,
     bindings: {
         obj: '=',
-        onTipousuarioSet: '&'
+        onTipoproductoSet: '&'
     },
 });
 
 function cController($http) {
-    //console.log("ccontroler....");
     var self = this;
-    self.ob = "tipousuario";
+    self.ob = "tipoproducto";
     self.page = "1";
     self.totalPages = 1;
     self.orderURLServidor = "";
@@ -56,7 +55,7 @@ function cController($http) {
     self.save = function (id, desc) {
         self.obj.id = id;
         self.obj.desc = desc;
-        self.onTipousuarioSet();
+        self.onTipoproductoSet();
 
     };
 
@@ -75,7 +74,7 @@ function cController($http) {
         $http({
             method: "GET",
             withCredential: true,
-            url: "json?ob=tipousuario&op=getpage&rpp=10&page=1"
+            url: "json?ob=tipoproducto&op=getpage&rpp=10&page=1"
         }).then(function (response) {
             self.status = response.status;
             self.data = response.data.message;

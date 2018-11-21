@@ -88,14 +88,15 @@
                 </div> -->
 
         <!--        MODAL-->
-        <tipousuario-selection class="modal fade" id="cadd-location-modal" obj="ajaxDatoUsuario.obj_tipoUsuario"></tipousuario-selection>
+        <tipousuario-selection class="modal fade" id="cadd-location-modal" obj="ajaxDatoUsuario.obj_tipoUsuario" 
+                               on-tipousuario-set="tipoUsuarioRefresh(this,false)"></tipousuario-selection>
 
         <div class="form-group row">
             <label for="obj_tipousuario" class="col-2 col-form-label">Tipo Usuario</label>
             <div class="col-2">          
                 <div class="input-group">
                     <input ng-model="ajaxDatoUsuario.obj_tipoUsuario.id"
-                           ng-change="tipoUsuarioRefresh(this)"
+                           ng-change="tipoUsuarioRefresh(this, true)"
                            aria-describedby="basic-addon2"
                            id="obj_tipousuario"
                            name="obj_tipousuario"
@@ -113,9 +114,9 @@
             </div>
 
 
-            <div class="form-group " sytle="width: auto;" >
-                <a href="tipousuario/view/{{ajaxDatoUsuario.obj_tipoUsuario.id}}" class="input-group-text">
-                    <span >Tipo de usuario: {{ajaxDatoUsuario.obj_tipoUsuario.desc}}</span>
+            <div class="form-group " style="width: auto;" >
+                <a href="tipousuario/view/{{ajaxDatoUsuario.id}}" class="input-group-text">
+                    <span >Tipo de usuario: {{ajaxDatoUsuario.desc}}</span>
                 </a>
             </div>
         </div>
@@ -124,13 +125,12 @@
 
 
         <div class="row">
-            <label for="login" class="col-2 col-form-label"></label>
+            <label for="obj_tipousuario" class="col-2 col-form-label"></label>
             <div class="col-5">
-            <div ng-show="!userForm.obj_tipousuario.$valid" class="alert alert-danger" sytle="width: auto;" role="alert">
-                El tipo de usuario es incorrecto.. {{userForm.obj_tipousuario.$valid}}
+                <div ng-show="!userForm.obj_tipousuario.$valid" class="alert alert-danger" style="width: auto;" role="alert">
+                    El tipo de usuario es incorrecto.. {{userForm.obj_tipousuario.$valid}}
+                </div>
             </div>
-            </div>
-
         </div>
 
         <!--            <div class="form-group row">

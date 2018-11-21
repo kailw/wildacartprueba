@@ -77,20 +77,48 @@
                 </div>
             </div>
         </div>
-        <tipousuario-selection class="modal fade" id="cadd-location-modal" obj="id_tipoUsuario"></tipousuario-selection>
-        
+
+        <tipousuario-selection class="modal fade" id="cadd-location-modal" obj="id_tipoUsuario" 
+                               on-tipousuario-set="tipoUsuarioRefresh(this,false)"></tipousuario-selection>
+
         <div class="form-group row">
             <label for="id_tipoUsuario" class="col-2 col-form-label">Tipo Usuario</label>
-            <div class="col-8">
-                <input type="text" class="form-control" id="id_tipoUsuario" name="id_tipoUsuario" ng-model="id_tipoUsuario" ng-required="true" /> 
-                <div ng-show="userForm.id_tipoUsuario.$invalid && !userForm.id_tipoUsuario.$pristine" class="alert alert-danger" role="alert">
-                    Tipo usuario obligatorio
-                </div>                
+            <div class="col-2">          
+                <div class="input-group">
+                    <input ng-model="id_tipoUsuario"
+                           ng-change="tipoUsuarioRefresh(this, true)"
+                           aria-describedby="basic-addon2"
+                           id="id_tipoUsuario"
+                           name="id_tipoUsuario"
+                           type="text"
+                           size="5"
+                           ng-model-options="{debounce: 1000}"
+                           maxlength="5" ng-required="true"  class="form-control is-valid" ng-class="{ 'is-invalid' : userForm.id_tipoUsuario.$invalid && !userForm.id_tipoUsuario.$pristine }" />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text fas fa-search"
+                              data-toggle="modal"
+                              data-target="#cadd-location-modal">                                  
+                        </span>
+                    </div>
+                </div>
             </div>
-            <div class="form-control col-2" style="border: 0px;" >
-                <button class="btn btn-primary" ng-click="openModal('lg')" ><i class="fas fa-search"></i></button>                
+
+            <div class="form-group " style="width: auto;" >
+                <a href="tipousuario/view/{{ajaxDatoUsuario.id}}" class="input-group-text">
+                    <span >Tipo de usuario: {{ajaxDatoUsuario.desc}}</span>
+                </a>
             </div>
-        </div>        
+        </div>    
+
+        <div class="row">
+            <label for="id_tipoUsuario" class="col-2 col-form-label"></label>
+            <div class="col-5">
+                <div ng-show="!userForm.id_tipoUsuario.$valid && !userForm.id_tipoUsuario.$pristine" class="alert alert-danger" style="width: auto;" role="alert">
+                    El tipo de usuario es incorrecto.. {{userForm.id_tipoUsuario.$valid}}
+                </div>
+            </div>
+        </div>
+
         <button ng-click="guardar()" type="button" class="btn btn-primary" ng-disabled="userForm.$invalid">Crear</button>
     </form>    
     <div class="alert alert-success" ng-show="mensaje">
