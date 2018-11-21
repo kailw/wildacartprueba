@@ -1,37 +1,29 @@
 <header ng-include="'js/app/header.html'"></header>
-<main role="main" class="container" style="margin-bottom: 100px;">
+<main role="main" class="container">
 
     <!--    <h3>Resultado de la llamada AJAX: {{ajaxData}}</h3>-->
     <div class="primeraParte"></div>
     <a href="javascript:window.history.back();"> <button class="btn btn-success">Volver</button> </a>    
     <form name="userForm" style="margin-bottom: 50px;" ng-show="!mensaje">
-        <h3 style="text-align: center">Editar producto</h3>
-
-        <div class="form-group row">
-            <label for="id" class="col-2 col-form-label">ID</label>
-            <div class="col-10">
-                <input type="text" class="form-control" id="id" name="id" ng-disabled="true" ng-model="ajaxDatoProducto.id" />
-            </div>                
-        </div>   
-
+        <h3 style="text-align: center">Crear Producto</h3>
         <div class="form-group row">
             <label for="codigo" class="col-2 col-form-label">Codigo</label>
             <div class="col-10">
-                <input type="text" class="form-control" id="codigo" name="codigo" ng-model="ajaxDatoProducto.codigo" ng-required="true"/>                       
-                <div ng-show="userForm.codigo.$invalid && !userForm.codigo.$pristine" class="alert alert-danger" >codigo requerido.</div>
-
-                <div ng-show="userForm.codigo.$error.pattern" class="alert alert-danger" role="alert">
-                    Formato codigo no valido
-                </div>
+                <input type="text" class="form-control" id="codigo" name="codigo" ng-model="codigo" ng-required="true"
+                       />
+                <div ng-show="userForm.codigo.$invalid && !userForm.codigo.$pristine" class="alert alert-danger" >Codigo requerido.</div>                
             </div>
         </div>
 
         <div class="form-group row">
             <label for="descripcion" class="col-2 col-form-label">Descripción</label>
             <div class="col-10">
-                <input type="text" class="form-control " id="descripcion" name="descripcion" ng-model="ajaxDatoProducto.desc" ng-required="true" />
-                <div ng-show="!userForm.descripcion.$valid" class="alert alert-danger" role="alert">
-                    Descripcion obligatorio
+                <input type="text" class="form-control " id="descripcion" name="descripcion" ng-model="descripcion" ng-required="true" ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/" />
+                <div ng-show="userForm.descripcion.$invalid && !userForm.descripcion.$pristine && !userForm.descripcion.$error.pattern" class="alert alert-danger" role="alert">
+                    Descripción obligatoria
+                </div>
+                <div ng-show="userForm.descripcion.$error.pattern" class="alert alert-danger" role="alert">
+                    Descripción no válida
                 </div>
             </div>
         </div>
@@ -39,7 +31,7 @@
         <div class="form-group row">
             <label for="existencias" class="col-2 col-form-label">Existencias</label>
             <div class="col-10">
-                <input type="text" class="form-control" id="existencias" name="existencias" ng-model="ajaxDatoProducto.existencias" ng-required="true"  ng-pattern="/^[0-9][0-9]*$/"/>
+                <input type="text" class="form-control" id="existencias" name="existencias" ng-model="existencias" ng-required="true" ng-pattern="/^[0-9][0-9]*$/" />
                 <div ng-show="userForm.existencias.$invalid && !userForm.existencias.$pristine && !userForm.existencias.$error.pattern" class="alert alert-danger" role="alert">
                     Existencias obligatorio
                 </div>
@@ -51,12 +43,13 @@
         <div class="form-group row">
             <label for="precio" class="col-2 col-form-label">Precio</label>
             <div class="col-10">
-                <input type="text" class="form-control" id="precio" name="precio" ng-model="ajaxDatoProducto.precio" ng-required="true"/>
-                <div ng-show="!userForm.precio.$valid" class="alert alert-danger" role="alert">
+                <input type="text" class="form-control" id="precio" name="precio" ng-model="precio" ng-required="true"/>
+                <div ng-show="userForm.precio.$invalid && !userForm.precio.$pristine" class="alert alert-danger" role="alert">
                     Precio obligatorio
                 </div>
             </div>
         </div>
+
         <div class="form-group row">
             <label for="foto" class="col-2 col-form-label">Foto</label>
             <div class="col-10">
@@ -66,7 +59,7 @@
         <div class="form-group row">
             <label for="id_tipoProducto" class="col-2 col-form-label">Tipo Producto</label>
             <div class="col-8">
-                <input type="text" class="form-control" id="id_tipoProducto" name="id_tipoProducto" ng-model="ajaxDatoProducto.obj_tipoProducto.id" ng-required="true" /> 
+                <input type="text" class="form-control" id="id_tipoProducto" name="id_tipoProducto" ng-model="id_tipoProducto" ng-required="true" /> 
                 <div ng-show="!userForm.id_tipoProducto.$valid" class="alert alert-danger" role="alert">
                     Tipo producto obligatorio
                 </div>                
@@ -74,11 +67,13 @@
             <div class="form-control col-2" style="border: 0px;" >
                 <button class="btn btn-primary" ng-click="openModal('lg')" ><i class="fas fa-search"></i></button>                
             </div>
-        </div>        
-        <button ng-click="guardar()" type="button" class="btn btn-primary" ng-disabled="userForm.$invalid">Guardar</button>
+        </div> 
+        <tipousuario-selection class="modal fade" id="cadd-location-modal" obj="id_tipoProducto"></tipousuario-selection>
+
+        <button ng-click="guardar()" type="button" class="btn btn-primary" ng-disabled="userForm.$invalid">Crear</button>
     </form>    
     <div class="alert alert-success" ng-show="mensaje">
-        Datos actualizados correctamente del {{ob}} {{ajaxDatoProducto.id}}
+        Se ha creado el {{ob}} llamado "{{descripcion}}"
     </div>
 </main>
-<footer class="footer" ng-include="'js/app/footer.html'"></footer>
+<!--<footer class="footer" ng-include="'js/app/footer.html'"></footer>-->

@@ -1,9 +1,9 @@
 'use strict';
 
-moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
+moduleProducto.controller('productoCreateController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
     function ($scope, $http, $location, toolService, $routeParams,sessionService) {
         $scope.id = $routeParams.id;
-        $scope.ob = "usuario";
+        $scope.ob = "producto";
         
         
                 
@@ -15,13 +15,12 @@ moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', '$locati
         $scope.guardar = function () {
             var json = {
                 id: null,
-                dni: $scope.dni,
-                nombre : $scope.nombre,
-                ape1: $scope.ape1,
-                ape2: $scope.ape2,
-                login: $scope.login,
-                pass : forge_sha256($scope.pass),
-                id_tipoUsuario: $scope.id_tipoUsuario                
+                codigo: $scope.codigo,
+                desc: $scope.descripcion,
+                existencias : $scope.existencias,
+                precio: $scope.precio,
+                foto: $scope.foto,
+                id_tipoProducto: $scope.id_tipoProducto              
             };
             $http({
                 method: 'GET',
@@ -31,8 +30,7 @@ moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', '$locati
             }).then(function (response) {
                 $scope.status = response.status;
                 $scope.mensaje = true;
-            }, function (response) {
-                $scope.ajaxDatoUsuario= response.data.message || 'Request failed';
+            }, function (response) {                
                 $scope.status = response.status;
             });
         };

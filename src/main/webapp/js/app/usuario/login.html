@@ -1,19 +1,16 @@
 <header ng-include="'js/app/header.html'"></header>
 
 <div class="container">
-    <form name="userForm"  style="margin-top: 80px; margin-left: 60px;"  class="formulario" ng-show="formulario">
-        <div class="form-group row">            
-            <div class="col-md-5 offset-md-3">
+    <form name="userForm"  style="margin-top: 80px;" ng-show="formulario">
+        <div class="form-group row justify-content-md-center">            
+            <div class="col-sm-8 col-md-5">
                 <label for="login">Login</label>
                 <input type="text" class="form-control" id="login" placeholder="Introduce tu nombre de usuario" ng-model="login" ng-required="true">
                 <small id="emailHelp" class="form-text text-muted">Escribe correctamente tu nombre de usuario.</small>
             </div>
-            <div ng-show="!userForm.login.$valid && userForm.login.$pristine" class="alert alert-danger" role="alert">
-                Login obligatorio
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-md-5 offset-md-3">
+        </div>    
+        <div class="form-group row justify-content-md-center">            
+            <div class="col-sm-8 col-md-5">
                 <label for="pass">Password</label>
                 <input type="password" class="form-control" id="pass" placeholder="Introduce tu contraseña" ng-model="pass" ng-required="true">
                 <div ng-show="!userForm.pass.$valid && userForm.pass.$pristine" class="alert alert-danger" role="alert">
@@ -23,19 +20,23 @@
             </div>
         </div>        
     </form>
-    <div class="col-md-5 offset-md-3">
-    <div ng-show="errorLogin" style="margin-top: 80px">
-        <div class="alert alert-danger" role="alert">
-            Te has equivocado.
-        </div>
-    </div>
-    <div ng-show="yesLogin" style="margin-top: 80px">
-        <div class="alert alert-success" role="alert">
-            <i class="fa fa-grin-beam"> Estas dentro.</i> 
-        </div>
-    </div>
-    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-sm-8 col-md-5">            
+            <div class="alert alert-danger" role="alert" ng-show="errorLogin">
+                Te has equivocado.
+            </div>
 
+        </div>
+    </div>
+    <div class="form-group row justify-content-md-center">
+        <div class="col-sm-8 col-md-5">
+            <div ng-show="yesLogin" style="margin-top: 80px">
+                <div class="alert alert-success" role="alert">
+                    <i class="fa fa-grin-beam"> Estas dentro.</i> 
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 <footer class="footer" ng-include="'js/app/footer.html'"></footer>

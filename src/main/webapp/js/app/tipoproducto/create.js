@@ -1,9 +1,9 @@
 'use strict';
 
-moduleTipousuario.controller('tipousuarioCreateController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
-    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
+moduleTipoproducto.controller('tipoproductoCreateController', ['$scope', '$http', 'toolService', '$routeParams', 'sessionService',
+    function ($scope, $http, toolService, $routeParams, sessionService) {
         $scope.id = $routeParams.id;
-        $scope.ob = "tipousuario";
+        $scope.ob = "tipoproducto";
 
         if (sessionService) {
             $scope.usuariologeado = sessionService.getUserName();
@@ -23,7 +23,7 @@ moduleTipousuario.controller('tipousuarioCreateController', ['$scope', '$http', 
             }).then(function (response) {
                 $scope.status = response.status;
                 $scope.mensaje = true;
-            }, function (response) {               
+            }, function (response) {                
                 $scope.status = response.status;
             });
         };
