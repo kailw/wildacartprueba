@@ -7,6 +7,12 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
         $scope.select = ["5", "10", "25", "50", "500"];
         $scope.ob = "producto";
 
+        if (sessionService) {
+            $scope.usuariologeado = sessionService.getUserName();
+            $scope.loginH = true;
+            $scope.usuariologeadoID = sessionService.getId();
+        }
+
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
             $scope.orderURLCliente = "";
@@ -29,10 +35,6 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
             } else {
                 $scope.page = 1;
             }
-        }
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
         }
 
 

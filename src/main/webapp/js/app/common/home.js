@@ -7,6 +7,7 @@ moduleCommon.controller('homeController', ['$scope', '$location', 'toolService',
         if (sessionService.getUserName() !== "") {
             $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
+            $scope.usuariologeadoID = sessionService.getId();
         }
         ;
 //        if (sessionService) {

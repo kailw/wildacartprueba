@@ -1,12 +1,19 @@
 'use strict'
 
-moduleProducto.controller('productoRemoveController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
-    function ($scope, $http, $location, toolService, $routeParams) {
+moduleProducto.controller('productoRemoveController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
+    function ($scope, $http, $location, toolService, $routeParams,sessionService) {
         $scope.ob = "producto";
         $scope.id = $routeParams.id;
+
+        if (sessionService) {
+            $scope.usuariologeado = sessionService.getUserName();
+            $scope.loginH = true;
+            $scope.usuariologeadoID = sessionService.getId();
+        }
+
         $http({
             method: 'GET',
-            url: '/json?ob='+$scope.ob+'&op=get&id=' + $scope.id
+            url: '/json?ob=' + $scope.ob + '&op=get&id=' + $scope.id
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDatoProducto = response.data.message;
@@ -21,7 +28,7 @@ moduleProducto.controller('productoRemoveController', ['$scope', '$http', '$loca
             if (accion === "eliminar") {
                 $http({
                     method: 'GET',
-                    url: '/json?ob='+$scope.ob+'&op=remove&id=' + $scope.id
+                    url: '/json?ob=' + $scope.ob + '&op=remove&id=' + $scope.id
                 }).then(function (response) {
                     $scope.mensaje = true;
                     $scope.mensaje2 = false;

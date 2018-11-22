@@ -8,6 +8,7 @@ moduleTipoproducto.controller('tipoproductoCreateController', ['$scope', '$http'
         if (sessionService) {
             $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
+            $scope.usuariologeadoID = sessionService.getId();
         }
 
         $scope.guardar = function () {

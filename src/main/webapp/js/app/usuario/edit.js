@@ -34,7 +34,7 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
                 ape1: $scope.ajaxDatoUsuario.ape1,
                 ape2: $scope.ajaxDatoUsuario.ape2,
                 login: $scope.ajaxDatoUsuario.login,
-//                pass: forge_sha256($scope.jaxDatoUsuario.pass),
+                //pass: forge_sha256($scope.jaxDatoUsuario.pass),
                 id_tipoUsuario: $scope.ajaxDatoUsuario.obj_tipoUsuario.id
             }
             $http({
@@ -76,18 +76,4 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
             }
         }
 
-
-//        $scope.openModal = function (size) {
-//            $uibModal.open({
-//                animation: true,
-//                ariaLabelledBy: 'modal-title',
-//                ariaDescribedBy: 'modal-body',
-//                templateUrl: '/trolleyes-client/public_html/js/app/tipousuario/selection.html',
-//                controller: 'tipousuarioSelectionController',
-//                size: size
-////                resolve: {
-////                    ajaxDatoUsuario.obj_tipoUsuario.id = id;             
-////                }               
-//            })
-//        };
     }]);

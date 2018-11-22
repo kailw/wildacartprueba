@@ -3,13 +3,12 @@
 moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
         $scope.id = $routeParams.id;
-        $scope.ob = "usuario";
-
-
+        $scope.ob = "usuario";      
 
         if (sessionService) {
             $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
+            $scope.usuariologeadoID = sessionService.getId();
         }
 
         $scope.guardar = function () {

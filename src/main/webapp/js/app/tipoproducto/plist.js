@@ -33,6 +33,7 @@ moduleTipoproducto.controller('tipoproductoPlistController', ['$scope', '$http',
         if (sessionService) {
             $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
+            $scope.usuariologeadoID = sessionService.getId();
         }
 
 

@@ -8,6 +8,7 @@ moduleFactura.controller('facturaViewController', ['$scope', '$http', '$location
         if (sessionService) {
             $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
+            $scope.usuariologeadoID = sessionService.getId();
         }
 
         $http({

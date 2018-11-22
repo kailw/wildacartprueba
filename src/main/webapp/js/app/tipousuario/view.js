@@ -6,6 +6,7 @@ moduleTipousuario.controller('tipousuarioViewController', ['$scope', '$http', '$
         if (sessionService) {
             $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
+            $scope.usuariologeadoID = sessionService.getId();
         }
 
         $scope.ob = "tipousuario";
