@@ -43,7 +43,7 @@ moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', '$locati
             if (consulta) {
                 $http({
                     method: 'GET',
-                    url: 'json?ob=tipousuario&op=get&id=' + $scope.id_tipoUsuario
+                    url: 'json?ob=tipousuario&op=get&id=' + $scope.ajaxDatoUsuario.id
                 }).then(function (response) {
                     form.userForm.id_tipoUsuario.$setValidity('valid', true);
                     $scope.ajaxDatoUsuario = response.data.message;

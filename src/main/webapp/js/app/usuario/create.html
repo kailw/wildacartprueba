@@ -78,14 +78,14 @@
             </div>
         </div>
 
-        <tipousuario-selection class="modal fade" id="cadd-location-modal" obj="id_tipoUsuario" 
+        <tipousuario-selection class="modal fade" id="cadd-location-modal" obj="ajaxDatoUsuario" 
                                on-tipousuario-set="tipoUsuarioRefresh(this,false)"></tipousuario-selection>
 
         <div class="form-group row">
             <label for="id_tipoUsuario" class="col-2 col-form-label">Tipo Usuario</label>
             <div class="col-2">          
                 <div class="input-group">
-                    <input ng-model="id_tipoUsuario"
+                    <input ng-model="ajaxDatoUsuario.id"
                            ng-change="tipoUsuarioRefresh(this, true)"
                            aria-describedby="basic-addon2"
                            id="id_tipoUsuario"

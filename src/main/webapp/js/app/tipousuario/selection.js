@@ -57,8 +57,8 @@ function cController($http) {
         self.obj.id = id;
         self.obj.desc = desc;
         self.onTipousuarioSet();
-
     };
+    
 
     self.ordena = function (order, align) {
         if (self.orderURLServidor === "") {

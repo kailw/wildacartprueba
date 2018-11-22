@@ -50,7 +50,7 @@
                             Selección
                         </th>
                     </tr>
-                    <tr ng-repeat="fila in c.data">
+                    <tr ng-repeat="fila in c.data track by $index">
                         <td>{{fila.id}}</td>
                         <td>{{fila.desc}}</td>
                         <td>
