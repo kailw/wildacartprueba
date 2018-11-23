@@ -4,7 +4,7 @@
     <div class="primeraParte"></div>
     <a href="javascript:window.history.back();"> <button class="btn btn-success">Volver</button> </a>    
     <ng-form name="userForm" style="margin-bottom: 50px;" ng-show="!mensaje">
-        <h3 style="text-align: center">Editar producto</h3>
+        <h3 style="text-align: center"> <i class="fa fa-box-open"></i> Editar producto</h3>
 
         <div class="form-group row justify-content-center">
             <div class="col-2">
@@ -67,7 +67,7 @@
             </div>
             <div class="col-5">
                 <input type="text" class="form-control" id="precio" name="precio" ng-model="ajaxDatoProducto.precio" ng-required="true"
-                    ng-required="true"  ng-pattern="/^[0-9][0-9]*$/" ng-class="{ 'is-invalid' : userForm.precio.$invalid && !userForm.precio.$pristine, 'is-valid': userForm.precio.$valid && !userForm.precio.$pristine}"/>
+                    ng-pattern="/^[0-9][0-9]*$/" ng-class="{ 'is-invalid' : userForm.precio.$invalid && !userForm.precio.$pristine, 'is-valid': userForm.precio.$valid && !userForm.precio.$pristine}"/>
                 <div ng-show="!userForm.precio.$valid" class="alert alert-danger" role="alert">
                     Precio obligatorio
                 </div>

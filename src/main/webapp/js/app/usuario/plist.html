@@ -123,6 +123,9 @@
                     </button>
                 </th>
                 <th>
+                    Facturas
+                </th>
+                <th>
                     Acciones                
                 </th>
             </tr>
@@ -132,10 +135,18 @@
                 <td>{{fila.nombre}}</td>
                 <td>{{fila.ape1}}</td>
                 <td>{{fila.ape2}}</td>
-                <td>{{fila.login}}</td>                
+                <td>{{fila.login}}</td> 
                 <td>
                     <a href="tipousuario/view/{{fila.obj_tipoUsuario.id}}">{{fila.obj_tipoUsuario.desc}}</a>
                 </td>
+                <td>
+                    <a href="usuario/plistfactura/{{fila.id}}">
+                        <button type="button" class="btn table-warning">
+                            <i>{{fila.link_factura}}</i>
+                        </button>
+                    </a>
+                </td>
+
                 <td> 
                     <a  href="{{ob}}/view/{{fila.id}}"> 
                         <button style="font-size:15px" class="btn btn-info"><i class="fa fa-eye"></i></button>

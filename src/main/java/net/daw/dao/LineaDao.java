@@ -131,7 +131,7 @@ public class LineaDao {
 
     public int update(LineaBean oLineaBean) throws Exception {
         int iResult = 0;
-        String strSQL = "UPDATE " + ob + " SET `cantidad`= ?, `id_producto`= ?, `id_factura`= ? WHERE `"+ob+"`.`id` = ?;";
+        String strSQL = "UPDATE " + ob + " SET `cantidad`= ?, `id_producto`= ?, `id_factura`= ? WHERE `" + ob + "`.`id` = ?;";
 
         PreparedStatement oPreparedStatement = null;
         try {
@@ -185,6 +185,32 @@ public class LineaDao {
         }
         return alLineaBean;
 
+    }
+
+    public int getcountxlinea(int idFactura) throws Exception {
+        String strSQL = "SELECT COUNT(id) FROM " + ob;
+        strSQL += " WHERE id_factura=? ";
+        int res = 0;
+        ResultSet oResultSet = null;
+        PreparedStatement oPreparedStatement = null;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement.setInt(1, idFactura);
+            oResultSet = oPreparedStatement.executeQuery();
+            if (oResultSet.next()) {
+                res = oResultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao get de " + ob, e);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return res;
     }
 
 }

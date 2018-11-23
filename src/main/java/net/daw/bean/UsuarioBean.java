@@ -8,6 +8,7 @@ package net.daw.bean;
 import com.google.gson.annotations.Expose;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import net.daw.dao.FacturaDao;
 import net.daw.dao.TipousuarioDao;
 import net.daw.helper.EncodingHelper;
 
@@ -43,6 +44,17 @@ public class UsuarioBean {
 
     @Expose(deserialize = false)
     private TipousuarioBean obj_tipoUsuario;
+
+    @Expose(deserialize = false)
+    private int link_factura;
+
+    public int getLink_factura() {
+        return link_factura;
+    }
+
+    public void setLink_factura(int link_factura) {
+        this.link_factura = link_factura;
+    }
 
     public TipousuarioBean getObj_tipoUsuario() {
         return obj_tipoUsuario;
@@ -125,6 +137,8 @@ public class UsuarioBean {
         this.setApe2(oResultSet.getString("ape2"));
         this.setLogin(oResultSet.getString("login"));
         this.setPass(oResultSet.getString("pass"));
+        FacturaDao oFacturaDao = new FacturaDao(oConnection, "factura");
+        this.setLink_factura(oFacturaDao.getcountFacturaUser(this.id));
 
         if (expand > 0) {
             TipousuarioDao otipousuarioDao = new TipousuarioDao(oConnection, "tipousuario");
@@ -159,7 +173,7 @@ public class UsuarioBean {
         strColumns += EncodingHelper.quotate(pass) + ",";
         strColumns += id_tipoUsuario;
         return strColumns;
-    }    
+    }
 
     public String getPairs(String ob) {
         String strPairs = "";
@@ -170,7 +184,7 @@ public class UsuarioBean {
         strPairs += "login =" + EncodingHelper.quotate(login) + ",";
         strPairs += "pass =" + EncodingHelper.quotate(pass) + ",";
         strPairs += "id_tipoUsuario =" + id_tipoUsuario;
-        strPairs += " WHERE id=" + id ;
+        strPairs += " WHERE id=" + id;
         return strPairs;
 
     }

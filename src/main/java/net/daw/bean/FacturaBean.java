@@ -34,13 +34,13 @@ public class FacturaBean {
     @Expose(deserialize = false)
     private int link_linea;
 
-//    public int getLink_linea() {
-//        return link_linea;
-//    }
-//
-//    public void setLink_linea(int link_linea) {
-//        this.link_linea = link_linea;
-//    }
+    public int getLink_linea() {
+        return link_linea;
+    }
+
+    public void setLink_linea(int link_linea) {
+        this.link_linea = link_linea;
+    }
 
     public UsuarioBean getObj_Usuario() {
         return obj_Usuario;
@@ -86,8 +86,9 @@ public class FacturaBean {
 
         this.setId(oResultSet.getInt("id"));
         this.setFecha(oResultSet.getDate("fecha"));
-//        LineaDao oLineaDao = new LineaDao(oConnection, "linea");
         this.setIva(oResultSet.getFloat("iva"));
+        LineaDao oLineaDao = new LineaDao(oConnection, "linea");
+        this.setLink_linea(oLineaDao.getcountxlinea(this.id));
 
         if (expand > 0) {
             UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, "usuario");
@@ -96,6 +97,17 @@ public class FacturaBean {
             this.setId_usuario(oResultSet.getInt("id_usuario"));
         }
         return this;
+    }
+
+    public String getPairs(String ob) {
+        String strPairs = "";
+        strPairs += "id=" + id + ",";
+        strPairs += "fecha=" + fecha + ",";
+        strPairs += "iva=" + iva + ",";
+        strPairs += "id_usuario=" + id_usuario + ",";
+        strPairs += " WHERE id=" + id;
+        return strPairs;
+
     }
 
 }

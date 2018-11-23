@@ -25,8 +25,8 @@ moduleLinea.controller('lineaEditController', ['$scope', '$http', '$location', '
             var json = {
                 id: $scope.ajaxDatoLinea.id,
                 cantidad: $scope.ajaxDatoLinea.cantidad,
-                id_producto: $scope.ajaxDatoLinea.id_producto,
-                id_factura: $scope.ajaxDatoLinea.id_factura
+                id_producto: $scope.ajaxDatoLinea.obj_Producto.id,
+                id_factura: $scope.ajaxDatoLinea.obj_Factura.id
             };
             $http({
                 method: 'GET',
@@ -42,21 +42,6 @@ moduleLinea.controller('lineaEditController', ['$scope', '$http', '$location', '
             });
         };
 
-
-//        $scope.oModal = function () {
-//        // Debes proveer un controlador y una plantilla.
-//        ModalService.showModal({
-//            template: 'js/app/tipousuario/selection.html',
-//            controller: 'tipousuarioSelectionController'
-//        }).then(function (modal) {
-//            modal.close.then(function (result) {
-//                // Una vez que el modal sea cerrado, la libreria invoca esta función
-//                // y en result tienes el resultado.
-//                $scope.resultadoModal = result;
-//            });
-//        });
-//
-//        };
         $scope.isActive = toolService.isActive;
 
     }]);
