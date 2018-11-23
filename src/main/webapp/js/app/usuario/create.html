@@ -10,8 +10,8 @@
                 <label for="dni" class=" col-form-label">DNI</label>
             </div>
             <div class="col-5">
-                <input type="text" class="form-control" id="dni" name="dni" ng-model="dni" ng-required="true" ng-pattern="/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/"
-                       />
+                <input type="text" class="form-control" ng-model="dni" ng-required="true"
+                name="dni" ng-class="{ 'is-invalid' : userForm.dni.$invalid && !userForm.dni.$pristine, 'is-valid' :userForm.dni.$valid && !userForm.dni.$pristine}" ng-pattern="/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/"/>   
                 <div ng-show="userForm.dni.$invalid && !userForm.dni.$pristine && !userForm.dni.$error.pattern" class="alert alert-danger" >DNI requerido.</div>
 
                 <div ng-show="userForm.dni.$error.pattern" class="alert alert-danger" role="alert">
@@ -25,7 +25,8 @@
                 <label for="nombre" class=" col-form-label">Nombre</label>
             </div>
             <div class="col-5">
-                <input type="text" class="form-control " id="nombre" name="nombre" ng-model="nombre" ng-required="true" ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/" />
+                <input type="text" class="form-control " id="nombre" name="nombre" ng-model="nombre" ng-required="true" 
+                      ng-class="{ 'is-invalid' : userForm.nombre.$invalid && !userForm.nombre.$pristine, 'is-valid' :userForm.nombre.$valid && !userForm.nombre.$pristine}" ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/"/>
                 <div ng-show="userForm.nombre.$invalid && !userForm.nombre.$pristine && !userForm.nombre.$error.pattern" class="alert alert-danger" role="alert">
                     Nombre obligatorio
                 </div>
@@ -40,7 +41,8 @@
                 <label for="ape1" class=" col-form-label">Primer apellido</label>
             </div>
             <div class="col-5">
-                <input type="text" class="form-control" id="ape1" name="ape1" ng-model="ape1" ng-required="true" ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/" />
+                <input type="text" class="form-control" id="ape1" name="ape1" ng-model="ape1" ng-required="true" 
+                  ng-class="{ 'is-invalid' : userForm.ape1.$invalid && !userForm.ape1.$pristine, 'is-valid' :userForm.ape1.$valid && !userForm.ape1.$pristine}"    ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/" />
                 <div ng-show="userForm.ape1.$invalid && !userForm.ape1.$pristine && !userForm.ape1.$error.pattern" class="alert alert-danger" role="alert">
                     Primer apellido obligatorio
                 </div>
@@ -54,7 +56,8 @@
                 <label for="ape2" class=" col-form-label">Segundo apellido</label>
             </div>
             <div class="col-5">
-                <input type="text" class="form-control" id="ape2" name="ape2" ng-model="ape2" ng-required="true" ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/" />
+                <input type="text" class="form-control" id="ape2" name="ape2" ng-model="ape2" ng-required="true"
+                ng-class="{ 'is-invalid' : userForm.ape2.$invalid && !userForm.ape2.$pristine, 'is-valid' :userForm.ape2.$valid && !userForm.ape2.$pristine}" ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/" />
                 <div ng-show="userForm.ape2.$invalid && !userForm.ape2.$pristine && !userForm.ape2.$error.pattern" class="alert alert-danger" role="alert">
                     Segundo apellido obligatorio
                 </div>
@@ -68,7 +71,8 @@
                 <label for="login" class=" col-form-label">Login</label>
             </div>
             <div class="col-5">
-                <input type="text" class="form-control" id="login" name="login" ng-model="login" ng-required="true" />
+                <input type="text" class="form-control" id="login" name="login" ng-model="login" ng-required="true"
+                 ng-class="{ 'is-invalid' : userForm.login.$invalid && !userForm.login.$pristine, 'is-valid' :userForm.login.$valid && !userForm.login.$pristine}"/>
                 <div ng-show="!userForm.login.$valid && !userForm.login.$pristine" class="alert alert-danger" role="alert">
                     Login obligatorio
                 </div>
@@ -79,7 +83,8 @@
                 <label for="pass" class=" col-form-label">Contraseña</label>
             </div>
             <div class="col-5">
-                <input type="password" class="form-control" ng-class="{' is-invalid': userForm.pass.$invalid && !userForm.pass.$pristine}" id="pass" name="pass" ng-model="pass" ng-minlength="6" ng-required="true" />
+                <input type="password" class="form-control" 
+                 ng-class="{ 'is-invalid' : userForm.pass.$invalid && !userForm.pass.$pristine, 'is-valid': userForm.pass.$valid && !userForm.pass.$pristine}" id="pass" name="pass" ng-model="pass" ng-minlength="6" ng-required="true" />
                 <div ng-show="userForm.pass.$error.minlength" class="alert alert-danger" role="alert">
                     La longitud de la constraseña es demasiado corta
                 </div>
@@ -112,7 +117,8 @@
                            type="text"
                            size="5"
                            ng-model-options="{debounce: 1000}"
-                           maxlength="5" ng-required="true"  class="form-control" ng-class="{ 'is-invalid' : userForm.id_tipoUsuario.$invalid && !userForm.id_tipoUsuario.$pristine, 'is-valid': userForm.id_tipoUsuario.$valid && !userForm.id_tipoUsuario.$pristine}" />
+                           maxlength="5" ng-required="true"  class="form-control" 
+                           ng-class="{ 'is-invalid' : userForm.id_tipoUsuario.$invalid && !userForm.id_tipoUsuario.$pristine, 'is-valid': userForm.id_tipoUsuario.$valid && !userForm.id_tipoUsuario.$pristine}" />
                 </div>
             </div>
         </div>    

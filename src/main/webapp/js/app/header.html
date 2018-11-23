@@ -37,22 +37,25 @@
             </li>
 
 
-<!--            <li class="nav-item dropdown">
+            <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false" 
+                   aria-haspopup="true" aria-expanded="false"
+                   ng-class="{'active': (isActive('/factura/plist') || isActive('/linea/plist')
+                               || isActive('/factura/view') || isActive('/factura/edit') || isActive('/factura/remove') || isActive('/linea/view')
+                               || isActive('/linea/remove') || isActive('/linea/edit') || isActive('/factura/create'))}">
                     Facturas
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="factura/plist">Factura</a>
                     <a class="dropdown-item" href="linea/plist">Linea</a>                                        
                 </div>
-            </li>-->
-            <li class="nav-item" ng-class="{'active': isActive('/factura/plist')}">
+            </li>
+<!--            <li class="nav-item" ng-class="{'active': isActive('/factura/plist')}">
                 <a class="nav-link" href="factura/plist" ng-class="{'active': (isActive('/factura/plist') || isActive('/linea/plist')
                                || isActive('/factura/view') || isActive('/factura/edit') || isActive('/factura/remove') || isActive('/linea/view')
                                || isActive('/linea/remove') || isActive('/linea/edit') || isActive('/factura/create'))}">
                        <i class="fa fa-file-invoice"></i> Facturas</a>
-            </li>
+            </li>-->
 
         </ul>
         <div ng-show="!loginH">

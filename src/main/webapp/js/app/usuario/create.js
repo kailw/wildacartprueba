@@ -10,6 +10,11 @@ moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', '$locati
             $scope.loginH = true;
             $scope.usuariologeadoID = sessionService.getId();
         }
+        
+        $scope.ajaxDatoUsuario = {
+            id : null,
+            desc : null
+        };
 
         $scope.guardar = function () {
             var json = {

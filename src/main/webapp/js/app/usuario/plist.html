@@ -1,5 +1,5 @@
 <header ng-include="'js/app/header.html'"></header>
-<div>
+<div class="container-fluid">
     <div class="row">
         <main role="main" class="col-md-9 col-lg-12" style="margin-top: 50px">
             <div class="d-flex justify-content-between flex-wrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -55,26 +55,34 @@
             <tr class="thead-dark">            
                 <th>
                     <div class="row">
-                        <div class="col-md-12 col-sm-12">
+                        <div class="col-md-12">
                             ID
+                        </div>
+                        <div class="col-md-12">
                             <button type="button" class="btn btn-light btn-sm" ng-click="ordena('id', 'asc')">
                                 <i class="fas fa-long-arrow-alt-up"></i>
                             </button>
                             <button type="button" class="btn btn-light btn-sm" ng-click="ordena('id', 'desc')">
                                 <i class="fas fa-long-arrow-alt-down"></i>
-                            </button>
+                            </button>     
                         </div>
                     </div>
                 </th>               
 
                 <th>
-                    DNI
-                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('dni', 'asc')">
-                        <i class="fas fa-long-arrow-alt-up"></i>
-                    </button>
-                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('dni', 'desc')">
-                        <i class="fas fa-long-arrow-alt-down"></i>
-                    </button>
+                    <div class="row">
+                        <div class="col-md-2">
+                            DNI
+                        </div>
+                        <div class="col-md-10">
+                            <button type="button" class="btn btn-light btn-sm" ng-click="ordena('dni', 'asc')">
+                                <i class="fas fa-long-arrow-alt-up"></i>
+                            </button>
+                            <button type="button" class="btn btn-light btn-sm" ng-click="ordena('dni', 'desc')">
+                                <i class="fas fa-long-arrow-alt-down"></i>
+                            </button>
+                        </div>
+                    </div>
                 </th>
                 <th>
                     Nombre
@@ -162,4 +170,4 @@
         </table>
     </div>
 </div>
-<footer class="footer" ng-include="'js/app/footer.html'"></footer>
+<footer class="footer" ng-include="'js/app/footer.html'" style="margin-top: 20%;"></footer>

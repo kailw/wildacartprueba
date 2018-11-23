@@ -1,7 +1,7 @@
 <header ng-include="'js/app/header.html'"></header>
 <main role="main" class="container">
 
-    <!--    <h3>Resultado de la llamada AJAX: {{ajaxData}}</h3>-->
+    
     <div class="primeraParte"></div>
     <a href="javascript:window.history.back();"> <button class="btn btn-success">Volver</button> </a>    
     <form name="userForm" style="margin-bottom: 50px;" ng-show="!mensaje">
@@ -52,8 +52,8 @@
                 <label for="precio" class="col-form-label">Precio</label>
             </div>
             <div class="col-5">
-                <input type="text" class="form-control" id="precio" name="precio" ng-model="precio" ng-required="true"
-                       ng-required="true"  ng-pattern="/^[0-9][0-9]*$/" ng-class="{ 'is-invalid' : userForm.precio.$invalid && !userForm.precio.$pristine, 'is-valid': userForm.precio.$valid && !userForm.precio.$pristine}"/>
+                <input type="text" class="form-control" id="precio" name="precio" ng-model="precio" 
+                       ng-required="true"  ng-pattern="/^[0-9]+([.][0-9])?[0-9]*$/" ng-class="{ 'is-invalid' : userForm.precio.$invalid && !userForm.precio.$pristine, 'is-valid': userForm.precio.$valid && !userForm.precio.$pristine}"/>
                 <div ng-show="!userForm.precio.$valid && !userForm.precio.$pristine" class="alert alert-danger" role="alert">
                     Precio obligatorio
                 </div>
@@ -103,7 +103,7 @@
             </div>
             <div class="col-5">                   
                 <div class="form-group">
-                    <a href="tipoproducto/view/{{ajaxDatoProducto.id}}" class="form-control btn btn-light" style="background: lightgray; color:dark; text-align:left;" ng-class="{ 'disabled': userForm.id_tipoProducto.$invalid}"  style="width: auto;">
+                    <a href="tipoproducto/view/{{ajaxDatoProducto.id}}" class="form-control btn btn-light" style="background: lightgray; color:dark; text-align:left;" ng-class="{ 'disabled': userForm.id_tipoProducto.$invalid}" >
                         <span >Tipo de producto {{ajaxDatoProducto.desc}} {{vacio}}</span>
                     </a>
                 </div>

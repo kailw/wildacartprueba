@@ -27,6 +27,7 @@ wildcart.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/linea/view/:id?', {templateUrl: 'js/app/linea/view.html', controller: 'lineaViewController'});
         $routeProvider.when('/linea/edit/:id?', {templateUrl: 'js/app/linea/edit.html', controller: 'lineaEditController'});
         $routeProvider.when('/linea/remove/:id?', {templateUrl: 'js/app/linea/remove.html', controller: 'lineaRemoveController'});
+        $routeProvider.when('/linea/create', {templateUrl: 'js/app/linea/create.html', controller: 'lineaCreateController'});
 
         $routeProvider.when('/usuario/plist', {templateUrl: 'js/app/usuario/plist.html', controller: 'usuarioPlistController'});
         $routeProvider.when('/usuario/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/usuario/plist.html', controller: 'usuarioPlistController'});

@@ -1,6 +1,6 @@
 'use strict';
 
-moduleFactura.controller('facturaCreateController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
+moduleLinea.controller('lineaCreateController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
         $scope.id = $routeParams.id;
 
@@ -21,7 +21,7 @@ moduleFactura.controller('facturaCreateController', ['$scope', '$http', '$locati
                 id: null,
                 fecha: null,
                 iva: $scope.iva,
-                id_usuario: $scope.ajaxDatoFactura.id
+                id_usuario: $scope.id_usuario
             };
             $http({
                 method: 'GET',
