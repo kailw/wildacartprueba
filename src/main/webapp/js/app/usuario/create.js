@@ -3,7 +3,7 @@
 moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
         $scope.id = $routeParams.id;
-        $scope.ob = "usuario";      
+        $scope.ob = "usuario";
 
         if (sessionService) {
             $scope.usuariologeado = sessionService.getUserName();
@@ -39,13 +39,24 @@ moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', '$locati
 
         $scope.tipoUsuarioRefresh = function (quiensoy, consulta) {
             var form = quiensoy;
+            if ($scope.vacio === "") {
+                $scope.vacio;
+            } else {
+                $scope.vacio = "";
+            }
             if (consulta) {
                 $http({
                     method: 'GET',
                     url: 'json?ob=tipousuario&op=get&id=' + $scope.ajaxDatoUsuario.id
-                }).then(function (response) {
-                    form.userForm.id_tipoUsuario.$setValidity('valid', true);
-                    $scope.ajaxDatoUsuario = response.data.message;
+                }).then(function (response) {                    
+                    $scope.ajaxDatoUsuario = response.data.message;                                       
+                    if ($scope.ajaxDatoUsuario !== null) {
+                        form.userForm.id_tipoUsuario.$setValidity('valid', true);
+                    } else {
+                        form.userForm.id_tipoUsuario.$setValidity('valid', false);
+                        $scope.vacio = "Error al acceder al tipo de usuario";
+                    }
+
                 }, function (response) {
                     form.userForm.id_tipoUsuario.$setValidity('valid', false);
                     $scope.ajaxDatoUsuario.desc = "Error al acceder al tipo de usuario";

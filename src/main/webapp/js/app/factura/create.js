@@ -3,8 +3,8 @@
 moduleFactura.controller('facturaCreateController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
         $scope.id = $routeParams.id;
-        $scope.myDate = new Date();
-        $scope.ob = "factura";
+
+        $scope.ob = "factura";        
         if (sessionService) {
             $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
@@ -34,18 +34,29 @@ moduleFactura.controller('facturaCreateController', ['$scope', '$http', '$locati
 
 
         $scope.isActive = toolService.isActive;
-        
+
         $scope.usuarioRefresh = function (quiensoy, consulta) {
             var form = quiensoy;
+            if ($scope.vacio === "") {
+                $scope.vacio; 
+            } else{
+                $scope.vacio = ""; 
+            }
             if (consulta) {
                 $http({
                     method: 'GET',
                     url: 'json?ob=usuario&op=get&id=' + $scope.ajaxDatoFactura.id
                 }).then(function (response) {
-                    form.userForm.id_Usuario.$setValidity('valid', true);
                     $scope.ajaxDatoFactura = response.data.message;
+                    if ($scope.ajaxDatoFactura !== null) {
+                        form.userForm.id_Usuario.$setValidity('valid', true);
+                    } else {
+                        form.userForm.id_Usuario.$setValidity('valid', false);
+                        $scope.vacio = "Error al acceder al usuario";
+                    }
+
                 }, function (response) {
-                    form.userForm.obj_Usuario.$setValidity('valid', false);
+                    form.userForm.id_Usuario.$setValidity('valid', false);
                     $scope.ajaxDatoFactura.nombre = "Error al acceder al usuario";
                 });
             } else {

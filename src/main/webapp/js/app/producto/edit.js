@@ -51,13 +51,24 @@ moduleProducto.controller('productoEditController', ['$scope', '$http', '$locati
 
         $scope.tipoProductoRefresh = function (quiensoy, consulta) {
             var form = quiensoy;
+            if ($scope.vacio === "") {
+                $scope.vacio;
+            } else {
+                $scope.vacio = "";
+            }
             if (consulta) {
                 $http({
                     method: 'GET',
                     url: 'json?ob=tipoproducto&op=get&id=' + $scope.ajaxDatoProducto.obj_tipoProducto.id
                 }).then(function (response) {
-                    form.userForm.obj_tipoProducto.$setValidity('valid', true);
                     $scope.ajaxDatoProducto.obj_tipoProducto = response.data.message;
+                    if ($scope.ajaxDatoProducto.obj_tipoProducto !== null) {
+                        form.userForm.obj_tipoProducto.$setValidity('valid', true);
+                    } else {
+                        form.userForm.obj_tipoProducto.$setValidity('valid', false);
+                        ;
+                        $scope.vacio = "Error al acceder al tipo de producto";
+                    }
                 }, function (response) {
                     form.userForm.obj_tipoProducto.$setValidity('valid', false);
                     $scope.ajaxDatoProducto.obj_tipoProducto.desc = "Error al acceder al tipo de producto";

@@ -36,19 +36,30 @@ moduleProducto.controller('productoCreateController', ['$scope', '$http', '$loca
             });
         };
         $scope.isActive = toolService.isActive;
-        
+
         $scope.tipoProductoRefresh = function (quiensoy, consulta) {
             var form = quiensoy;
+            if ($scope.vacio === "") {
+                $scope.vacio;
+            } else {
+                $scope.vacio = "";
+            }
             if (consulta) {
                 $http({
                     method: 'GET',
                     url: 'json?ob=tipoproducto&op=get&id=' + $scope.ajaxDatoProducto.id
                 }).then(function (response) {
-                    form.userForm.id_tipoProducto.$setValidity('valid', true);
                     $scope.ajaxDatoProducto = response.data.message;
+                    if ($scope.ajaxDatoProducto !== null) {
+                        form.userForm.id_tipoProducto.$setValidity('valid', true);
+                    } else {
+                        form.userForm.id_tipoProducto.$setValidity('valid', false);
+                        $scope.vacio = "Error al acceder al tipo de producto";
+                    }
+
                 }, function (response) {
                     form.userForm.id_tipoProducto.$setValidity('valid', false);
-                    $scope.ajaxDatoProducto.desc = "Error al acceder al tipo de usuario";
+                    $scope.ajaxDatoProducto.desc = "Error al acceder al tipo de producto";
                 });
             } else {
                 form.userForm.id_tipoProducto.$setValidity('valid', true);

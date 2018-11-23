@@ -60,14 +60,24 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
 
         $scope.tipoUsuarioRefresh = function (quiensoy, consulta) {
             var form = quiensoy;
-            if (consulta) {
-                $scope.ajaxDatoUsuario.obj_tipoUsuario.desc = "";
+            if ($scope.vacio == "") {
+                $scope.vacio;
+            } else {
+                $scope.vacio = "";
+            }
+            if (consulta) {                
                 $http({
                     method: 'GET',
                     url: 'json?ob=tipousuario&op=get&id=' + $scope.ajaxDatoUsuario.obj_tipoUsuario.id
                 }).then(function (response) {
-                    form.userForm.obj_tipousuario.$setValidity('valid', true);
                     $scope.ajaxDatoUsuario.obj_tipoUsuario = response.data.message;
+                    if ($scope.ajaxDatoUsuario.obj_tipoUsuario !== null) {
+                        form.userForm.obj_tipousuario.$setValidity('valid', true);
+                    } else {
+                        form.userForm.obj_tipousuario.$setValidity('valid', false);
+                        $scope.vacio = "Error al acceder al tipo de usuario";
+                    }
+
                 }, function (response) {
                     form.userForm.obj_tipousuario.$setValidity('valid', false);
                     $scope.ajaxDatoUsuario.obj_tipoUsuario.desc = "Error al acceder al tipo de usuario";

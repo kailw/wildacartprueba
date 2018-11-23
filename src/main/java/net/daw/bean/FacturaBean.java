@@ -9,6 +9,7 @@ import com.google.gson.annotations.Expose;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Date;
+import net.daw.dao.LineaDao;
 import net.daw.dao.UsuarioDao;
 
 /**
@@ -29,6 +30,17 @@ public class FacturaBean {
 
     @Expose(deserialize = false)
     private UsuarioBean obj_Usuario;
+
+    @Expose(deserialize = false)
+    private int link_linea;
+
+//    public int getLink_linea() {
+//        return link_linea;
+//    }
+//
+//    public void setLink_linea(int link_linea) {
+//        this.link_linea = link_linea;
+//    }
 
     public UsuarioBean getObj_Usuario() {
         return obj_Usuario;
@@ -74,6 +86,7 @@ public class FacturaBean {
 
         this.setId(oResultSet.getInt("id"));
         this.setFecha(oResultSet.getDate("fecha"));
+//        LineaDao oLineaDao = new LineaDao(oConnection, "linea");
         this.setIva(oResultSet.getFloat("iva"));
 
         if (expand > 0) {
