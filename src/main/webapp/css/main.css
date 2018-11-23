@@ -18,7 +18,10 @@ body {
     background-color: #f5f5f5;
 }
 
+*{
+    font-family: 'Nanum Gothic', sans-serif;
 
+}
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
@@ -30,7 +33,7 @@ body > .container {
 .footer > .container {
     padding-right: 0px;
     padding-left: 0px;
-/*    margin-top: 100px;*/
+    /*    margin-top: 100px;*/
 }
 
 code {
@@ -67,12 +70,12 @@ code {
 
 .css .pagination>li>a,
 .css .pagination>li>span {
-  border: 1px solid black;
-  color: black;
+    border: 1px solid black;
+    color: black;
 }
 .css nav ul>li.page-item a {
-  background: #99ABB1;
-  color: black;
+    background: #99ABB1;
+    color: black;
 }
 
 

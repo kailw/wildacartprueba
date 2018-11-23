@@ -5,20 +5,25 @@
     <div class="primeraParte"></div>
     <a href="javascript:window.history.back();"> <button class="btn btn-success">Volver</button> </a>    
     <form name="userForm" style="margin-bottom: 50px;" ng-show="!mensaje">
-        <h3 style="text-align: center">Crear Producto</h3>
-        <div class="form-group row">
-            <label for="codigo" class="col-2 col-form-label">Codigo</label>
-            <div class="col-10">
+        <h3 style="text-align: center"><i class="fa fa-box-open"></i> Crear Producto</h3>
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <label for="codigo" class="col-form-label">Codigo</label>            
+            </div>
+            <div class="col-5">
                 <input type="text" class="form-control" id="codigo" name="codigo" ng-model="codigo" ng-required="true"
-                       />
+                       ng-class="{ 'is-invalid' : userForm.codigo.$invalid && !userForm.codigo.$pristine, 'is-valid': userForm.codigo.$valid && !userForm.codigo.$pristine}"/>  
                 <div ng-show="userForm.codigo.$invalid && !userForm.codigo.$pristine" class="alert alert-danger" >Codigo requerido.</div>                
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="descripcion" class="col-2 col-form-label">Descripción</label>
-            <div class="col-10">
-                <input type="text" class="form-control " id="descripcion" name="descripcion" ng-model="descripcion" ng-required="true" ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/" />
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <label for="descripcion" class="col-form-label">Descripción</label>
+            </div>
+            <div class="col-5">
+                <input type="text" class="form-control " id="descripcion" name="descripcion" ng-model="descripcion" ng-required="true"
+                       ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/" ng-class="{ 'is-invalid' : userForm.descripcion.$invalid && !userForm.descripcion.$pristine, 'is-valid': userForm.descripcion.$valid && !userForm.descripcion.$pristine}"/>
                 <div ng-show="userForm.descripcion.$invalid && !userForm.descripcion.$pristine && !userForm.descripcion.$error.pattern" class="alert alert-danger" role="alert">
                     Descripción obligatoria
                 </div>
@@ -28,11 +33,13 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="existencias" class="col-2 col-form-label">Existencias</label>
-            <div class="col-10">
-                <input type="text" class="form-control" id="existencias" name="existencias" ng-model="existencias" ng-required="true" ng-pattern="/^[0-9][0-9]*$/" />
-                <div ng-show="userForm.existencias.$invalid && !userForm.existencias.$pristine && !userForm.existencias.$error.pattern" class="alert alert-danger" role="alert">
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <label for="existencias" class="col-form-label">Existencias</label>
+            </div>
+            <div class="col-5">
+                <input type="text" class="form-control" id="existencias" name="existencias" ng-model="existencias" ng-required="true" ng-pattern="/^[0-9][0-9]*$/" 
+                       ng-class="{ 'is-invalid' : userForm.existencias.$invalid && !userForm.existencias.$pristine, 'is-valid': userForm.existencias.$valid && !userForm.existencias.$pristine}"/>               <div ng-show="userForm.existencias.$invalid && !userForm.existencias.$pristine && !userForm.existencias.$error.pattern" class="alert alert-danger" role="alert">
                     Existencias obligatorio
                 </div>
                 <div ng-show="userForm.existencias.$error.pattern" class="alert alert-danger" role="alert">
@@ -40,37 +47,89 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
-            <label for="precio" class="col-2 col-form-label">Precio</label>
-            <div class="col-10">
-                <input type="text" class="form-control" id="precio" name="precio" ng-model="precio" ng-required="true"/>
-                <div ng-show="userForm.precio.$invalid && !userForm.precio.$pristine" class="alert alert-danger" role="alert">
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <label for="precio" class="col-form-label">Precio</label>
+            </div>
+            <div class="col-5">
+                <input type="text" class="form-control" id="precio" name="precio" ng-model="precio" ng-required="true"
+                       ng-required="true"  ng-pattern="/^[0-9][0-9]*$/" ng-class="{ 'is-invalid' : userForm.precio.$invalid && !userForm.precio.$pristine, 'is-valid': userForm.precio.$valid && !userForm.precio.$pristine}"/>
+                <div ng-show="!userForm.precio.$valid && !userForm.precio.$pristine" class="alert alert-danger" role="alert">
                     Precio obligatorio
                 </div>
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="foto" class="col-2 col-form-label">Foto</label>
-            <div class="col-10">
-                <input type="text" class="form-control" id="foto" name="foto" ng-model="ajaxDatoProducto.foto" />
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <label for="foto" class="col-form-label">Foto</label>
+            </div>
+            <div class="col-5">
+                <input type="text" class="form-control" id="foto" name="foto" ng-model="foto" ng-required="true"
+                       ng-class="{ 'is-invalid' : userForm.foto.$invalid && !userForm.foto.$pristine, 'is-valid': userForm.foto.$valid && !userForm.foto.$pristine}"/>
+                <div ng-show="userForm.foto.$invalid && !userForm.foto.$pristine" class="alert alert-danger" >Foto requerida.</div>
+            </div>            
+        </div>
+
+        <tipoproducto-selection class="modal fade" id="cadd-location-modal" obj="ajaxDatoProducto" 
+                                on-tipoproducto-set="tipoProductoRefresh(this,false)"></tipoproducto-selection>
+
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <label for="id_tipoProducto" class=" col-form-label">Tipo Producto</label>
+            </div>
+            <div class="col-5">          
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text fas fa-search"
+                              data-toggle="modal"
+                              data-target="#cadd-location-modal">                                  
+                        </span>
+                    </div>
+                    <input ng-model="ajaxDatoProducto.id"
+                           ng-change="tipoProductoRefresh(this, true)"
+                           aria-describedby="basic-addon2"
+                           id="id_tipoProducto"
+                           name="id_tipoProducto"
+                           type="text"
+                           size="5"
+                           ng-model-options="{debounce: 1000}"
+                           maxlength="5" ng-required="true"  class="form-control" ng-class="{ 'is-invalid' : userForm.id_tipoProducto.$invalid && !userForm.id_tipoProducto.$pristine, 'is-valid': userForm.id_tipoProducto.$valid && !userForm.id_tipoProducto.$pristine}" />
+                </div>
+            </div>
+        </div>    
+        <div class="form-group row justify-content-center">
+            <div class="col-2">               
+            </div>
+            <div class="col-5">                   
+                <div class="form-group">
+                    <a href="tipoproducto/view/{{ajaxDatoProducto.id}}" class="form-control btn btn-light" style="background: lightgray; color:dark; text-align:left;" ng-class="{ 'disabled': userForm.id_tipoProducto.$invalid}"  style="width: auto;">
+                        <span >Tipo de producto {{ajaxDatoProducto.desc}}</span>
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="form-group row">
-            <label for="id_tipoProducto" class="col-2 col-form-label">Tipo Producto</label>
-            <div class="col-8">
-                <input type="text" class="form-control" id="id_tipoProducto" name="id_tipoProducto" ng-model="id_tipoProducto" ng-required="true" /> 
-                <div ng-show="!userForm.id_tipoProducto.$valid" class="alert alert-danger" role="alert">
-                    Tipo producto obligatorio
-                </div>                
-            </div>
-            <div class="form-control col-2" style="border: 0px;" >
-                <button class="btn btn-primary" ng-click="openModal('lg')" ><i class="fas fa-search"></i></button>                
-            </div>
-        </div> 
-        <tipousuario-selection class="modal fade" id="cadd-location-modal" obj="id_tipoProducto"></tipousuario-selection>
 
-        <button ng-click="guardar()" type="button" class="btn btn-primary" ng-disabled="userForm.$invalid">Crear</button>
+
+
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <label for="id_tipoUsuario" class=" col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <div ng-show="!userForm.id_tipoProducto.$valid && !userForm.id_tipoProducto.$pristine" class="alert alert-danger" style="width: auto;" role="alert">
+                    El tipo de producto es incorrecto
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <button ng-click="guardar()" type="button" class="btn btn-primary" ng-disabled="userForm.$invalid">Crear</button>   
+            </div>
+            <div class="col-5">                           
+            </div>            
+        </div>
     </form>    
     <div class="alert alert-success" ng-show="mensaje">
         Se ha creado el {{ob}} llamado "{{descripcion}}"

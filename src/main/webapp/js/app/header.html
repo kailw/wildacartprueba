@@ -7,14 +7,14 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item" ng-class="{'active': isActive('/home')}">
-                <a class="nav-link" href="home"><i class="fa fa-home"> Home</i> <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="home"><i class="fa fa-home"></i> Home<span class="sr-only">(current)</span></a>
             </li>
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false" ng-class="{'active': (isActive('/usuario/plist') || isActive('/tipousuario/plist') || isActive('/usuario/view') || isActive('/usuario/edit') || isActive('/usuario/remove') || isActive('/tipousuario/view')
                                || isActive('/tipousuario/edit') || isActive('/tipousuario/remove') || isActive('/tipousuario/create') || isActive('/usuario/create'))}">
-                    <i class="fa fa-users"> Usuarios</i>
+                    <i class="fa fa-users"></i> Usuarios
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="usuario/plist">Usuario</a>
@@ -28,7 +28,7 @@
                    aria-haspopup="true" aria-expanded="false" ng-class="{'active': (isActive('/producto/plist') || isActive('/tipoproducto/plist')
                                || isActive('/tipoproducto/view') || isActive('/tipoproducto/edit') || isActive('/tipoproducto/remove')
                                || isActive('/producto/remove') || isActive('/producto/edit') || isActive('/producto/view') || isActive('/producto/create') || isActive('/tipoproducto/create'))}">
-                    Productos
+                    <i class="fa fa-box-open"></i> Productos
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="producto/plist">Producto</a>
@@ -37,35 +37,22 @@
             </li>
 
 
-            <li class="nav-item dropdown">
+<!--            <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false" ng-class="{'active': (isActive('/factura/plist') || isActive('/linea/plist')
-                               || isActive('/factura/view') || isActive('/factura/edit') || isActive('/factura/remove') || isActive('/linea/view')
-                               || isActive('/linea/remove') || isActive('/linea/edit') || isActive('/factura/create'))}">
+                   aria-haspopup="true" aria-expanded="false" 
                     Facturas
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="factura/plist">Factura</a>
                     <a class="dropdown-item" href="linea/plist">Linea</a>                                        
                 </div>
+            </li>-->
+            <li class="nav-item" ng-class="{'active': isActive('/factura/plist')}">
+                <a class="nav-link" href="factura/plist" ng-class="{'active': (isActive('/factura/plist') || isActive('/linea/plist')
+                               || isActive('/factura/view') || isActive('/factura/edit') || isActive('/factura/remove') || isActive('/linea/view')
+                               || isActive('/linea/remove') || isActive('/linea/edit') || isActive('/factura/create'))}">
+                       <i class="fa fa-file-invoice"></i> Facturas</a>
             </li>
-
-            <!--            <li class="nav-item" ng-class="{'active': isActive('/tipousuario/plist')}">
-                            <a class="nav-link" href="tipousuario/plist">Tipousuario</a>
-                        </li>
-                        <li class="nav-item" ng-class="{'active': isActive('/producto/plist')}">
-                            <a class="nav-link" href="producto/plist">Producto</a>
-                        </li>
-                        <li class="nav-item" ng-class="{'active': isActive('/tipoproducto/plist')}">
-                            <a class="nav-link" href="tipoproducto/plist">Tipoproducto</a>
-                        </li>
-            
-                        <li class="nav-item" ng-class="{'active': isActive('/factura/plist')}">
-                            <a class="nav-link" href="factura/plist">Factura</a>
-                        </li>
-                        <li class="nav-item" ng-class="{'active': isActive('/linea/plist')}">
-                            <a class="nav-link" href="linea/plist">Linea</a>
-                        </li>-->
 
         </ul>
         <div ng-show="!loginH">
@@ -73,7 +60,7 @@
         </div>
         <div ng-show="loginH">
             <a href="usuario/view/{{usuariologeadoID}}"><button type="button" class="btn btn-info"><i class="fa fa-user-circle"> Bienvenido/a <strong style="color: black;">{{usuariologeado}}</strong> </i></button></a>
-            <a href="usuario/logout" ><button type="button" class="btn btn-primary"> <i class="fas fa-sign-out-alt"> Logout</i></button></a>
+            <a href="usuario/logout" > <button type="button" class="btn btn-primary" style="width:auto"> <i class="fas fa-sign-out-alt"> Logout</i></button></a>
         </div>
     </div>
 </nav>

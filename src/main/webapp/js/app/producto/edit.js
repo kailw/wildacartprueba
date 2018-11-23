@@ -1,10 +1,10 @@
 'use strict';
 
-moduleProducto.controller('productoEditController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
-    function ($scope, $http, $location, toolService, $routeParams,sessionService) {
+moduleProducto.controller('productoEditController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
+    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
         $scope.id = $routeParams.id;
         $scope.ob = "producto";
-        
+
         if (sessionService) {
             $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
@@ -65,5 +65,5 @@ moduleProducto.controller('productoEditController', ['$scope', '$http', '$locati
             } else {
                 form.userForm.obj_tipoProducto.$setValidity('valid', true);
             }
-        }
+        };
     }]);

@@ -1,22 +1,25 @@
 <header ng-include="'js/app/header.html'"></header>
 <main role="main" class="container" style="margin-bottom: 100px;">
 
-    <!--    <h3>Resultado de la llamada AJAX: {{ajaxData}}</h3>-->
     <div class="primeraParte"></div>
     <a href="javascript:window.history.back();"> <button class="btn btn-success">Volver</button> </a>    
-    <ng-form id="userForm" name="userForm" style="margin-bottom: 50px;" ng-show="!mensajeOK && !mensajeError">
-        <h3 style="text-align: center">Editar usuario</h3>
+    <ng-form id="userForm" name="userForm" style="margin-bottom: 50px;" ng-show="!mensajeOK && !mensajeError">        
+        <h3 style="text-align: center"><i class="fa fa-user"></i> Editar usuario</h3>
 
-        <div class="form-group row">
-            <label for="id" class="col-2 col-form-label">ID</label>
-            <div class="col-10">
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <label for="id" class="col-form-label">ID</label>
+            </div>
+            <div class="col-5">
                 <input type="text" class="form-control-plaintext" id="id" name="id" ng-disabled="true" ng-model="ajaxDatoUsuario.id" readonly />
             </div>                
         </div>   
 
-        <div class="form-group row">
-            <label for="dni" class="col-2 col-form-label">DNI</label>
-            <div class="col-10">
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <label for="dni" class="col-form-label">DNI</label>
+            </div>
+            <div class="col-5">
                 <input type="text" class="form-control" ng-class="{ 'is-invalid' : userForm.dni.$invalid && !userForm.dni.$pristine, 'is-valid' :userForm.dni.$valid && !userForm.dni.$pristine}" id="dni" name="dni" ng-model="ajaxDatoUsuario.dni" ng-required="true" ng-pattern="/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/"
                        />
                 <div ng-show="userForm.dni.$invalid && !userForm.dni.$pristine && !userForm.dni.$error.pattern" class="alert alert-danger" >DNI requerido.</div>
@@ -27,9 +30,11 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="nombre" class="col-2 col-form-label">Nombre</label>
-            <div class="col-10">
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <label for="nombre" class="col-form-label">Nombre</label>
+            </div>
+            <div class="col-5">
                 <input type="text" class="form-control" ng-class="{ 'is-invalid' : userForm.nombre.$invalid && !userForm.nombre.$pristine, 'is-valid' :userForm.nombre.$valid && !userForm.nombre.$pristine}" id="nombre" name="nombre" ng-model="ajaxDatoUsuario.nombre" ng-required="true" ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/"/>
                 <div ng-show="userForm.nombre.$invalid && !userForm.nombre.$pristine && !userForm.nombre.$error.pattern" class="alert alert-danger" role="alert">
                     Nombre obligatorio
@@ -40,9 +45,11 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="ape1" class="col-2 col-form-label">Primer apellido</label>
-            <div class="col-10">
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <label for="ape1" class="col-form-label">Primer apellido</label>
+            </div>
+            <div class="col-5">
                 <input type="text"  class="form-control" ng-class="{ 'is-invalid' : userForm.ape1.$invalid && !userForm.ape1.$pristine, 'is-valid' :userForm.ape1.$valid && !userForm.ape1.$pristine}" id="ape1" name="ape1" ng-model="ajaxDatoUsuario.ape1" ng-required="true" ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/"/>
                 <div ng-show="userForm.ape1.$invalid && !userForm.ape1.$pristine && !userForm.ape1.$error.pattern" class="alert alert-danger" role="alert">
                     Primer apellido obligatorio
@@ -52,9 +59,11 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
-            <label for="ape2" class="col-2 col-form-label">Segundo apellido</label>
-            <div class="col-10">
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <label for="ape2" class="col-form-label">Segundo apellido</label>
+            </div>
+            <div class="col-5">
                 <input type="text"  class="form-control" ng-class="{ 'is-invalid' : userForm.ape2.$invalid && !userForm.ape2.$pristine, 'is-valid' :userForm.ape2.$valid && !userForm.ape2.$pristine}" id="ape2" name="ape2" ng-model="ajaxDatoUsuario.ape2" ng-required="true"  ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/" />
                 <div ng-show="userForm.ape2.$invalid && !userForm.ape2.$pristine && !userForm.ape2.$error.pattern" class="alert alert-danger" role="alert">
                     Segundo apellido obligatorio
@@ -64,9 +73,11 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
-            <label for="login" class="col-2 col-form-label">Login</label>
-            <div class="col-10">
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <label for="login" class="col-form-label">Login</label>
+            </div>
+            <div class="col-5">
                 <input type="text"  class="form-control" ng-class="{ 'is-invalid' : userForm.login.$invalid && !userForm.login.$pristine, 'is-valid' :userForm.login.$valid && !userForm.login.$pristine}" id="login" name="login" ng-model="ajaxDatoUsuario.login" ng-required="true" />
                 <div ng-show="!userForm.login.$valid" class="alert alert-danger" role="alert">
                     Login obligatorio
@@ -89,49 +100,67 @@
 
         <!--        MODAL-->
         <tipousuario-selection class="modal fade" id="cadd-location-modal" obj="ajaxDatoUsuario.obj_tipoUsuario" 
-                               on-tipousuario-set="tipoUsuarioRefresh(this,true)"></tipousuario-selection>
+                               on-tipousuario-set="tipoUsuarioRefresh(this,false)"></tipousuario-selection>
 
-        <div class="form-group row">
-            <label for="obj_tipousuario" class="col-2 col-form-label">Tipo Usuario</label>
-            <div class="col-2">          
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <label for="obj_tipousuario" class="col-form-label">Tipo Usuario</label>
+            </div>
+            <div class="col-5">          
                 <div class="input-group">
-                    <input ng-model="ajaxDatoUsuario.obj_tipoUsuario.id"
-                           ng-change="tipoUsuarioRefresh(this, true)"
-                           aria-describedby="basic-addon2"
-                           id="obj_tipousuario"
-                           name="obj_tipousuario"
-                           type="text"
-                           size="5"
-                           ng-model-options="{debounce: 1000}"
-                           maxlength="5" ng-required="true"  class="form-control" ng-class="{ 'is-invalid' : userForm.obj_tipousuario.$invalid && !userForm.obj_tipousuario.$pristine, 'is-valid' :userForm.obj_tipousuario.$valid && !userForm.obj_tipousuario.$pristine}" />
                     <div class="input-group-prepend">
                         <span class="input-group-text fas fa-search"
                               data-toggle="modal"
                               data-target="#cadd-location-modal">                                  
                         </span>
                     </div>
+                    <input ng-model="ajaxDatoUsuario.obj_tipoUsuario.id"
+                           ng-change="tipoUsuarioRefresh(this, true)"
+                           aria-describedby="basic-addon2"
+                           id="obj_tipousuario"
+                           name="obj_tipousuario"
+                           type="text"                           
+                           ng-model-options="{debounce: 1000}"
+                           maxlength="5" ng-required="true"  class="form-control" ng-class="{ 'is-invalid' : userForm.obj_tipousuario.$invalid && !userForm.obj_tipousuario.$pristine, 'is-valid': userForm.obj_tipousuario.$valid && !userForm.obj_tipousuario.$pristine}" />
                 </div>
             </div>
-
-
-            <div class="form-group " style="width: auto;" >
-                <a href="tipousuario/view/{{ajaxDatoUsuario.obj_tipoUsuario.id}}" class="input-group-text">
-                    <span >Tipo de usuario: {{ajaxDatoUsuario.obj_tipoUsuario.desc}}</span>
-                </a>
+        </div>
+        
+        <div class="form-group row justify-content-center">
+            <div class="col-2">               
+            </div>
+            <div class="col-5">                   
+                <div class="form-group">
+                    <a href="tipousuario/view/{{ajaxDatoUsuario.obj_tipoUsuario.id}}" class="form-control btn btn-light" style="background: lightgray; color:dark; text-align:left;" ng-class="{ 'disabled': userForm.obj_tipousuario.$invalid}"  style="width: auto;">
+                        <span >Tipo de usuario: {{ajaxDatoUsuario.obj_tipoUsuario.desc}}</span>
+                    </a>
+                </div>
             </div>
         </div>
 
         <!--        ---{{userForm.obj_tipousuario.$valid|json}}-->
 
 
-        <div class="row">
-            <label for="obj_tipousuario" class="col-2 col-form-label"></label>
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <label for="obj_tipousuario" class="col-form-label"></label>                
+            </div>
             <div class="col-5">
                 <div ng-show="!userForm.obj_tipousuario.$valid" class="alert alert-danger" style="width: auto;" role="alert">
-                    El tipo de usuario es incorrecto.. {{userForm.obj_tipousuario.$valid}}
-                </div>
-            </div>
+                    El tipo de usuario es incorrecto
+<!--                    {{userForm.obj_tipousuario.$valid}}-->
+                </div>                
+            </div>            
         </div>
+
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <button ng-click="guardar()" type="button" class="btn btn-primary" ng-disabled="userForm.$invalid">Guardar</button>   
+            </div>
+            <div class="col-5">                           
+            </div>            
+        </div>
+
 
         <!--            <div class="form-group row">
                         <label for="pass" class="col-2 col-form-label">>Contraseña</label>
@@ -143,8 +172,7 @@
                         <div ng-show="!userForm.pass.$valid" class="alert alert-danger" role="alert">
                             Contraseña obligatorio
                         </div>
-                    </div>-->
-        <button ng-click="guardar()" type="button" class="btn btn-primary" ng-disabled="userForm.$invalid">Guardar</button>
+                    </div>-->        
     </ng-form>    
     <div class="alert alert-success" ng-show="mensajeOK">
         Datos actualizados correctamente del {{ob}} {{ajaxDatoUsuario.id}}

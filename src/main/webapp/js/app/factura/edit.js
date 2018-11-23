@@ -44,21 +44,24 @@ moduleFactura.controller('facturaEditController', ['$scope', '$http', '$location
             });
         };
 
-
-//        $scope.oModal = function () {
-//        // Debes proveer un controlador y una plantilla.
-//        ModalService.showModal({
-//            template: 'js/app/tipousuario/selection.html',
-//            controller: 'tipousuarioSelectionController'
-//        }).then(function (modal) {
-//            modal.close.then(function (result) {
-//                // Una vez que el modal sea cerrado, la libreria invoca esta función
-//                // y en result tienes el resultado.
-//                $scope.resultadoModal = result;
-//            });
-//        });
-//
-//        };
         $scope.isActive = toolService.isActive;
+        
+        $scope.usuarioRefresh = function (quiensoy, consulta) {
+            var form = quiensoy;
+            if (consulta) {                
+                $http({
+                    method: 'GET',
+                    url: 'json?ob=usuario&op=get&id=' + $scope.ajaxDatoFactura.obj_Usuario.id
+                }).then(function (response) {
+                    form.userForm.obj_Usuario.$setValidity('valid', true);
+                    $scope.ajaxDatoFactura.obj_Usuario = response.data.message;
+                }, function (response) {
+                    form.userForm.obj_Usuario.$setValidity('valid', false);
+                    $scope.ajaxDatoFactura.obj_Usuario.nombre = "Error al acceder al tipo de usuario";
+                });
+            } else {
+                form.userForm.obj_Usuario.$setValidity('valid', true);
+            }
+        };
 
     }]);

@@ -1,22 +1,22 @@
 'use strict';
-moduleComponent.component('tipousuarioSelection', {
-    templateUrl: 'js/app/tipousuario/selection.html',
+moduleComponent.component('usuarioSelection', {
+    templateUrl: 'js/app/usuario/selection.html',
     controllerAs: 'c',
     controller: cController,
     bindings: {
         obj: '=',
-        onTipousuarioSet: '&'
+        onUsuarioSet: '&'
     },
 });
 
 function cController($http) {
     //console.log("ccontroler....");
     var self = this;
-    self.ob = "tipousuario";
+    self.ob = "usuario";
     self.page = "1";
     self.totalPages = 1;
     self.orderURLServidor = "";
-    self.rpp = "2";
+    self.rpp = "10";
 
 
     self.update = function (p) {
@@ -53,10 +53,10 @@ function cController($http) {
 
 
 
-    self.save = function (id, desc) {
+    self.save = function (id, nombre) {
         self.obj.id = id;
-        self.obj.desc = desc;
-        self.onTipousuarioSet();
+        self.obj.nombre = nombre;
+        self.onUsuarioSet();
     };
     
 
@@ -75,7 +75,7 @@ function cController($http) {
         $http({
             method: "GET",
             withCredential: true,
-            url: "json?ob=tipousuario&op=getpage&rpp=10&page=1"
+            url: "json?ob=usuario&op=getpage&rpp=10&page=1"
         }).then(function (response) {
             self.status = response.status;
             self.data = response.data.message;

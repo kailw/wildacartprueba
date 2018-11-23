@@ -7,6 +7,7 @@ moduleUsuario.controller('usuarioRemoveController', ['$scope', '$http', '$locati
         if (sessionService) {
             $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
+            $scope.usuariologeadoID = sessionService.getId();
         }
         $http({
             method: 'GET',

@@ -12,6 +12,7 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
         if (sessionService) {
             $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
+            $scope.usuariologeadoID = sessionService.getId();
         }
         $http({
             method: 'GET',
@@ -60,9 +61,9 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
         $scope.tipoUsuarioRefresh = function (quiensoy, consulta) {
             var form = quiensoy;
             if (consulta) {
+                $scope.ajaxDatoUsuario.obj_tipoUsuario.desc = "";
                 $http({
                     method: 'GET',
-                    //withCredentials: true,
                     url: 'json?ob=tipousuario&op=get&id=' + $scope.ajaxDatoUsuario.obj_tipoUsuario.id
                 }).then(function (response) {
                     form.userForm.obj_tipousuario.$setValidity('valid', true);
@@ -74,6 +75,6 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
             } else {
                 form.userForm.obj_tipousuario.$setValidity('valid', true);
             }
-        }
+        };
 
     }]);

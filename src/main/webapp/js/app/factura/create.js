@@ -34,5 +34,23 @@ moduleFactura.controller('facturaCreateController', ['$scope', '$http', '$locati
 
 
         $scope.isActive = toolService.isActive;
+        
+        $scope.usuarioRefresh = function (quiensoy, consulta) {
+            var form = quiensoy;
+            if (consulta) {
+                $http({
+                    method: 'GET',
+                    url: 'json?ob=usuario&op=get&id=' + $scope.ajaxDatoFactura.id
+                }).then(function (response) {
+                    form.userForm.id_Usuario.$setValidity('valid', true);
+                    $scope.ajaxDatoFactura = response.data.message;
+                }, function (response) {
+                    form.userForm.obj_Usuario.$setValidity('valid', false);
+                    $scope.ajaxDatoFactura.nombre = "Error al acceder al usuario";
+                });
+            } else {
+                form.userForm.id_Usuario.$setValidity('valid', true);
+            }
+        };
 
     }]);
