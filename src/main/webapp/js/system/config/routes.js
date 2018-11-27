@@ -37,7 +37,8 @@ wildcart.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/usuario/create', {templateUrl: 'js/app/usuario/create.html', controller: 'usuarioCreateController'});
         $routeProvider.when('/usuario/login', {templateUrl: 'js/app/usuario/login.html', controller: 'usuarioLoginController'});
         $routeProvider.when('/usuario/logout', {templateUrl: 'js/app/usuario/logout.html', controller: 'usuarioLogoutController'});
-        $routeProvider.when('/usuario/plistfactura/:id?', {templateUrl: 'js/app/usuario/plistfactura.html', controller: 'usuarioPlistFacturaController'});
+        $routeProvider.when('/usuario/plistfactura', {templateUrl: 'js/app/usuario/plistfactura.html', controller: 'usuarioPlistFacturaController'});
+        $routeProvider.when('/usuario/plistfactura/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/usuario/plistfactura.html', controller: 'usuarioPlistFacturaController'});
 
         $routeProvider.when('/tipoproducto/plist', {templateUrl: 'js/app/tipoproducto/plist.html', controller: 'tipoproductoPlistController'});
         $routeProvider.when('/tipoproducto/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/tipoproducto/plist.html', controller: 'tipoproductoPlistController'});

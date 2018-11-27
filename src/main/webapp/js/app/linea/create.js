@@ -4,13 +4,13 @@ moduleLinea.controller('lineaCreateController', ['$scope', '$http', '$location',
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
         $scope.id = $routeParams.id;
 
-        $scope.ob = "factura";
+        $scope.ob = "linea";
         if (sessionService) {
             $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
             $scope.usuariologeadoID = sessionService.getId();
         }
-        $scope.ajaxDatoFactura = {
+        $scope.ajaxDatoProducto = {
             id: null,
             desc: null
         };
@@ -19,10 +19,11 @@ moduleLinea.controller('lineaCreateController', ['$scope', '$http', '$location',
         $scope.guardar = function () {
             var json = {
                 id: null,
-                fecha: null,
-                iva: $scope.iva,
-                id_usuario: $scope.id_usuario
+                cantidad: $scope.cantidad,
+                id_producto: $scope.ajaxDatoProducto.id,
+                id_factura: $scope.id_factura
             };
+            
             $http({
                 method: 'GET',
                 withCredentials: true,
@@ -40,7 +41,7 @@ moduleLinea.controller('lineaCreateController', ['$scope', '$http', '$location',
 
         $scope.isActive = toolService.isActive;
 
-        $scope.usuarioRefresh = function (quiensoy, consulta) {
+        $scope.productoRefresh = function (quiensoy, consulta) {
             var form = quiensoy;
             if ($scope.vacio === "") {
                 $scope.vacio;
@@ -50,22 +51,22 @@ moduleLinea.controller('lineaCreateController', ['$scope', '$http', '$location',
             if (consulta) {
                 $http({
                     method: 'GET',
-                    url: 'json?ob=usuario&op=get&id=' + $scope.ajaxDatoFactura.id
+                    url: 'json?ob=producto&op=get&id=' + $scope.ajaxDatoProducto.id
                 }).then(function (response) {
-                    $scope.ajaxDatoFactura = response.data.message;
-                    if ($scope.ajaxDatoFactura !== null) {
-                        form.userForm.id_Usuario.$setValidity('valid', true);
+                    $scope.ajaxDatoProducto = response.data.message;
+                    if ($scope.ajaxDatoProducto !== null) {
+                        form.userForm.id_producto.$setValidity('valid', true);
                     } else {
-                        form.userForm.id_Usuario.$setValidity('valid', false);
+                        form.userForm.id_producto.$setValidity('valid', false);
                         $scope.vacio = "Error al acceder al usuario";
                     }
 
                 }, function (response) {
-                    form.userForm.id_Usuario.$setValidity('valid', false);
-                    $scope.ajaxDatoFactura.nombre = "Error al acceder al usuario";
+                    form.userForm.id_producto.$setValidity('valid', false);
+                    $scope.ajaxDatoProducto.desc = "Error al acceder al usuario";
                 });
             } else {
-                form.userForm.id_Usuario.$setValidity('valid', true);
+                form.userForm.id_producto.$setValidity('valid', true);
             }
         };
 

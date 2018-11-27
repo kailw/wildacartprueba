@@ -22,12 +22,12 @@
             </div>
         </div>
 
-        <tipoproducto-selection class="modal fade" id="cadd-location-modal" obj="ajaxDatoFactura" 
-                                on-tipoproducto-set="tipoProductoRefresh(this,false)"></tipoproducto-selection>
+        <producto-selection class="modal fade" id="cadd-location-modal" obj="ajaxDatoProducto" 
+                                on-producto-set="productoRefresh(this,false)"></producto-selection>
 
         <div class="form-group row justify-content-center">
             <div class="col-2">
-                <label for="id_tipoProducto" class=" col-form-label">Tipo Producto</label>
+                <label for="id_producto" class=" col-form-label">Producto</label>
             </div>
             <div class="col-5">          
                 <div class="input-group">
@@ -37,42 +37,56 @@
                               data-target="#cadd-location-modal">                                  
                         </span>
                     </div>
-                    <input ng-model="ajaxDatoFactura.id"
-                           ng-change="tipoProductoRefresh(this, true)"
+                    <input ng-model="ajaxDatoProducto.id"
+                           ng-change="productoRefresh(this, true)"
                            aria-describedby="basic-addon2"
-                           id="id_tipoProducto"
-                           name="id_tipoProducto"
+                           id="id_producto"
+                           name="id_producto"
                            type="text"
                            size="5"
                            ng-model-options="{debounce: 1000}"
-                           maxlength="5" ng-required="true"  class="form-control" ng-class="{ 'is-invalid' : userForm.id_tipoProducto.$invalid && !userForm.id_tipoProducto.$pristine, 'is-valid': userForm.id_tipoProducto.$valid && !userForm.id_tipoProducto.$pristine}" />
+                           maxlength="5" ng-required="true"  class="form-control"
+                           ng-class="{ 'is-invalid' : userForm.id_producto.$invalid && !userForm.id_producto.$pristine, 'is-valid': userForm.id_producto.$valid && !userForm.id_producto.$pristine}"/>
                 </div>
             </div>
-        </div>    
+        </div> 
+
         <div class="form-group row justify-content-center">
             <div class="col-2">               
             </div>
             <div class="col-5">                   
                 <div class="form-group">
-                    <a href="tipoproducto/view/{{ajaxDatoFactura.id}}" class="form-control btn btn-light" style="background: lightgray; color:dark; text-align:left;" ng-class="{ 'disabled': userForm.id_tipoProducto.$invalid}" >
-                        <span >Tipo de producto {{ajaxDatoFactura.desc}} {{vacio}}</span>
+                    <a href="producto/view/{{ajaxDatoProducto.id}}" class="form-control btn btn-light" style="background: lightgray; color:dark; text-align:left;" ng-class="{ 'disabled': userForm.id_producto.$invalid}" >
+                        <span >Producto: {{ajaxDatoProducto.desc}} {{vacio}}</span>
                     </a>
                 </div>
             </div>
         </div>
-
-
 
         <div class="form-group row justify-content-center">
             <div class="col-2">
                 <label for="id_tipoUsuario" class=" col-form-label"></label>
             </div>
             <div class="col-5">
-                <div ng-show="!userForm.id_tipoProducto.$valid && !userForm.id_tipoProducto.$pristine" class="alert alert-danger" style="width: auto;" role="alert">
-                    El tipo de producto es incorrecto
+                <div ng-show="!userForm.id_producto.$valid && !userForm.id_producto.$pristine" class="alert alert-danger" style="width: auto;" role="alert">
+                    El producto es incorrecto
                 </div>
             </div>
         </div>
+
+        <div class="form-group row justify-content-center">
+            <div class="col-2">
+                <label for="id_factura" class="col-form-label">Tipo Factura</label>
+            </div>
+            <div class="col-5">
+                <input type="text" class="form-control" id="id_factura" name="id_factura" ng-model="id_factura" ng-required="true" 
+                       ng-class="{ 'is-invalid' : userForm.id_factura.$invalid && !userForm.id_factura.$pristine, 'is-valid': userForm.id_factura.$valid && !userForm.id_factura.$pristine}"/>
+                <div ng-show="!userForm.id_factura.$valid && !userForm.id_factura.$pristine" class="alert alert-danger" role="alert">
+                    Factura obligatorio
+                </div>                
+            </div>
+        </div>  
+
 
         <div class="form-group row justify-content-center">
             <div class="col-2">
@@ -84,7 +98,7 @@
     </form>
 
     <div class="alert alert-success" ng-show="mensaje">
-        Datos actualizados correctamente de la {{ob}} {{ajaxDatoFactura.id}}
+        Datos actualizados correctamente de la {{ob}} {{ajaxDatoProducto.id}}
     </div>
 </main>
 <footer class="footer" ng-include="'js/app/footer.html'"></footer>
