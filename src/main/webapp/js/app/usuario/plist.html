@@ -50,85 +50,30 @@
     </div>
 
 
-    <div class="table-responsive">
+    <div class="table-responsive" style="text-align: center;">
         <table class="table table-striped table-sm">
             <tr class="thead-dark">            
-                <th>
-                    <div class="row">
-                        <div class="col-md-12">
-                            ID
-                        </div>
-                        <div class="col-md-12">
-                            <button type="button" class="btn btn-light btn-sm" ng-click="ordena('id', 'asc')">
-                                <i class="fas fa-long-arrow-alt-up"></i>
-                            </button>
-                            <button type="button" class="btn btn-light btn-sm" ng-click="ordena('id', 'desc')">
-                                <i class="fas fa-long-arrow-alt-down"></i>
-                            </button>     
-                        </div>
-                    </div>
-                </th>               
+                <th style="min-width: 95px;">                   
+                    ID
+                </th>     
 
-                <th>
-                    <div class="row">
-                        <div class="col-md-2">
-                            DNI
-                        </div>
-                        <div class="col-md-10">
-                            <button type="button" class="btn btn-light btn-sm" ng-click="ordena('dni', 'asc')">
-                                <i class="fas fa-long-arrow-alt-up"></i>
-                            </button>
-                            <button type="button" class="btn btn-light btn-sm" ng-click="ordena('dni', 'desc')">
-                                <i class="fas fa-long-arrow-alt-down"></i>
-                            </button>
-                        </div>
-                    </div>
+                <th style="min-width: 110px;">
+                    DNI
                 </th>
                 <th>
                     Nombre
-                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('nombre', 'asc')">
-                        <a class="fas fa-long-arrow-alt-up" ></a>
-
-                    </button>
-                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('nombre', 'desc')">
-                        <i class="fas fa-long-arrow-alt-down"></i>
-                    </button>
                 </th>
                 <th>
                     Primer apellido
-                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('ape1', 'asc')">
-                        <i class="fas fa-long-arrow-alt-up"></i>
-                    </button>
-                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('ape1', 'desc')">
-                        <i class="fas fa-long-arrow-alt-down"></i>
-                    </button>
                 </th>
                 <th>
                     Segundo apellido
-                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('ape2', 'asc')">
-                        <i class="fas fa-long-arrow-alt-up"></i>
-                    </button>
-                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('ape2', 'desc')">
-                        <i class="fas fa-long-arrow-alt-down"></i>
-                    </button>
                 </th>
                 <th>
                     Nombre usuario
-                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('login', 'asc')">
-                        <i class="fas fa-long-arrow-alt-up"></i>
-                    </button>
-                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('login', 'desc')">
-                        <i class="fas fa-long-arrow-alt-down"></i>
-                    </button>
                 </th>
                 <th>
                     Tipo de usuario
-                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('id_tipoUsuario', 'asc')">
-                        <i class="fas fa-long-arrow-alt-up"></i>
-                    </button>
-                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('id_tipoUsuario', 'desc')">
-                        <i class="fas fa-long-arrow-alt-down"></i>
-                    </button>
                 </th>
                 <th>
                     Facturas
@@ -137,6 +82,70 @@
                     Acciones                
                 </th>
             </tr>
+            <tr class="thead-dark">
+                <th>                    
+                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('id', 'asc')">
+                        <i class="fas fa-long-arrow-alt-up"></i>
+                    </button>
+                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('id', 'desc')">
+                        <i class="fas fa-long-arrow-alt-down"></i>
+                    </button>                         
+                </th>
+                <th>                
+                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('dni', 'asc')">
+                        <i class="fas fa-long-arrow-alt-up"></i>
+                    </button>
+                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('dni', 'desc')">
+                        <i class="fas fa-long-arrow-alt-down"></i>
+                    </button>                  
+                </th>
+                <th>                    
+                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('nombre', 'asc')">
+                        <a class="fas fa-long-arrow-alt-up" ></a>
+
+                    </button>
+                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('nombre', 'desc')">
+                        <i class="fas fa-long-arrow-alt-down"></i>
+                    </button></th>
+                <th>
+                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('ape1', 'asc')">
+                        <i class="fas fa-long-arrow-alt-up"></i>
+                    </button>
+                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('ape1', 'desc')">
+                        <i class="fas fa-long-arrow-alt-down"></i>
+                    </button>
+                </th>
+                <th>
+                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('ape2', 'asc')">
+                        <i class="fas fa-long-arrow-alt-up"></i>
+                    </button>
+                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('ape2', 'desc')">
+                        <i class="fas fa-long-arrow-alt-down"></i>
+                    </button>
+                </th>
+                <th>
+                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('login', 'asc')">
+                        <i class="fas fa-long-arrow-alt-up"></i>
+                    </button>
+                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('login', 'desc')">
+                        <i class="fas fa-long-arrow-alt-down"></i>
+                    </button> 
+                </th>
+                <th>
+                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('id_tipoUsuario', 'asc')">
+                        <i class="fas fa-long-arrow-alt-up"></i>
+                    </button>
+                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('id_tipoUsuario', 'desc')">
+                        <i class="fas fa-long-arrow-alt-down"></i>
+                    </button>
+                </th>
+                <th></th>
+                <th></th>
+
+
+            </tr>
+
+
             <tr ng-repeat="fila in ajaxDataUsuarios">
                 <td>{{fila.id}}</td>
                 <td>{{fila.dni}}</td>
@@ -148,7 +157,7 @@
                     <a href="tipousuario/view/{{fila.obj_tipoUsuario.id}}">{{fila.obj_tipoUsuario.desc}}</a>
                 </td>
                 <td>
-                    <a href="usuario/plistfactura/{{fila.id}}">
+                    <a href="usuario/plistfactura/{{fila.id}}/10/1">
                         <button type="button" class="btn table-warning">
                             <i>{{fila.link_factura}}</i>
                         </button>
@@ -170,4 +179,4 @@
         </table>
     </div>
 </div>
-<footer class="footer" ng-include="'js/app/footer.html'" style="margin-top: 20%;"></footer>
+<footer class="footer" ng-include="'js/app/footer.html'"></footer>

@@ -11,7 +11,7 @@
             </div>
             <div class="col-5">
                 <input type="text" class="form-control" ng-model="dni" ng-required="true"
-                name="dni" ng-class="{ 'is-invalid' : userForm.dni.$invalid && !userForm.dni.$pristine, 'is-valid' :userForm.dni.$valid && !userForm.dni.$pristine}" ng-pattern="/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/"/>   
+                name="dni" ng-class="{ 'is-invalid' : userForm.dni.$invalid && !userForm.dni.$pristine, 'is-valid' :userForm.dni.$valid && !userForm.dni.$pristine}" ng-pattern="/^[0-9]{8}[TRWAGMYFPDXBNOYJZSQVHLCKET]$/"/>   
                 <div ng-show="userForm.dni.$invalid && !userForm.dni.$pristine && !userForm.dni.$error.pattern" class="alert alert-danger" >DNI requerido.</div>
 
                 <div ng-show="userForm.dni.$error.pattern" class="alert alert-danger" role="alert">

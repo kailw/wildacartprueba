@@ -35,7 +35,7 @@ moduleUsuario.controller('usuarioPlistFacturaController', ['$scope', 'toolServic
         }
 
         $scope.resetOrder = function () {
-            $location.url(`usuario/plistfactura/` + $scope.rpp + `/` + $scope.page);
+            $location.url("usuario/plistfactura/"+$scope.id+"/10/1");
         };
 
 
@@ -80,6 +80,8 @@ moduleUsuario.controller('usuarioPlistFacturaController', ['$scope', 'toolServic
             $scope.status = response.status;
             $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
         });
+        
+        
         //INFORMACION DE USUARIO
         $http({
             method: 'GET',
@@ -105,7 +107,7 @@ moduleUsuario.controller('usuarioPlistFacturaController', ['$scope', 'toolServic
         };
 
         $scope.update = function () {
-            $location.url(`usuario/plistfactura/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
+            $location.url(`usuario/plistfactura/`+$scope.id+`/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
         };
 
         //paginacion neighbourhood
