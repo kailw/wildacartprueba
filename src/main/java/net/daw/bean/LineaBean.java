@@ -21,10 +21,13 @@ public class LineaBean {
     private int id;
     @Expose
     private int cantidad;
-    @Expose(serialize = false)
+    
+    @Expose(serialize = false)  
     private int id_producto;
+    
     @Expose(serialize = false)
     private int id_factura;
+    
     @Expose(deserialize = false)
     private ProductoBean obj_Producto;
     @Expose(deserialize = false)

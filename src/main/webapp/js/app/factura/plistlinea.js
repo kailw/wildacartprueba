@@ -3,6 +3,7 @@
 moduleFactura.controller('facturaPlistLineaController', ['$scope', 'toolService', '$http', 'sessionService', '$routeParams', '$location',
     function ($scope, toolService, $http, sessionService, $routeParams, $location) {
         $scope.id = $routeParams.id;
+        $scope.idUsuarioFactura;
         $scope.totalPages = 1;
         $scope.ob = "factura";
         $scope.select = ["5", "10", "25", "50", "500"];
@@ -70,6 +71,7 @@ moduleFactura.controller('facturaPlistLineaController', ['$scope', 'toolService'
             $scope.ajaxDatoLineaFactura = response.data.message || 'Request failed';
             $scope.status = response.status;
         });
+        $scope.hola;
 
         $http({
             method: 'GET',
@@ -78,24 +80,23 @@ moduleFactura.controller('facturaPlistLineaController', ['$scope', 'toolService'
             $scope.status = response.status;
             $scope.ajaxDatoLineaFactura = response.data.message;
             $scope.idUsuarioFactura = response.data.message[0].obj_Factura.id_usuario;
-
+            $http({
+                method: 'GET',
+                url: '/json?ob=usuario&op=get&id=' + $scope.idUsuarioFactura
+            }).then(function (response) {
+                $scope.status = response.status;
+                $scope.ajaxDatosUsuarios = response.data.message;                                                                
+            }, function (response) {
+                $scope.status = response.status;
+                $scope.ajaxDatosUsuarios = response.data.message || 'Request failed';
+            });
         }, function (response) {
             $scope.status = response.status;
             $scope.ajaxDatoLineaFactura = response.data.message || 'Request failed';
         });
 
 
-        $http({
-            method: 'GET',
-            url: '/json?ob=usuario&op=get&id=32'
-        }).then(function (response) {
-            $scope.status = response.status;
-            $scope.ajaxDatosUsuarios = response.data.message;
 
-        }, function (response) {
-            $scope.status = response.status;
-            $scope.ajaxDatosUsuarios = response.data.message || 'Request failed';
-        });
 
 
         $scope.update = function () {

@@ -6,6 +6,7 @@
 package net.daw.service;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,7 +45,7 @@ public class LineaService {
             oConnection = oConnectionPool.newConnection();
             LineaDao oLineaDao = new LineaDao(oConnection, ob);
             LineaBean oLineaBean = oLineaDao.get(id, 1);
-            Gson oGson = new Gson();
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(oLineaBean));
         } catch (Exception ex) {
             oReplyBean = new ReplyBean(500,
@@ -87,7 +88,7 @@ public class LineaService {
             oConnection = oConnectionPool.newConnection();
             LineaDao oLineaDao = new LineaDao(oConnection, ob);
             int registros = oLineaDao.getcount();
-            Gson oGson = new Gson();
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(registros));
         } catch (Exception ex) {
             oReplyBean = new ReplyBean(500,
@@ -106,7 +107,7 @@ public class LineaService {
         Connection oConnection;
         try {
             String strJsonFromClient = oRequest.getParameter("json");
-            Gson oGson = new Gson();
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             LineaBean oLineaBean = new LineaBean();
             oLineaBean = oGson.fromJson(strJsonFromClient, LineaBean.class);
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
@@ -130,7 +131,7 @@ public class LineaService {
         Connection oConnection;
         try {
             String strJsonFromClient = oRequest.getParameter("json");
-            Gson oGson = new Gson();
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             LineaBean oLineaBean = new LineaBean();
             oLineaBean = oGson.fromJson(strJsonFromClient, LineaBean.class);
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
@@ -159,7 +160,7 @@ public class LineaService {
             oConnection = oConnectionPool.newConnection();
             LineaDao oLineaDao = new LineaDao(oConnection, ob);
             ArrayList<LineaBean> alLineaBean = oLineaDao.getpage(iRpp, iPage, hmOrder, 1);
-            Gson oGson = new Gson();
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(alLineaBean));
         } catch (Exception ex) {
             oReplyBean = new ReplyBean(500,
@@ -184,7 +185,7 @@ public class LineaService {
             oConnection = oConnectionPool.newConnection();
             LineaDao oLineaDao = new LineaDao(oConnection, ob);
             ArrayList<LineaBean> alLineaBean = oLineaDao.getLineaFactura(iRpp, iPage, id_factura, 1);
-            Gson oGson = new Gson();
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(alLineaBean));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: getLineaFactura method: " + ob + " object" + ex.getMessage(), ex);
@@ -206,7 +207,7 @@ public class LineaService {
             oConnection = oConnectionPool.newConnection();
             LineaDao oLineaDao = new LineaDao(oConnection, ob);
             int registros = oLineaDao.getcountxlinea(id_factura);
-            Gson oGson = new Gson();
+            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(registros));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: getcount method: " + ob + " object", ex);

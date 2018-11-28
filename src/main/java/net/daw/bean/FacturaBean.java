@@ -25,7 +25,7 @@ public class FacturaBean {
     @Expose
     private Float iva;
 
-    @Expose(serialize = false)
+    @Expose(deserialize = false)
     private int id_usuario;
 
     @Expose(deserialize = false)
