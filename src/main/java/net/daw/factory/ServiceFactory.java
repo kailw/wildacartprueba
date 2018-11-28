@@ -136,6 +136,12 @@ public class ServiceFactory {
                     case "getpage":
                         oReplyBean = oLineaService.getpage();
                         break;
+                    case "getlineafactura":
+                        oReplyBean = oLineaService.getLineaFactura();
+                        break;
+                    case "getcountxlinea":
+                        oReplyBean = oLineaService.getcountxlinea();
+                        break;
                     default:
                         oReplyBean = new ReplyBean(500, "Operation doesn't exist");
                         break;
