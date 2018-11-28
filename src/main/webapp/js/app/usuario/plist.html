@@ -139,14 +139,21 @@
                         <i class="fas fa-long-arrow-alt-down"></i>
                     </button>
                 </th>
-                <th></th>
+                <th>     
+                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('link_factura', 'asc')">
+                        <i class="fas fa-long-arrow-alt-up"></i>
+                    </button>
+                    <button type="button" class="btn btn-light btn-sm" ng-click="ordena('link_factura', 'desc')">
+                        <i class="fas fa-long-arrow-alt-down"></i>
+                    </button>
+                </th>
                 <th></th>
 
 
             </tr>
 
 
-            <tr ng-repeat="fila in ajaxDataUsuarios">
+            <tr ng-repeat="fila in ajaxDataUsuarios track by $index">
                 <td>{{fila.id}}</td>
                 <td>{{fila.dni}}</td>
                 <td>{{fila.nombre}}</td>
@@ -157,10 +164,8 @@
                     <a href="tipousuario/view/{{fila.obj_tipoUsuario.id}}">{{fila.obj_tipoUsuario.desc}}</a>
                 </td>
                 <td>
-                    <a href="usuario/plistfactura/{{fila.id}}/10/1">
-                        <button type="button" class="btn table-warning">
-                            <i>{{fila.link_factura}}</i>
-                        </button>
+                    <a href="usuario/plistfactura/{{fila.id}}/10/1" class="btn table-warning" ng-class="{'disabled': fila.link_factura == 0}">
+                        <i>{{fila.link_factura}}</i>
                     </a>
                 </td>
 

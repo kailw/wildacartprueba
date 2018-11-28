@@ -159,6 +159,7 @@ public class UsuarioBean {
         strColumns += "login,";
         strColumns += "pass,";
         strColumns += "id_tipoUsuario";
+        strColumns += "link";
         return strColumns;
     }
 

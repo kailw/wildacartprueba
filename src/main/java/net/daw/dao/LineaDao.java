@@ -212,5 +212,41 @@ public class LineaDao {
         }
         return res;
     }
+        public ArrayList<LineaBean> getLineaFactura(int iRpp, int iPage, int idFactura, Integer expand) throws Exception {
+        String strSQL = "SELECT * FROM " + ob;
+        ArrayList<LineaBean> alLineaBean;
+        if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {
+            strSQL += " WHERE id_factura=? ";
+            strSQL += " LIMIT " + (iPage - 1) * iRpp + ", " + iRpp;
+            ResultSet oResultSet = null;
+            PreparedStatement oPreparedStatement = null;
+            try {
+
+                oPreparedStatement = oConnection.prepareStatement(strSQL);
+                oPreparedStatement.setInt(1, idFactura);
+                oResultSet = oPreparedStatement.executeQuery();
+                alLineaBean = new ArrayList<LineaBean>();
+
+                while (oResultSet.next()) {
+                    LineaBean oLineaBean = new LineaBean();
+                    oLineaBean.fill(oResultSet, oConnection, expand);
+                    alLineaBean.add(oLineaBean);
+                }
+            } catch (SQLException e) {
+                throw new Exception("Error en Dao getpage de " + ob, e);
+            } finally {
+                if (oResultSet != null) {
+                    oResultSet.close();
+                }
+                if (oPreparedStatement != null) {
+                    oPreparedStatement.close();
+                }
+            }
+        } else {
+            throw new Exception("Error en Dao getpage de " + ob);
+        }
+        return alLineaBean;
+
+    }
 
 }

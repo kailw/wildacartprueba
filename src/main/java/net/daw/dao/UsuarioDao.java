@@ -230,9 +230,7 @@ public class UsuarioDao {
                 alUsuarioBean = new ArrayList<UsuarioBean>();
                 while (oResultSet.next()) {
                     UsuarioBean oUsuarioBean = new UsuarioBean();
-
                     oUsuarioBean.fill(oResultSet, oConnection, expand);
-
                     alUsuarioBean.add(oUsuarioBean);
                 }
             } catch (SQLException e) {

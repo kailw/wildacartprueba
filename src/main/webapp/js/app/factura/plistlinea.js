@@ -1,10 +1,10 @@
-'use strict';
+'use strict'
 
-moduleUsuario.controller('usuarioPlistFacturaController', ['$scope', 'toolService', '$http', 'sessionService', '$routeParams', '$location',
+moduleFactura.controller('facturaPlistLineaController', ['$scope', 'toolService', '$http', 'sessionService', '$routeParams', '$location',
     function ($scope, toolService, $http, sessionService, $routeParams, $location) {
-        $scope.totalPages = 1;
         $scope.id = $routeParams.id;
-        $scope.select = ["5", "10", "25", "50", "500"];
+        $scope.totalPages = 1;
+
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
             $scope.orderURLCliente = "";
@@ -14,87 +14,72 @@ moduleUsuario.controller('usuarioPlistFacturaController', ['$scope', 'toolServic
         }
 
         if (!$routeParams.rpp) {
-            $scope.rpp = "10";
+            $scope.rpp = '10';
         } else {
             $scope.rpp = $routeParams.rpp;
         }
 
         if (!$routeParams.page) {
-            $scope.page ="1";
+            $scope.page = 1;
         } else {
             if ($routeParams.page >= 1) {
                 $scope.page = $routeParams.page;
             } else {
-                $scope.page = "1";
+                $scope.page = 1;
             }
         }
-        if (sessionService) {
+        if(sessionService){
             $scope.usuariologeado = sessionService.getUserName();
             $scope.loginH = true;
             $scope.usuariologeadoID = sessionService.getId();
-        }
-
+        };
+        
         $scope.resetOrder = function () {
-            $location.url("usuario/plistfactura/"+$scope.id+"/10/1");
+            $location.url(`factura/plistlinea/` + $scope.rpp + `/` + $scope.page);
         };
 
 
         $scope.ordena = function (order, align) {
-            if ($scope.orderURLServidor === "") {
+            if ($scope.orderURLServidor == "") {
                 $scope.orderURLServidor = "&order=" + order + "," + align;
                 $scope.orderURLCliente = order + "," + align;
             } else {
                 $scope.orderURLServidor = $scope.orderURLServidor + "-" + order + "," + align;
                 $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
             }
-            $location.url(`usuario/plistfactura/`+$scope.id+`/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
+            $location.url(`factura/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
         };
 
         //getcount
         $http({
             method: 'GET',
-            url: '/json?ob=factura&op=getcountfacturauser&id='+$scope.id
+            url: '/json?ob=linea&op=getcount'
         }).then(function (response) {
             $scope.status = response.status;
-            $scope.ajaxDataUsuariosNumber = response.data.message;
-            $scope.totalPages = Math.ceil($scope.ajaxDataUsuariosNumber / $scope.rpp);
+            $scope.ajaxDatoLineaFactura = response.data.message;
+            $scope.totalPages = Math.ceil($scope.ajaxDatoLineaFactura / $scope.rpp);
             if ($scope.page > $scope.totalPages) {
                 $scope.page = $scope.totalPages;
                 $scope.update();
             }
             pagination2();
         }, function (response) {
-            $scope.ajaxDataUsuariosNumber = response.data.message || 'Request failed';
+            $scope.ajaxDatoLineaFactura = response.data.message || 'Request failed';
             $scope.status = response.status;
         });
 
         $http({
             method: 'GET',
-            url: '/json?ob=factura&op=getpagexusuario&id=' + $scope.id + '&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
+            url: '/json?ob=linea&op=getlineafactura&rpp=' + $scope.rpp + '&page=' + $scope.page +'&id='+$routeParams.id + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
-            $scope.ajaxDataUsuarios = response.data.message;
-            //$scope.nombre = $scope.data.message.obj_Usuario.nombre + ' ' + $scope.data.message.obj_Usuario.ape1;
+            $scope.ajaxDatoLineaFactura = response.data.message;
 
         }, function (response) {
             $scope.status = response.status;
-            $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
+            $scope.ajaxDatoLineaFactura = response.data.message || 'Request failed';
         });
-        
-        
-        //INFORMACION DE USUARIO
-        $http({
-            method: 'GET',
-            url: '/json?ob=usuario&op=get&id=' +$routeParams.id
-        }).then(function (response) {
-            $scope.status = response.status;
-            $scope.ajaxDatosUsuarios = response.data.message;
 
-        }, function (response) {
-            $scope.status = response.status;
-            $scope.ajaxDatosUsuarios = response.data.message || 'Request failed';
-        });
-        
         $scope.logout = function () {
             $http({
                 method: 'GET',
@@ -108,7 +93,7 @@ moduleUsuario.controller('usuarioPlistFacturaController', ['$scope', 'toolServic
         };
 
         $scope.update = function () {
-            $location.url(`usuario/plistfactura/`+$scope.id+`/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
+            $location.url(`factura/plistlinea/` +$scope.id+`/`+ $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
         };
 
         //paginacion neighbourhood
@@ -141,4 +126,4 @@ moduleUsuario.controller('usuarioPlistFacturaController', ['$scope', 'toolServic
 
 
     }
-])
+]);
