@@ -26,9 +26,9 @@ moduleFactura.controller('facturaEditController', ['$scope', '$http', '$location
         $scope.guardar = function () {
             var json = {
                 id: $scope.ajaxDatoFactura.id,
-                fecha: null,
+                fecha: $scope.myDate,
                 iva: $scope.ajaxDatoFactura.iva,
-                id_usuario: $scope.ajaxDatoFactura.obj_Usuario.id
+                obj_Usuario: {id: $scope.ajaxDatoFactura.obj_Usuario.id}
             };
             $http({
                 method: 'GET',
@@ -45,10 +45,10 @@ moduleFactura.controller('facturaEditController', ['$scope', '$http', '$location
         };
 
         $scope.isActive = toolService.isActive;
-        
+
         $scope.usuarioRefresh = function (quiensoy, consulta) {
             var form = quiensoy;
-            if (consulta) {                
+            if (consulta) {
                 $http({
                     method: 'GET',
                     url: 'json?ob=usuario&op=get&id=' + $scope.ajaxDatoFactura.obj_Usuario.id
@@ -63,5 +63,18 @@ moduleFactura.controller('facturaEditController', ['$scope', '$http', '$location
                 form.userForm.obj_Usuario.$setValidity('valid', true);
             }
         };
+        //CALENDARIO
+
+        $scope.myDate = new Date();
+
+        $scope.minDate = new Date(
+                $scope.myDate.getFullYear(),
+                $scope.myDate.getMonth() - 2,
+                $scope.myDate.getDate());
+
+        $scope.maxDate = new Date(
+                $scope.myDate.getFullYear(),
+                $scope.myDate.getMonth() + 2,
+                $scope.myDate.getDate());
 
     }]);

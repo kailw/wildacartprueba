@@ -17,4 +17,12 @@
 .mensaje {
     margin:15px;
 }
+.tablacentro {
+text-align: center;
+}
+
+
+#colorNegroborder {
+    border-top:  1px solid rgb(33,37,41);
+}
 

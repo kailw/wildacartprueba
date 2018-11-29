@@ -79,7 +79,7 @@
                 <label for="id_factura" class="col-form-label">Tipo Factura</label>
             </div>
             <div class="col-5">
-                <input type="text" class="form-control" id="id_factura" name="id_factura" ng-model="id_factura" ng-required="true" 
+                <input type="text" class="form-control" id="id_factura" name="id_factura" ng-model="id_factura" ng-required="true" ng-disbled="true"
                        ng-class="{ 'is-invalid' : userForm.id_factura.$invalid && !userForm.id_factura.$pristine, 'is-valid': userForm.id_factura.$valid && !userForm.id_factura.$pristine}"/>
                 <div ng-show="!userForm.id_factura.$valid && !userForm.id_factura.$pristine" class="alert alert-danger" role="alert">
                     Factura obligatorio
@@ -98,7 +98,7 @@
     </form>
 
     <div class="alert alert-success" ng-show="mensaje">
-        Datos actualizados correctamente de la {{ob}} {{ajaxDatoProducto.id}}
+        Se ha creado correctamente la {{ob}}
     </div>
 </main>
 <footer class="footer" ng-include="'js/app/footer.html'"></footer>

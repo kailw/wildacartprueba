@@ -19,9 +19,9 @@ moduleFactura.controller('facturaCreateController', ['$scope', '$http', '$locati
         $scope.guardar = function () {
             var json = {
                 id: null,
-                fecha: null,
+                fecha: $scope.myDate,
                 iva: $scope.iva,
-                id_usuario: $scope.ajaxDatoFactura.id
+                obj_Usuario:{id:$scope.ajaxDatoFactura.id}
             };
             $http({
                 method: 'GET',
@@ -68,5 +68,21 @@ moduleFactura.controller('facturaCreateController', ['$scope', '$http', '$locati
                 form.userForm.id_Usuario.$setValidity('valid', true);
             }
         };
+        //CALENDARIO
+
+        $scope.myDate = new Date();
+
+        $scope.minDate = new Date(
+                $scope.myDate.getFullYear(),
+                $scope.myDate.getMonth() - 2,
+                $scope.myDate.getDate());
+
+        $scope.maxDate = new Date(
+                $scope.myDate.getFullYear(),
+                $scope.myDate.getMonth() + 2,
+                $scope.myDate.getDate());
+
+
+
 
     }]);

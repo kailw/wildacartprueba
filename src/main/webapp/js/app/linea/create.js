@@ -2,7 +2,7 @@
 
 moduleLinea.controller('lineaCreateController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
-        $scope.id = $routeParams.id;
+        $scope.id_factura = $routeParams.id;
 
         $scope.ob = "linea";
         if (sessionService) {
@@ -21,7 +21,7 @@ moduleLinea.controller('lineaCreateController', ['$scope', '$http', '$location',
                 id: null,
                 cantidad: $scope.cantidad,
                 id_producto: $scope.ajaxDatoProducto.id,
-                id_factura: $scope.id_factura
+                id_factura: $routeParams.id
             };
             
             $http({

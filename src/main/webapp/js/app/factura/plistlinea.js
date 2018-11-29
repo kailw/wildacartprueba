@@ -80,6 +80,7 @@ moduleFactura.controller('facturaPlistLineaController', ['$scope', 'toolService'
             $scope.status = response.status;
             $scope.ajaxDatoLineaFactura = response.data.message;
             $scope.idUsuarioFactura = response.data.message[0].obj_Factura.id_usuario;
+            $scope.idFactura = response.data.message[0].obj_Factura.id;
             $http({
                 method: 'GET',
                 url: '/json?ob=usuario&op=get&id=' + $scope.idUsuarioFactura

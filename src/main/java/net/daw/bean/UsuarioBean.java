@@ -46,14 +46,14 @@ public class UsuarioBean {
     private TipousuarioBean obj_tipoUsuario;
 
     @Expose(deserialize = false)
-    private int link_factura;
+    private int numFactura;
 
-    public int getLink_factura() {
-        return link_factura;
+    public int getNumFactura() {
+        return numFactura;
     }
 
-    public void setLink_factura(int link_factura) {
-        this.link_factura = link_factura;
+    public void setNumFactura(int numFactura) {
+        this.numFactura = numFactura;
     }
 
     public TipousuarioBean getObj_tipoUsuario() {
@@ -138,7 +138,7 @@ public class UsuarioBean {
         this.setLogin(oResultSet.getString("login"));
         this.setPass(oResultSet.getString("pass"));
         FacturaDao oFacturaDao = new FacturaDao(oConnection, "factura");
-        this.setLink_factura(oFacturaDao.getcountFacturaUser(this.id));
+        this.setNumFactura(oFacturaDao.getcountFacturaUser(this.id));
 
         if (expand > 0) {
             TipousuarioDao otipousuarioDao = new TipousuarioDao(oConnection, "tipousuario");
@@ -158,8 +158,7 @@ public class UsuarioBean {
         strColumns += "ape2,";
         strColumns += "login,";
         strColumns += "pass,";
-        strColumns += "id_tipoUsuario";
-        strColumns += "link";
+        strColumns += "id_tipoUsuario";        
         return strColumns;
     }
 

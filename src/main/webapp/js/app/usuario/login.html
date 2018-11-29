@@ -6,7 +6,7 @@
             <div class="col-sm-8 col-md-5">
                 <label for="login">Login</label>
                 <input type="text" class="form-control" name="login" id="login" placeholder="Introduce tu nombre de usuario" ng-model="login" 
-                       ng-required="true" ng-class="{ 'is-invalid' : userForm.login.$invalid && !userForm.login.$pristine, 'is-valid' :userForm.login.$valid && !userForm.login.$pristine}"/>
+                  ng-required="true" ng-class="{ 'is-invalid' : userForm.login.$invalid && !userForm.login.$pristine, 'is-valid' :userForm.login.$valid && !userForm.login.$pristine}" ng-keyup="$event.keyCode == 13 && log()"/>
                 <small id="emailHelp" class="form-text text-muted">Escribe correctamente tu nombre de usuario.</small>
                 <div ng-show="!userForm.login.$valid && !userForm.login.$pristine" class="alert alert-danger" role="alert">
                     Login obligatorio

@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import net.daw.bean.LineaBean;
-import net.daw.bean.TipousuarioBean;
 import net.daw.helper.SqlBuilder;
 
 /**
