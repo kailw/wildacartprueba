@@ -36,7 +36,7 @@ public class UsuarioBean {
     @Expose
     private String login;
 
-    @Expose
+    @Expose(serialize = false)
     private String pass;
 
     @Expose(serialize = false)

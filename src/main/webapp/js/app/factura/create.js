@@ -12,7 +12,8 @@ moduleFactura.controller('facturaCreateController', ['$scope', '$http', '$locati
         }
         $scope.ajaxDatoFactura = {
             id: null,
-            desc: null
+            fecha: null,
+            iva: null
         };
 
 
@@ -69,6 +70,7 @@ moduleFactura.controller('facturaCreateController', ['$scope', '$http', '$locati
             }
         };
         //CALENDARIO
+        
 
         $scope.myDate = new Date();
 

@@ -114,7 +114,7 @@ public class FacturaBean {
 
         String strPairs = "";
         strPairs += "id=" + id + ",";
-        strPairs += "fecha=" + EncodingHelper.quotate(localDate.toString()) + ",";
+        strPairs += "fecha=" + EncodingHelper.quotate(fecha.toInstant().toString()) + ",";
         strPairs += "iva=" + iva + ",";
         strPairs += "id_usuario=" + getObj_Usuario().getId();
         strPairs += " WHERE id=" + id;

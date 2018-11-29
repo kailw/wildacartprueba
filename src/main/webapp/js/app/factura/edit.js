@@ -4,6 +4,7 @@ moduleFactura.controller('facturaEditController', ['$scope', '$http', '$location
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
         $scope.id = $routeParams.id;
         $scope.myDate = new Date();
+        
         $scope.ob = "factura";
         if (sessionService) {
             $scope.usuariologeado = sessionService.getUserName();
@@ -17,6 +18,7 @@ moduleFactura.controller('facturaEditController', ['$scope', '$http', '$location
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDatoFactura = response.data.message;
+            $scope.dt = new Date($scope.ajaxDatoFactura.fecha);
         }, function (response) {
             $scope.ajaxDatoFactura = response.data.message || 'Request failed';
             $scope.status = response.status;
@@ -63,10 +65,8 @@ moduleFactura.controller('facturaEditController', ['$scope', '$http', '$location
                 form.userForm.obj_Usuario.$setValidity('valid', true);
             }
         };
-        //CALENDARIO
-
-        $scope.myDate = new Date();
-
+        //CALENDARIO        
+        $scope.myDate = new Date();        
         $scope.minDate = new Date(
                 $scope.myDate.getFullYear(),
                 $scope.myDate.getMonth() - 2,
