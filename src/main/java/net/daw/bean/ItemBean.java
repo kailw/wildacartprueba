@@ -9,7 +9,7 @@ package net.daw.bean;
  *
  * @author kevin
  */
-public class CarritoBean {
+public class ItemBean {
     int cantidad;
     ProductoBean obj_Producto;
 

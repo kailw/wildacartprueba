@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
-import net.daw.bean.CarritoBean;
+import net.daw.bean.ItemBean;
 import net.daw.bean.ReplyBean;
 import net.daw.bean.UsuarioBean;
 import net.daw.connection.publicinterface.ConnectionInterface;
@@ -254,11 +254,9 @@ public class UsuarioService {
             oConnection = oConnectionPool.newConnection();
             UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
 
-            UsuarioBean oUsuarioBean = oUsuarioDao.login(strLogin, strPassword);
-            CarritoBean oCarritoBean = null;
+            UsuarioBean oUsuarioBean = oUsuarioDao.login(strLogin, strPassword);            
             if (oUsuarioBean != null) {
-                oRequest.getSession().setAttribute("user", oUsuarioBean);
-                oRequest.getSession().setAttribute("producto", oCarritoBean);
+                oRequest.getSession().setAttribute("user", oUsuarioBean);                
                 Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
                 oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
             } else {

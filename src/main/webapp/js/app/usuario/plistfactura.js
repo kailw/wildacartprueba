@@ -73,8 +73,7 @@ moduleUsuario.controller('usuarioPlistFacturaController', ['$scope', 'toolServic
             url: '/json?ob=factura&op=getpagexusuario&id=' + $scope.id + '&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
-            $scope.ajaxDataUsuarios = response.data.message;
-            //$scope.nombre = $scope.data.message.obj_Usuario.nombre + ' ' + $scope.data.message.obj_Usuario.ape1;
+            $scope.ajaxDataUsuarios = response.data.message;            
 
         }, function (response) {
             $scope.status = response.status;
