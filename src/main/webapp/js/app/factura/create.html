@@ -11,7 +11,12 @@
                 <label for="fecha" class="col-form-label">Fecha</label>
             </div>
             <div class="col-5">
-                <md-datepicker ng-model="myDate" id="fecha" name="fecha" md-placeholder="Fecha"></md-datepicker>
+                <md-datepicker ng-model="myDate" id="fecha" name="fecha" md-placeholder="Fecha" ng-required="true"
+               ng-class="{ 'is-invalid' : userForm.fecha.$invalid && !userForm.fecha.$pristine, 'is-valid': userForm.fecha.$valid && !userForm.fecha.$pristine}">
+                </md-datepicker>
+                <div ng-show="userForm.fecha.$invalid && !userForm.fecha.$pristine && !userForm.fecha.$error.pattern" class="alert alert-danger" role="alert">
+                    Fecha no válida
+                </div>
             </div>
         </div>
 
@@ -90,7 +95,7 @@
     </form>
 
     <div class="alert alert-success" ng-show="mensaje">
-       Se ha creado correctamente la {{ob}}
+        Se ha creado correctamente la {{ob}}
     </div>
 </main>
 <footer class="footer" ng-include="'js/app/footer.html'"></footer>
