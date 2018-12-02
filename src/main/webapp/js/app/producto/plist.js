@@ -1,10 +1,10 @@
-'use strict'
+'use strict';
 
-moduleProducto.controller('productoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
-    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
+moduleProducto.controller('productoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService', '$route',
+    function ($scope, $http, $location, toolService, $routeParams, sessionService, $route) {
 
         $scope.totalPages = 1;
-        $scope.select = ["5", "10", "25", "50", "500"];
+        $scope.select = ["4", "8", "12", "24", "50", "500"];
         $scope.ob = "producto";
 
         if (sessionService) {
@@ -22,7 +22,7 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
         }
 
         if (!$routeParams.rpp) {
-            $scope.rpp = "10";
+            $scope.rpp = "8";
         } else {
             $scope.rpp = $routeParams.rpp;
         }
@@ -39,10 +39,35 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
 
 
         $scope.resetOrder = function () {
-            $location.url($scope.ob + "/plist/" + $scope.rpp + "/1");
+            $location.url($scope.ob + "/plist/8/1");
             $scope.activar = "false";
         };
 
+
+        $scope.add = function (id) {
+            $http({
+                method: 'GET',
+                url: '/json?ob=carrito&op=add&producto=' + id + '&cantidad=1'
+            }).then(function (response) {
+
+                for (var i = 0; i < response.data.message.length; i++) {
+                    if (id === response.data.message[i].obj_Producto.id) {
+                        $scope.ajaxDataCantidad = response.data.message[i].cantidad;
+                        $scope.ajaxDataDesc = response.data.message[i].obj_Producto.desc;
+                        $scope.ajaxDataExistencias = response.data.message[i].obj_Producto.existencias;
+                        if ($scope.ajaxDataCantidad === response.data.message[i].obj_Producto.existencias) {
+                            alert("Has elegido el máximo de existencias del producto: " + $scope.ajaxDataDesc);
+                        } //else {
+                           // alert("Has añadido el producto: " + $scope.ajaxDataDesc + " a tu carrito.");
+                        //}
+                    }
+                }
+
+            }, function (response) {
+                $scope.status = response.status;
+                $scope.error = $scope.status + " " + response.message || 'Request failed';
+            });
+        };
 
         $scope.ordena = function (order, align) {
             if ($scope.orderURLServidor === "") {

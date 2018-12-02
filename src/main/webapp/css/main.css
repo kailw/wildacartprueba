@@ -27,13 +27,13 @@ body {
 /* Not required for template or sticky footer method. */
 
 div.container-fluid{
-    margin-bottom: 45px;
+    margin-bottom: 10%;
 }
 
 .footer {
     padding-right: 0px;
     padding-left: 0px;    
-    margin-top: 20px;
+    margin-top: 2%;
 }
 
 code {

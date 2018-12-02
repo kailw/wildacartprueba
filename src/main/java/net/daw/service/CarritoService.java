@@ -31,7 +31,7 @@ import net.daw.helper.EncodingHelper;
  *
  * @author a024465169t
  */
-public class CarritoService {
+public class CarritoService implements Serializable{
 
     HttpServletRequest oRequest;
     String ob = null;

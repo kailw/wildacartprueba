@@ -88,6 +88,7 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
                 $scope.ajaxDataCarritoShow = response.data.message;
                 if ($scope.ajaxDataCarritoShow === "Carrito vacio") {
                     $scope.carritoVacio = true;
+                    $scope.carritoVacioTabla = false;
                 }
 
             }, function (response) {
