@@ -27,7 +27,7 @@ public class FacturaBean {
     @Expose
     private Date fecha;
     @Expose
-    private Float iva;
+    private float iva;
 
     @Expose(deserialize = false)
     private int id_usuario;
@@ -74,7 +74,7 @@ public class FacturaBean {
         return iva;
     }
 
-    public void setIva(Float iva) {
+    public void setIva(float iva) {
         this.iva = iva;
     }
 
@@ -142,8 +142,12 @@ public class FacturaBean {
         String strColumns = "";
         strColumns += "null,";
         strColumns += EncodingHelper.quotate(localDate.toString()) + ",";
-        strColumns += iva + ",";
-        strColumns += getObj_Usuario().getId();
+        strColumns += iva + ",";        
+        if (getObj_Usuario() != null) {
+            strColumns += this.getObj_Usuario().getId();
+        } else {
+            strColumns += this.getId_usuario();
+        }
         return strColumns;
     }
 }

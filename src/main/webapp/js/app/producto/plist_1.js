@@ -1,161 +1,128 @@
 'use strict'
 
-moduleProducto.controller('productoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
-    function ($scope, $http, $location, toolService, $routeParams) {
+moduleProducto.controller('productoPlist_1Controller', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
+    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
+
         $scope.totalPages = 1;
         $scope.select = ["5", "10", "25", "50", "500"];
-        if (!$routeParams.rpp) {
-            $scope.numeroRegistrosPagina = "10";
-        } else {
-            $scope.numeroRegistrosPagina = $routeParams.rpp;
-        }
-        if (!$routeParams.page) {
-            $scope.numeroPagina = "1";
-        } else {
-            if ($routeParams.page >= 1) {
-                $scope.numeroPagina = $routeParams.page;
-            } else {
-                $scope.numeroPagina = "1";
-            }
-        }
+        $scope.ob = "producto";
 
-        if (!$routeParams.column) {
-            $scope.column = "id";
-        } else {
-            $scope.column = $routeParams.column;
+        if (sessionService) {
+            $scope.usuariologeado = sessionService.getUserName();
+            $scope.loginH = true;
+            $scope.usuariologeadoID = sessionService.getId();
         }
 
         if (!$routeParams.order) {
-            $scope.order = "asc";
+            $scope.orderURLServidor = "";
+            $scope.orderURLCliente = "";
         } else {
-            $scope.order = $routeParams.order;
+            $scope.orderURLServidor = "&order=" + $routeParams.order;
+            $scope.orderURLCliente = $routeParams.order;
+        }
+
+        if (!$routeParams.rpp) {
+            $scope.rpp = "10";
+        } else {
+            $scope.rpp = $routeParams.rpp;
+        }
+
+        if (!$routeParams.page) {
+            $scope.page = 1;
+        } else {
+            if ($routeParams.page >= 1) {
+                $scope.page = $routeParams.page;
+            } else {
+                $scope.page = 1;
+            }
         }
 
 
+        $scope.resetOrder = function () {
+            $location.url($scope.ob + "/plist/" + $scope.rpp + "/1");
+            $scope.activar = "false";
+        };
+
+
+        $scope.ordena = function (order, align) {
+            if ($scope.orderURLServidor === "") {
+                $scope.orderURLServidor = "&order=" + order + "," + align;
+                $scope.orderURLCliente = order + "," + align;
+            } else {
+                $scope.orderURLServidor += "-" + order + "," + align;
+                $scope.orderURLCliente += "-" + order + "," + align;
+            }
+
+
+            ;
+            $location.url($scope.ob + "/plist/" + $scope.rpp + "/" + $scope.page + "/" + $scope.orderURLCliente);
+        };
+
+        //getcount
+        $http({
+            method: 'GET',
+            url: '/json?ob=' + $scope.ob + '&op=getcount'
+        }).then(function (response) {
+            $scope.status = response.status;
+            $scope.ajaxDataProductosNumber = response.data.message;
+            $scope.totalPages = Math.ceil($scope.ajaxDataProductosNumber / $scope.rpp);
+            if ($scope.page > $scope.totalPages) {
+                $scope.page = $scope.totalPages;
+                $scope.update();
+            }
+            pagination2();
+        }, function (response) {
+            $scope.ajaxDataProductosNumber = response.data.message || 'Request failed';
+            $scope.status = response.status;
+        });
 
         $http({
             method: 'GET',
-            withCredentials: true,
-            url: "http://localhost:8081/trolleyes/json?ob=producto&op=getcount"
+//            header: {
+//                'Content-Type': 'application/json;charset=utf-8'
+//            },
+            url: '/json?ob=' + $scope.ob + '&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
-            $scope.numeroRegistros = response.data.message;
-            $scope.totalPages = Math.ceil($scope.numeroRegistros / $scope.numeroRegistrosPagina);
-            pagination2();
-            $scope.arrayPages = [];
-            for (var i = 1; i <= $scope.totalPages; i++) {
-                $scope.arrayPages.push(i);
-            }
-
+            $scope.ajaxDataProductos = response.data.message;
         }, function (response) {
-            $scope.numeroRegistros = response.data.message || 'Request failed';
             $scope.status = response.status;
-        });
-        $http({
-            method: "GET",
-            withCredential: true,
-            url: "http://localhost:8081/trolleyes/json?ob=producto&op=getpage&rpp=" + $scope.numeroRegistrosPagina + "&page=" + $scope.numeroPagina +
-                    "&column=" + $scope.column + "&order=" + $scope.order
-        }).then(function (response) {
-            $scope.status = response.status;
-            $scope.ajaxDatoProducto = response.data.message;
-        }, function (response) {
-//                $scope.cssAlertSuccessDos = "alert alert-danger"
-//                $scope.ajaxMensajeProducto2 = "Debes introducir al menos un número";
-            $scope.ajaxDatoProducto = response.data.message || 'Request failed';
-            $scope.status = response.status;
+            $scope.ajaxDataProductos = response.data.message || 'Request failed';
         });
 
 
 
-        $scope.onChange = function () {
-            $location.path("producto/plist/" + $scope.numeroRegistrosPagina + "/" + $scope.numeroPagina); //{{numeroPagina}}/' + $scope.adda.id);                  
-        }
+        $scope.update = function () {
+            $location.url($scope.ob + "/plist/" + $scope.rpp + "/" + $scope.page + "/" + $scope.orderURLCliente);
+        };
 
-        $scope.ordenar = function (column, order) {
-            $http({
-                method: "GET",
-                url: "http://localhost:8081/trolleyes/json?ob=producto&op=getpage&rpp=" + $scope.numeroRegistrosPagina + "&page=" + $scope.numeroPagina +
-                        "&column=" + $scope.column + "&order=" + $scope.order
-            }).then(function (response) {
-                $location.url("producto/plist/" + $scope.numeroRegistrosPagina + "/" + $scope.numeroPagina + "/" + column + "/" + order);
-                $scope.status = response.status;
-                $scope.ajaxDatoProducto = response.data.message;
-            }, function (response) {
-                $scope.ajaxDatoProducto = response.data.message || 'Request failed';
-                $scope.status = response.status;
-            });
-
-        }
-
+        //paginacion neighbourhood
         function pagination2() {
             $scope.list2 = [];
-            $scope.neight = Math.ceil($scope.numeroPagina);
-            $scope.negith_next = $scope.neight + 1;
-            $scope.negith_prev = $scope.neight - 1;
-            $scope.num = "3";
-            $scope.num2 = "4";            
-            $scope.aux1 = $scope.negith_next + 1;
-            $scope.aux2 = $scope.negith_prev - 1;
-            $scope.borrar = "8";
-
-            if ($scope.totalPages > 5) {
-                for (var i = 1; i <= $scope.totalPages; i++) {
-                    if (i === $scope.negith_next) {
-                        $scope.list2.push(i);
-                    } else if (i === $scope.negith_prev) {
-                        $scope.list2.push(i);
-                    } else if (i === $scope.neight) {
-                        $scope.list2.push(i);
-                    } else if (i === $scope.aux1) {
-                        $scope.list2.push("...");
-                        $scope.list2.push($scope.totalPages);
-                    } else if (i === $scope.aux2) {
-                        $scope.list2.push("1");
+            $scope.neighborhood = 1;
+            for (var i = 1; i <= $scope.totalPages; i++) {
+                if (i === $scope.page) {
+                    $scope.list2.push(i);
+                } else if (i <= $scope.page && i >= ($scope.page - $scope.neighborhood)) {
+                    $scope.list2.push(i);
+                } else if (i >= $scope.page && i <= ($scope.page - -$scope.neighborhood)) {
+                    $scope.list2.push(i);
+                } else if (i === ($scope.page - $scope.neighborhood) - 1) {
+                    if ($scope.page >= 4) {
                         $scope.list2.push("...");
                     }
-                }
-                if ($scope.num === $scope.numeroPagina) {
-                    $scope.list2.splice(1, 1);                                       
-                } else if ($scope.borrar === $scope.numeroPagina){                    
-                    $scope.list2.splice(5, 1); 
-                }                                
-            } else {
-                for (var i = 1; i <= $scope.totalPages; i++) {
-                    if (i === $scope.negith_next) {
-                        $scope.list2.push(i);
-                    } else if (i === $scope.negith_prev) {
-                        $scope.list2.push(i);
-                    } else if (i === $scope.neight) {
-                        $scope.list2.push(i);
-                    } else if (i === $scope.aux1) {
-                        $scope.list2.push("...");
-                        $scope.list2.push($scope.totalPages);
-                    } else if (i === $scope.aux2) {
-                        $scope.list2.push("1");
+                } else if (i === ($scope.page - -$scope.neighborhood) + 1) {
+                    if ($scope.page <= $scope.totalPages - 3) {
                         $scope.list2.push("...");
                     }
-                }
-                if ($scope.num === $scope.numeroPagina) {
-                    $scope.list2.splice(1, 1);
-                    $scope.list2.splice(4, 1);
                 }
             }
         }
-
-
-
-        $scope.limpiar = function () {
-            $scope.numeroInsertar = "";
-            $scope.numeroRegistrosPagina = "10";
-            $scope.cssAlertSuccessUno = "";
-            $scope.cssAlertSuccessDos = "";
-            $scope.ajaxMensajeProducto1 = "";
-            $scope.ajaxMensajeProducto2 = "";
-            $scope.numeroPagina = "1";
-            $scope.onChange();
-        }
+        ;
 
         $scope.isActive = toolService.isActive;
+    }
 
-    }]);
+
+
+]);

@@ -11,7 +11,8 @@ var wildcart = angular.module('MyApp', [
     'facturaControllers',
     'lineaControllers',
     'components',
-    'ngMaterial'
+    'ngMaterial',
+    'carritoControllers'
 ]).config(function ($mdDateLocaleProvider) {
     // Example of a Spanish localization.
     $mdDateLocaleProvider.months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -39,6 +40,7 @@ var wildcart = angular.module('MyApp', [
 
 
 var moduleCommon = angular.module ('commonControllers',[]);
+var moduleCarrito = angular.module ('carritoControllers',[]);
 var moduleService = angular.module ('services',[]);
 var moduleTipousuario = angular.module ('tipousuarioControllers',[]);
 var moduleComponent = angular.module ('components',[]);

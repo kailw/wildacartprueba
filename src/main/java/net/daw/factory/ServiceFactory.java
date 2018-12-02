@@ -58,6 +58,12 @@ public class ServiceFactory {
                     case "show":
                         oReplyBean = oCarritoService.show();
                         break;
+                    case "buy":
+                        oReplyBean = oCarritoService.buy();
+                        break;
+                    case "reduce":
+                        oReplyBean = oCarritoService.reduce();
+                        break;
                     default:
                         oReplyBean = new ReplyBean(500, "Operatin doesn't exist");
                         break;

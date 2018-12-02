@@ -105,6 +105,7 @@ public class ProductoBean {
         this.setExistencias(oResultSet.getInt("existencias"));
         this.setPrecio(oResultSet.getFloat("precio"));
         this.setFoto(oResultSet.getString("foto"));
+        this.setId_tipoProducto(oResultSet.getInt("id_tipoProducto"));
         if (expand > 0) {
             TipoproductoDao otipoproductoDao = new TipoproductoDao(oConnection, "tipoproducto");
             this.setObj_tipoProducto(otipoproductoDao.get(oResultSet.getInt("id_tipoProducto"), expand - 1));
@@ -135,7 +136,7 @@ public class ProductoBean {
         strColumns += existencias + ",";
         strColumns += precio + ",";
         strColumns += EncodingHelper.quotate(foto) + ",";
-//        strColumns += obj_TipoproductoBean.getId() + ",";
+        strColumns += id_tipoProducto + ",";
         return strColumns;
     }
 
@@ -147,7 +148,7 @@ public class ProductoBean {
         strPairs += "existencias=" + existencias + ",";
         strPairs += "precio=" + precio + ",";
         strPairs += "foto=" + EncodingHelper.quotate(foto) + ",";
-//        strPairs += "id_tipoProducto=" + obj_TipoproductoBean.getId() + ",";
+        strPairs += "id_tipoProducto=" + id_tipoProducto + ",";
         strPairs += " WHERE id=" + id;
         return strPairs;
     }
