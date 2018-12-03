@@ -44,41 +44,60 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
         };
 
 
-        $scope.mostrar = function () {
-            $http({
-                method: 'GET',
-                url: '/json?ob=' + $scope.ob + '&op=show'
-            }).then(function (response) {
-                $scope.status = response.status;
-                $scope.ajaxDataCarritoShow = response.data.message;
-                $scope.precioProducto = 0;
-                $scope.cantidadProducto = 0;
-                if ($scope.ajaxDataCarritoShow === "Carrito vacio") {
-                    $scope.carritoVacio = true;
-                    $scope.carritoVacioTabla = false;
-                } else {
-                    $scope.carritoVacio = false;
-                    $scope.carritoVacioTabla = true;
-                }
+
+        $http({
+            method: 'GET',
+            url: '/json?ob=' + $scope.ob + '&op=show'
+        }).then(function (response) {
+            $scope.status = response.status;
+            $scope.ajaxDataCarritoShow = response.data.message;
+            $scope.precioProducto = 0;
+            $scope.cantidadProducto = 0;
+            if (($scope.ajaxDataCarritoShow === "Carrito vacio") || ($scope.ajaxDataCarritoShow === null)) {
+                $scope.carritoVacio = true;
+                $scope.carritoVacioTabla = false;
+            } else {
+                $scope.carritoVacio = false;
+                $scope.carritoVacioTabla = true;
                 for (var i = 0; i < response.data.message.length; i++) {
                     $scope.precioProducto += response.data.message[i].obj_Producto.precio;
                     $scope.cantidadProducto += response.data.message[i].cantidad;
                 }
+            }
 
-            }, function (response) {
-                $scope.status = response.status;
-                $scope.error += $scope.status + " " + response.message || 'Request failed';
-            });
-        };
+        }, function (response) {
+            $scope.status = response.status;
+            $scope.error += $scope.status + " " + response.message || 'Request failed';
+        });
 
-        $scope.mostrar();
+
 
         $scope.carrito = function (operacion, id, cantidad) {
             $http({
                 method: 'GET',
                 url: '/json?ob=' + $scope.ob + '&op=' + operacion + '&producto=' + id + '&cantidad=' + cantidad
             }).then(function (response) {
-                $route.reload();
+                $scope.ajaxDataCarritoShow = response.data.message;
+                $scope.precioProducto = 0;
+                $scope.cantidadProducto = 0;
+                if (response.data.message.length === 0) {
+                    $scope.carritoVacio = true;
+                    $scope.carritoVacioTabla = false;
+                } else {
+                    if (operacion === "add") {
+                        for (var i = 0; i < response.data.message.length; i++) {
+                            $scope.precioProducto += response.data.message[i].obj_Producto.precio;
+                            $scope.cantidadProducto += response.data.message[i].cantidad;
+                        }
+                    }
+
+                    if (operacion === "reduce") {
+                        for (var j = 0; j < response.data.message.length; j++) {
+                            $scope.precioProducto += response.data.message[j].obj_Producto.precio;
+                            $scope.cantidadProducto += response.data.message[j].cantidad;
+                        }
+                    }
+                }
             }, function (response) {
                 $scope.status = response.status;
                 $scope.error = $scope.status + " " + response.message || 'Request failed';
