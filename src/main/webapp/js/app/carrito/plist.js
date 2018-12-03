@@ -6,8 +6,8 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
         $scope.totalPages = 1;
         $scope.select = ["5", "10", "25", "50", "500"];
         $scope.ob = "carrito";
-        $scope.error = "";  
-        $scope.productoComprado = false;        
+        $scope.error = "";
+        $scope.productoComprado = false;
 
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
@@ -51,6 +51,8 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
             }).then(function (response) {
                 $scope.status = response.status;
                 $scope.ajaxDataCarritoShow = response.data.message;
+                $scope.precioProducto = 0;
+                $scope.cantidadProducto = 0;
                 if ($scope.ajaxDataCarritoShow === "Carrito vacio") {
                     $scope.carritoVacio = true;
                     $scope.carritoVacioTabla = false;
@@ -58,7 +60,11 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
                     $scope.carritoVacio = false;
                     $scope.carritoVacioTabla = true;
                 }
-                
+                for (var i = 0; i < response.data.message.length; i++) {
+                    $scope.precioProducto += response.data.message[i].obj_Producto.precio;
+                    $scope.cantidadProducto += response.data.message[i].cantidad;
+                }
+
             }, function (response) {
                 $scope.status = response.status;
                 $scope.error += $scope.status + " " + response.message || 'Request failed';
@@ -98,7 +104,7 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
         };
 
 
-        $scope.buy = function () {            
+        $scope.buy = function () {
             $http({
                 method: 'GET',
                 url: '/json?ob=' + $scope.ob + '&op=buy'
@@ -111,7 +117,7 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
                 console.log($scope.ajaxDataCarritoShow);
             }, function (response) {
                 $scope.status = response.status;
-                $scope.error += $scope.status + " " + response.data.message || 'Request failed';  
+                $scope.error += $scope.status + " " + response.data.message || 'Request failed';
                 console.log($scope.error);
             });
         };
