@@ -59,7 +59,7 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
                             $scope.showAlert('Has elgido el maximo de existencias del poducto:', response.data.message[i].obj_Producto.desc);
 
                         } else {
-                            $scope.showAlert("Has añadido el producto: " + $scope.ajaxDataDesc + " a tu carrito.");
+                            $scope.showAlert("Has añadido el producto: " + $scope.ajaxDataDesc + " a tu carrito. Cantidad:" + $scope.ajaxDataCantidad);
                         }
                     }
                 }

@@ -183,51 +183,51 @@ public class CarritoService implements Serializable{
         return oReplyBean;
     }
 
-    public ReplyBean update() throws Exception {
-
-        ConnectionInterface oConnectionPool = null;
-        //Obtenemos la sesion actual
-        HttpSession sesion = oRequest.getSession();
-
-        cart = (ArrayList<ItemBean>) sesion.getAttribute("cart");
-
-        try {
-            Integer id = Integer.parseInt(oRequest.getParameter("producto"));
-            Integer cant = Integer.parseInt(oRequest.getParameter("cantidad"));
-            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
-            oConnection = oConnectionPool.newConnection();
-            ProductoDao oProductoDao = new ProductoDao(oConnection, "producto");
-            ProductoBean oProductoBean = oProductoDao.get(id, 2);
-
-            Integer existencias = oProductoBean.getExistencias();
-
-            for (ItemBean ib : cart) {
-
-                if (ib.getObj_Producto().getId() == id) {
-
-                    if (oProductoBean.getExistencias() > 0) {
-
-                        if (cant <= oProductoBean.getExistencias()) {
-                            ib.setCantidad(cant);
-                        } else {
-
-                            ib.setCantidad(oProductoBean.getExistencias());
-                        }
-                    }
-                }
-
-            }
-
-            oReplyBean = new ReplyBean(200, oGson.toJson(cart));
-
-        } catch (Exception e) {
-            oReplyBean = new ReplyBean(500, "Error en update CartService: " + e.getMessage());
-        } finally {
-            oConnectionPool.disposeConnection();
-        }
-
-        return oReplyBean;
-    }
+//    public ReplyBean update() throws Exception {
+//
+//        ConnectionInterface oConnectionPool = null;
+//        //Obtenemos la sesion actual
+//        HttpSession sesion = oRequest.getSession();
+//
+//        cart = (ArrayList<ItemBean>) sesion.getAttribute("cart");
+//
+//        try {
+//            Integer id = Integer.parseInt(oRequest.getParameter("producto"));
+//            Integer cant = Integer.parseInt(oRequest.getParameter("cantidad"));
+//            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
+//            oConnection = oConnectionPool.newConnection();
+//            ProductoDao oProductoDao = new ProductoDao(oConnection, "producto");
+//            ProductoBean oProductoBean = oProductoDao.get(id, 2);
+//
+//            Integer existencias = oProductoBean.getExistencias();
+//
+//            for (ItemBean ib : cart) {
+//
+//                if (ib.getObj_Producto().getId() == id) {
+//
+//                    if (oProductoBean.getExistencias() > 0) {
+//
+//                        if (cant <= oProductoBean.getExistencias()) {
+//                            ib.setCantidad(cant);
+//                        } else {
+//
+//                            ib.setCantidad(oProductoBean.getExistencias());
+//                        }
+//                    }
+//                }
+//
+//            }
+//
+//            oReplyBean = new ReplyBean(200, oGson.toJson(cart));
+//
+//        } catch (Exception e) {
+//            oReplyBean = new ReplyBean(500, "Error en update CartService: " + e.getMessage());
+//        } finally {
+//            oConnectionPool.disposeConnection();
+//        }
+//
+//        return oReplyBean;
+//    }
 
     public ReplyBean buy() throws Exception {
 
