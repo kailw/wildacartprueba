@@ -49,13 +49,25 @@
 
 .grid-item:hover {
     transform: scale(1.1);
+    transition: transform 0.2s linear;
 }
+
 
 
 .grid-contenido {
-
-
 }
+
+.sacudir:hover {
+    
+}
+
+/*.noExistencias {
+    background: url('../images/agotado.jpg');   
+    background-repeat: no-repeat;        
+    background-size: 300px 200px;
+    background-position: left top;                    
+}*/
+
 
 * {
     box-sizing: border-box;
@@ -63,7 +75,7 @@
 
 @media (max-width: 760px){
     .desaparece {        
-        
+
 
     }
 }

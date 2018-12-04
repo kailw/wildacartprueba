@@ -149,13 +149,17 @@
 
     <div class="grid-container">
         <div class="grid-item" ng-repeat="fila in ajaxDataProductos" style="text-align: center;">
-            <div class="grid-contenido"><i class="fa fa-box-open" style="font-size: 180px;"></i></div>
-            <div class="grid-contenido">
-                {{fila.desc}}
+            <div class="grid-contenido"  ng-class="{'noExistencias': fila.existencias == 0 }"> 
+                <i class="fa fa-box-open" style="font-size: 180px;" ></i>
             </div>
-            <div class="grid-contenido ">                         
-                <i style="font-weight: bold;color:red;"> {{fila.precio}} $ </i>                
-                <a class="btn btn-warning" ng-class="{'disabled': fila.existencias == 0}"  ng-click="add(fila.id)"  style="margin-left: 10px;">
+            
+            <div class="grid-contenido">
+                {{fila.desc}}                
+            </div>
+            
+            <div class="grid-contenido">                         
+                <i style="font-weight: bold;color:red;"> {{fila.precio.toFixed(2)}} $ </i>                
+                <a class="btn btn-warning" ng-click="add(fila.id)" ng-class="{'disabled': fila.existencias == 0 }" style="margin-left: 10px;">
                     <i class="fas fa-cart-plus" > Añadir a la cesta</i>
                 </a>
             </div>

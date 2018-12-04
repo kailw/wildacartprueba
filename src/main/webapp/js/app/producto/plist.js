@@ -1,7 +1,7 @@
 'use strict';
 
-moduleProducto.controller('productoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService', '$route',
-    function ($scope, $http, $location, toolService, $routeParams, sessionService, $route) {
+moduleProducto.controller('productoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService', '$route', '$mdDialog',
+    function ($scope, $http, $location, toolService, $routeParams, sessionService, $route, $mdDialog) {
 
         $scope.totalPages = 1;
         $scope.select = ["4", "8", "12", "24", "50", "500"];
@@ -55,11 +55,12 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
                         $scope.ajaxDataCantidad = response.data.message[i].cantidad;
                         $scope.ajaxDataDesc = response.data.message[i].obj_Producto.desc;
                         $scope.ajaxDataExistencias = response.data.message[i].obj_Producto.existencias;
-                        if ($scope.ajaxDataCantidad === response.data.message[i].obj_Producto.existencias) {
-                            alert("Has elegido el máximo de existencias del producto: " + $scope.ajaxDataDesc);
-                        } //else {
-                           // alert("Has añadido el producto: " + $scope.ajaxDataDesc + " a tu carrito.");
-                        //}
+                        if (response.data.message[i].obj_Producto.existencias === $scope.ajaxDataCantidad) {
+                            $scope.showAlert('Has elgido el maximo de existencias del poducto:', response.data.message[i].obj_Producto.desc);
+
+                        } else {
+                            $scope.showAlert("Has añadido el producto: " + $scope.ajaxDataDesc + " a tu carrito.");
+                        }
                     }
                 }
 
@@ -146,6 +147,16 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
         ;
 
         $scope.isActive = toolService.isActive;
+        $scope.showAlert = function (titulo, description) {
+            $mdDialog.show(
+                    $mdDialog.alert()
+                    .clickOutsideToClose(false)
+                    .title(titulo)
+                    .textContent(description)
+                    .ariaLabel('Alert Dialog Demo')
+                    .ok('OK!')
+                    );
+        };
     }
 
 
