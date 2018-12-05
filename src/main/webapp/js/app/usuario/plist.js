@@ -31,12 +31,6 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
             }
         }
         
-        if(sessionService){
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-            $scope.usuariologeadoID = sessionService.getId();
-        }
-        
 
         $scope.resetOrder = function () {
             $location.url($scope.ob + "/plist/" + $scope.rpp + "/1");
@@ -51,10 +45,7 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
             } else {
                 $scope.orderURLServidor += "-" + order + "," + align;
                 $scope.orderURLCliente += "-" + order + "," + align;
-            }
-
-
-            ;
+            };
             $location.url($scope.ob + "/plist/" + $scope.rpp + "/" + $scope.page + "/" + $scope.orderURLCliente);
         };
 

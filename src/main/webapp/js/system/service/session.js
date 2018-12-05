@@ -4,6 +4,8 @@ moduleService.service('sessionService', ['$location', function ($location) {
         var isSessionActive = false;
         var userName = "";
         var usuariologeadoID = "";
+        var carrito = 0;
+        var observerCallbacks = [];
         return {
             getUserName: function () {
                 return userName;
@@ -17,7 +19,7 @@ moduleService.service('sessionService', ['$location', function ($location) {
             setId: function (id) {
                 usuariologeadoID = id;
             },
-            getId : function(){
+            getId: function () {
                 return usuariologeadoID;
             },
             setSessionActive: function () {
@@ -25,7 +27,21 @@ moduleService.service('sessionService', ['$location', function ($location) {
             },
             setSessionInactive: function () {
                 isSessionActive = false;
+            },
+            setCountCarrito: function (cantidad) {
+                carrito = cantidad;
+                //Para que sirve el callback()
+                //https://www.quora.com/What-is-the-call-back-function-in-AngularJS
+                angular.forEach(observerCallbacks, function (callback) {
+                    callback();
+                });
+            },
+            getCountCarrito: function () {
+                return carrito;
+            },
+            registerObserverCallback: function (callback) {
+                observerCallbacks.push(callback);
             }
-        }
+        };
 
     }]);

@@ -39,17 +39,6 @@ moduleFactura.controller('facturaNewUserController', ['$scope', '$http', '$route
                 $scope.status = response.status;
             });
         };
-        $scope.logout = function () {
-            $http({
-                method: 'GET',
-                url: '/json?ob=usuario&op=logout'
-            }).then(function (response) {
-                if (response.status === 200) {
-                    sessionService.setSessionInactive();
-                    sessionService.setUserName("");
-                }
-            });
-        };
         $scope.save = function () {
             $http({
                 method: 'GET',

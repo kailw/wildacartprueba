@@ -23,6 +23,7 @@ moduleUsuario.controller("usuarioLoginController", ["$scope", "$http", "$routePa
                     $scope.errorLogin = false;
                     $scope.loginH = true;
                     $scope.formulario = false;
+                    $location.url('/home');
                 }
 
                 $scope.ajaxDatoLogin = response.data.message;

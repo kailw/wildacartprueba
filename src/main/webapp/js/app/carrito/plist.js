@@ -18,12 +18,6 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
         }
 
 
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-            $scope.usuariologeadoID = sessionService.getId();
-        }
-
 
         $scope.resetOrder = function () {
             $location.url($scope.ob + "/plist/" + $scope.rpp + "/1");
