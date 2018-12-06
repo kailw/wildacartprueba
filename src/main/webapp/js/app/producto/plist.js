@@ -7,11 +7,6 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
         $scope.select = ["4", "8", "12", "24", "50", "500"];
         $scope.ob = "producto";
 
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-            $scope.usuariologeadoID = sessionService.getId();
-        }
 
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
@@ -43,26 +38,28 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
             $scope.activar = "false";
         };
 
-
+        
         $scope.add = function (id) {
             $http({
                 method: 'GET',
                 url: '/json?ob=carrito&op=add&producto=' + id + '&cantidad=1'
             }).then(function (response) {
-
+                $scope.ajaxDataCantidadTotal = 0;
                 for (var i = 0; i < response.data.message.length; i++) {
+                    $scope.ajaxDataCantidadTotal += response.data.message[i].cantidad;
                     if (id === response.data.message[i].obj_Producto.id) {
                         $scope.ajaxDataCantidad = response.data.message[i].cantidad;
                         $scope.ajaxDataDesc = response.data.message[i].obj_Producto.desc;
                         $scope.ajaxDataExistencias = response.data.message[i].obj_Producto.existencias;
                         if (response.data.message[i].obj_Producto.existencias === $scope.ajaxDataCantidad) {
-                            $scope.showAlert('Has elgido el maximo de existencias del poducto:', response.data.message[i].obj_Producto.desc);
+                            $scope.showAlert('Has elgido el maximo de existencias del poducto:' + response.data.message[i].obj_Producto.desc , " Cantidad:" + $scope.ajaxDataCantidad);
 
                         } else {
-                            $scope.showAlert("Has añadido el producto: " + $scope.ajaxDataDesc + " a tu carrito. Cantidad:" + $scope.ajaxDataCantidad);
+                            $scope.showAlert("Has añadido el producto: " + $scope.ajaxDataDesc + " a tu carrito", "Cantidad:" + $scope.ajaxDataCantidad);
                         }
                     }
                 }
+                sessionService.setCountCarrito($scope.ajaxDataCantidadTotal);
 
             }, function (response) {
                 $scope.status = response.status;

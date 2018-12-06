@@ -31,7 +31,7 @@ import net.daw.helper.EncodingHelper;
  *
  * @author a024465169t
  */
-public class CarritoService implements Serializable{
+public class CarritoService implements Serializable {
 
     HttpServletRequest oRequest;
     String ob = null;
@@ -145,7 +145,21 @@ public class CarritoService implements Serializable{
         return oReplyBean;
     }
 
-    public ReplyBean reduce() throws Exception {
+    public ReplyBean totalproduct() throws Exception {
+        HttpSession sesion = oRequest.getSession();        
+        try {
+            cart = (ArrayList<ItemBean>) sesion.getAttribute("cart");
+            oReplyBean = new ReplyBean(200, EncodingHelper.quotate(String.valueOf(cart.size())));
+            
+        } catch (Exception e) {
+            oReplyBean = new ReplyBean(500, "Error en totalproduct CartService: " + e.getMessage());
+        }
+        return oReplyBean;
+    }
+
+
+
+public ReplyBean reduce() throws Exception {
         //Obtenemos la sesion actual
         HttpSession sesion = oRequest.getSession();
 

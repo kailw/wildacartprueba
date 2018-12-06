@@ -58,7 +58,7 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
                     $scope.cantidadProducto += response.data.message[i].cantidad;
                 }
             }
-
+            sessionService.setCountCarrito($scope.cantidadProducto);
         }, function (response) {
             $scope.status = response.status;
             $scope.error += $scope.status + " " + response.message || 'Request failed';
@@ -77,12 +77,14 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
                 if (response.data.message.length === 0) {
                     $scope.carritoVacio = true;
                     $scope.carritoVacioTabla = false;
+                    $scope.cantidadProducto = 0;
                 } else {
                     if (operacion === "add") {
                         for (var i = 0; i < response.data.message.length; i++) {
                             $scope.precioProducto += (response.data.message[i].obj_Producto.precio * response.data.message[i].cantidad);
                             $scope.cantidadProducto += response.data.message[i].cantidad;
                         }
+                        sessionService.setCountCarrito($scope.cantidadProducto);
                     }
 
                     if (operacion === "reduce") {
@@ -90,8 +92,11 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
                             $scope.precioProducto += response.data.message[j].obj_Producto.precio;
                             $scope.cantidadProducto += response.data.message[j].cantidad;
                         }
+
+                        sessionService.setCountCarrito($scope.cantidadProducto);
                     }
                 }
+                sessionService.setCountCarrito($scope.cantidadProducto);
             }, function (response) {
                 $scope.status = response.status;
                 $scope.error = $scope.status + " " + response.message || 'Request failed';
@@ -109,6 +114,7 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
                     $scope.carritoVacio = true;
                     $scope.carritoVacioTabla = false;
                 }
+                sessionService.setCountCarrito(0);
 
             }, function (response) {
                 $scope.status = response.status;
@@ -141,7 +147,7 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
 
 
         $scope.isActive = toolService.isActive;
-        
+
     }
 
 

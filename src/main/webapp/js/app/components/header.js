@@ -17,7 +17,7 @@ function js(toolService, sessionService) {
     
     sessionService.registerObserverCallback(function () {
         self.carrito = sessionService.getCountCarrito();
-    })
+    });
 };
 
 
