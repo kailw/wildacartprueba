@@ -1,7 +1,7 @@
 'use strict';
 
-moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', "sessionService", "$route", "$window",
-    function ($scope, $http, $location, toolService, $routeParams, sessionService, $route, $window) {
+moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', "sessionService", "$route", "$window","countcarritoService",
+    function ($scope, $http, $location, toolService, $routeParams, sessionService, $route, $window,countcarritoService) {
 
         $scope.totalPages = 1;
         $scope.select = ["5", "10", "25", "50", "500"];
@@ -83,20 +83,17 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
                         for (var i = 0; i < response.data.message.length; i++) {
                             $scope.precioProducto += (response.data.message[i].obj_Producto.precio * response.data.message[i].cantidad);
                             $scope.cantidadProducto += response.data.message[i].cantidad;
-                        }
-                        sessionService.setCountCarrito($scope.cantidadProducto);
+                        }                        
                     }
 
                     if (operacion === "reduce") {
                         for (var j = 0; j < response.data.message.length; j++) {
                             $scope.precioProducto += response.data.message[j].obj_Producto.precio;
                             $scope.cantidadProducto += response.data.message[j].cantidad;
-                        }
-
-                        sessionService.setCountCarrito($scope.cantidadProducto);
+                        }                        
                     }
                 }
-                sessionService.setCountCarrito($scope.cantidadProducto);
+                countcarritoService.updateCarrito();
             }, function (response) {
                 $scope.status = response.status;
                 $scope.error = $scope.status + " " + response.message || 'Request failed';

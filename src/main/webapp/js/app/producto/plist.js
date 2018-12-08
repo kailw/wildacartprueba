@@ -1,7 +1,7 @@
 'use strict';
 
-moduleProducto.controller('productoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService', '$route', '$mdDialog',
-    function ($scope, $http, $location, toolService, $routeParams, sessionService, $route, $mdDialog) {
+moduleProducto.controller('productoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService', '$route', '$mdDialog','countcarritoService',
+    function ($scope, $http, $location, toolService, $routeParams, sessionService, $route, $mdDialog,countcarritoService) {
 
         $scope.totalPages = 1;
         $scope.select = ["4", "8", "12", "24", "50", "500"];
@@ -59,7 +59,7 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
                         }
                     }
                 }
-                sessionService.setCountCarrito($scope.ajaxDataCantidadTotal);
+                countcarritoService.updateCarrito();
 
             }, function (response) {
                 $scope.status = response.status;

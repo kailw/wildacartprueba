@@ -29,13 +29,13 @@ public class FacturaBean {
     @Expose
     private float iva;
 
-    @Expose(deserialize = false)
+    @Expose
     private int id_usuario;
 
-    @Expose(deserialize = false)
+    @Expose
     private UsuarioBean obj_Usuario;
 
-    @Expose(deserialize = false)
+    @Expose
     private int link_linea;
 
     public int getLink_linea() {
@@ -114,7 +114,7 @@ public class FacturaBean {
 
         String strPairs = "";
         strPairs += "id=" + id + ",";
-        strPairs += "fecha=" + EncodingHelper.quotate(fecha.toInstant().toString()) + ",";
+        strPairs += "fecha=" + EncodingHelper.quotate(localDate.toString()) + ",";
         strPairs += "iva=" + iva + ",";
         strPairs += "id_usuario=" + getObj_Usuario().getId();
         strPairs += " WHERE id=" + id;
@@ -142,12 +142,8 @@ public class FacturaBean {
         String strColumns = "";
         strColumns += "null,";
         strColumns += EncodingHelper.quotate(localDate.toString()) + ",";
-        strColumns += iva + ",";        
-        if (getObj_Usuario() != null) {
-            strColumns += this.getObj_Usuario().getId();
-        } else {
-            strColumns += this.getId_usuario();
-        }
+        strColumns += iva + ",";
+        strColumns += getObj_Usuario().getId();
         return strColumns;
     }
 }

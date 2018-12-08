@@ -48,7 +48,7 @@
         </div>
 
         <div ng-show="c.loginH">            
-            <a href="carrito/plist" ><button class="btn btn-warning hvr-wobble-horizontal"> <i class="fa fa-shopping-cart"> <span ng-show="c.carrito !== 0">{{c.carrito}}</span></i></button></a>            
+            <a href="carrito/plist" ><button class="btn btn-warning hvr-wobble-horizontal {{c.animation}}"> <i class="fa fa-shopping-cart"> <span ng-show="c.carrito > 0">{{c.carrito}}</span></i></button></a>            
             <a href="usuario/view/{{c.usuariologeadoID}}"><button type="button" class="btn btn-info"><i class="fa fa-user-circle"> Bienvenido/a <strong style="color: black;">{{c.usuariologeado}}</strong> </i></button></a>            
             <a href="usuario/logout" > <button type="button" class="btn btn-primary" style="width:auto"> <i class="fas fa-sign-out-alt"> </i></button></a>
         </div>

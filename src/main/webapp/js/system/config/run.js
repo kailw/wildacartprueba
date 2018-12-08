@@ -1,5 +1,5 @@
-wildcart.run(['$rootScope', 'sessionService', '$location', '$http',
-    function ($rootScope, oSessionService, $location, $http) {
+wildcart.run(['$rootScope', 'sessionService', '$location', '$http','countcarritoService',
+    function ($rootScope, oSessionService, $location, $http,countcarritoService) {
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
 
             var nextUrl = next.$$route.originalPath;
@@ -26,6 +26,7 @@ wildcart.run(['$rootScope', 'sessionService', '$location', '$http',
 
             });
 
+            countcarritoService.updateCarrito();
 
 
 
