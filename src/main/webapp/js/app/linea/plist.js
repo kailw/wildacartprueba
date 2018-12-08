@@ -8,10 +8,7 @@ moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 
         $scope.totalPages = 1;
         $scope.select = ["5", "10", "25", "50", "500"];
         $scope.ob = "linea";
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-        }
+
 
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";

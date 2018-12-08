@@ -6,11 +6,7 @@ moduleFactura.controller('facturaEditController', ['$scope', '$http', '$location
         $scope.myDate = new Date();
 
         $scope.ob = "factura";
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-            $scope.usuariologeadoID = sessionService.getId();
-        }
+
 
         $http({
             method: 'GET',

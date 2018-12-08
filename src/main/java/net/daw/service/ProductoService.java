@@ -7,9 +7,11 @@ package net.daw.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.io.File;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import net.daw.bean.ReplyBean;
 import net.daw.bean.ProductoBean;
@@ -19,6 +21,9 @@ import net.daw.dao.ProductoDao;
 import net.daw.factory.ConnectionFactory;
 import net.daw.helper.EncodingHelper;
 import net.daw.helper.ParameterCook;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -44,7 +49,7 @@ public class ProductoService {
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
             ProductoDao oProductoDao = new ProductoDao(oConnection, ob);
-            ProductoBean oProductoBean = oProductoDao.get(id,1);
+            ProductoBean oProductoBean = oProductoDao.get(id, 1);
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(oProductoBean));
         } catch (Exception ex) {
@@ -159,7 +164,7 @@ public class ProductoService {
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
             ProductoDao oProductoDao = new ProductoDao(oConnection, ob);
-            ArrayList<ProductoBean> alProductoBean = oProductoDao.getpage(iRpp, iPage,hmOrder,1);
+            ArrayList<ProductoBean> alProductoBean = oProductoDao.getpage(iRpp, iPage, hmOrder, 1);
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(alProductoBean));
         } catch (Exception ex) {
@@ -178,15 +183,15 @@ public class ProductoService {
         Connection oConnection;
         RellenarService rellenar = new RellenarService();
         try {
-            Integer numero = Integer.parseInt(oRequest.getParameter("numero"));            
+            Integer numero = Integer.parseInt(oRequest.getParameter("numero"));
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
             ProductoDao oProductoDao = new ProductoDao(oConnection, ob);
             ArrayList<ProductoBean> alProductoBean = rellenar.fillProducto(numero);
-            
-            for(ProductoBean productos : alProductoBean){
+
+            for (ProductoBean productos : alProductoBean) {
                 oProductoDao.create(productos);
-            }            
+            }
             Gson oGson = new Gson();
             oReplyBean = new ReplyBean(200, oGson.toJson(alProductoBean));
         } catch (Exception ex) {
@@ -194,6 +199,32 @@ public class ProductoService {
                     "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
         } finally {
             oConnectionPool.disposeConnection();
+        }
+        return oReplyBean;
+    }
+
+    public ReplyBean addimage() throws Exception {
+        String name = "";
+        ReplyBean oReplyBean;
+        Gson oGson = new Gson();
+        HashMap<String, String> hash = new HashMap<>();
+        if (ServletFileUpload.isMultipartContent(oRequest)) {
+            try {
+                List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(oRequest);
+                for (FileItem item : multiparts) {
+                    if (!item.isFormField()) {
+                        name = new File(item.getName()).getName();
+                        item.write(new File(".//..//webapps//images//" + name));
+                    } else {
+                        hash.put(item.getFieldName(), item.getString());
+                    }
+                }
+                oReplyBean = new ReplyBean(200, oGson.toJson("File upload: " + name));
+            } catch (Exception ex) {
+                oReplyBean = new ReplyBean(500, oGson.toJson("Error while uploading file: " + name));
+            }
+        } else {
+            oReplyBean = new ReplyBean(500, oGson.toJson("Can't read image"));
         }
         return oReplyBean;
     }

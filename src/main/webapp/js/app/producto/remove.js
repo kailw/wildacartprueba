@@ -5,12 +5,6 @@ moduleProducto.controller('productoRemoveController', ['$scope', '$http', '$loca
         $scope.ob = "producto";
         $scope.id = $routeParams.id;
 
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-            $scope.usuariologeadoID = sessionService.getId();
-        }
-
         $http({
             method: 'GET',
             url: '/json?ob=' + $scope.ob + '&op=get&id=' + $scope.id

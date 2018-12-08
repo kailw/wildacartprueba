@@ -4,12 +4,6 @@ moduleProducto.controller('productoViewController', ['$scope', '$http', '$locati
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
         $scope.id = $routeParams.id;
 
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-            $scope.usuariologeadoID = sessionService.getId();
-        }
-
         $http({
             method: 'GET',
             url: '/json?ob=producto&op=get&id=' + $scope.id

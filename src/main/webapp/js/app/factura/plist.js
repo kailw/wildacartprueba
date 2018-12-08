@@ -7,12 +7,7 @@ moduleFactura.controller('facturaPlistController', ['$scope', '$http', '$locatio
         $scope.select = ["5", "10", "25", "50", "500"];
         $scope.ob = "factura";
 
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-            $scope.usuariologeadoID = sessionService.getId();
-        }
-        
+
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
             $scope.orderURLCliente = "";

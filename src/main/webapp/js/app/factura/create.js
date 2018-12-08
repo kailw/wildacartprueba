@@ -5,11 +5,7 @@ moduleFactura.controller('facturaCreateController', ['$scope', '$http', '$locati
         $scope.id = $routeParams.id;
 
         $scope.ob = "factura";
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-            $scope.usuariologeadoID = sessionService.getId();
-        }
+
         $scope.ajaxDatoFactura = {
             id: null,
             fecha: null,

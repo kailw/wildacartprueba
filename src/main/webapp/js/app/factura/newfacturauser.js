@@ -3,11 +3,6 @@ moduleFactura.controller('facturaNewUserController', ['$scope', '$http', '$route
     function ($scope, $http, $routeParams, sessionService,$location) {
         $scope.idC = $routeParams.id;
 
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-            $scope.usuariologeadoID = sessionService.getId();
-        }
 
         $http({
                 method: 'GET',

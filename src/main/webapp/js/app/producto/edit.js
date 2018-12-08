@@ -5,12 +5,6 @@ moduleProducto.controller('productoEditController', ['$scope', '$http', '$locati
         $scope.id = $routeParams.id;
         $scope.ob = "producto";
 
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-            $scope.usuariologeadoID = sessionService.getId();
-        }
-
 
         $http({
             method: 'GET',

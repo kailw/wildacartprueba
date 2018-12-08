@@ -4,10 +4,6 @@ moduleLinea.controller('lineaEditController', ['$scope', '$http', '$location', '
     function ($scope, $http, $location, toolService, $routeParams, sessionService) {
         $scope.id = $routeParams.id;
         $scope.ob = "linea";
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-        }
 
         $http({
             method: 'GET',

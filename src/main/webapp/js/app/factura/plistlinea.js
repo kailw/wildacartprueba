@@ -31,12 +31,7 @@ moduleFactura.controller('facturaPlistLineaController', ['$scope', 'toolService'
                 $scope.page = "1";
             }
         }
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-            $scope.usuariologeadoID = sessionService.getId();
-        }
-        ;
+
 
         $scope.resetOrder = function () {
             $location.url("factura/plistlinea/" + $scope.id + "/10/1");

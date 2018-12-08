@@ -5,11 +5,6 @@ moduleLinea.controller('lineaCreateController', ['$scope', '$http', '$location',
         $scope.id_factura = $routeParams.id;
 
         $scope.ob = "linea";
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-            $scope.usuariologeadoID = sessionService.getId();
-        }
         $scope.ajaxDatoProducto = {
             id: null,
             desc: null

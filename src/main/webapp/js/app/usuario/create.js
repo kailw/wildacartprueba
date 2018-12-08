@@ -5,12 +5,6 @@ moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', '$locati
         $scope.id = $routeParams.id;
         $scope.ob = "usuario";
 
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-            $scope.usuariologeadoID = sessionService.getId();
-        }
-        
         $scope.ajaxDatoUsuario = {
             id : null,
             desc : null

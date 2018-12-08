@@ -5,10 +5,6 @@ moduleLinea.controller('lineaRemoveController', ['$scope', '$http', '$location',
         $scope.ob = "linea";
         $scope.id = $routeParams.id;
 
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-        }
 
         $http({
             method: 'GET',
