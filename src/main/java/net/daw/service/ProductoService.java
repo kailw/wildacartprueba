@@ -219,7 +219,7 @@ public class ProductoService {
                         hash.put(item.getFieldName(), item.getString());
                     }
                 }
-                oReplyBean = new ReplyBean(200, oGson.toJson("File upload: " + name));
+                oReplyBean = new ReplyBean(200, oGson.toJson("File uploaded Successfully: " + name));
             } catch (Exception ex) {
                 oReplyBean = new ReplyBean(500, oGson.toJson("Error while uploading file: " + name));
             }

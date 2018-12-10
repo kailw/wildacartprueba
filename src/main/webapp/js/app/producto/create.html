@@ -1,7 +1,7 @@
 <header-component></header-component>
 <main role="main" class="container">
 
-    
+
     <div class="primeraParte"></div>
     <a href="javascript:window.history.back();"> <button class="btn btn-success">Volver</button> </a>    
     <form name="userForm" style="margin-bottom: 50px;" ng-show="!mensaje">
@@ -64,11 +64,15 @@
             <div class="col-2">
                 <label for="foto" class="col-form-label">Foto</label>
             </div>
+            <!--            <div class="col-5">
+                            <input type="text" class="form-control" id="foto" name="foto" ng-model="foto" ng-required="true"
+                                   ng-class="{ 'is-invalid' : userForm.foto.$invalid && !userForm.foto.$pristine, 'is-valid': userForm.foto.$valid && !userForm.foto.$pristine}"/>
+                            <div ng-show="userForm.foto.$invalid && !userForm.foto.$pristine" class="alert alert-danger" >Foto requerida.</div>
+                        </div>            -->
             <div class="col-5">
-                <input type="text" class="form-control" id="foto" name="foto" ng-model="foto" ng-required="true"
-                       ng-class="{ 'is-invalid' : userForm.foto.$invalid && !userForm.foto.$pristine, 'is-valid': userForm.foto.$valid && !userForm.foto.$pristine}"/>
-                <div ng-show="userForm.foto.$invalid && !userForm.foto.$pristine" class="alert alert-danger" >Foto requerida.</div>
-            </div>            
+                <input type="file" name="file" ng-model="foto"/>
+            </div>
+
         </div>
 
         <tipoproducto-selection class="modal fade" id="cadd-location-modal" obj="ajaxDatoProducto" 
