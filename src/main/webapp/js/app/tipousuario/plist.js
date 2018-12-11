@@ -29,11 +29,6 @@ moduleTipousuario.controller('tipousuarioPlistController', ['$scope', '$http', '
                 $scope.page = 1;
             }
         }
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-            $scope.usuariologeadoID = sessionService.getId();
-        }
 
 
         $scope.resetOrder = function () {

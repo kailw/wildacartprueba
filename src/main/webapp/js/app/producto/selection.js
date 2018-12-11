@@ -56,7 +56,6 @@ function cController($http) {
         self.obj.id = id;
         self.obj.desc = desc;
         self.onProductoSet();
-
     };
 
     self.ordena = function (order, align) {

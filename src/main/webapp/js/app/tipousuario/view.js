@@ -3,11 +3,6 @@
 moduleTipousuario.controller('tipousuarioViewController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
     function ($scope, $http, $location, toolService, $routeParams,sessionService) {
         $scope.id = $routeParams.id;
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-            $scope.usuariologeadoID = sessionService.getId();
-        }
 
         $scope.ob = "tipousuario";
         $http({

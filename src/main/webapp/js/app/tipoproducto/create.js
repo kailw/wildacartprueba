@@ -19,6 +19,7 @@ moduleTipoproducto.controller('tipoproductoCreateController', ['$scope', '$http'
             }).then(function (response) {
                 $scope.status = response.status;
                 $scope.mensaje = true;
+                $scope.idCreado = response.data.message.id;
             }, function (response) {                
                 $scope.status = response.status;
             });

@@ -205,8 +205,7 @@ public class ProductoService {
 
     public ReplyBean addimage() throws Exception {
         String name = "";
-        ReplyBean oReplyBean;
-        Gson oGson = new Gson();
+        ReplyBean oReplyBean;        
         HashMap<String, String> hash = new HashMap<>();
         if (ServletFileUpload.isMultipartContent(oRequest)) {
             try {
@@ -219,12 +218,12 @@ public class ProductoService {
                         hash.put(item.getFieldName(), item.getString());
                     }
                 }
-                oReplyBean = new ReplyBean(200, oGson.toJson("File uploaded Successfully: " + name));
+                oReplyBean = new ReplyBean(200, EncodingHelper.quotate("File uploaded Successfully: " + name));
             } catch (Exception ex) {
-                oReplyBean = new ReplyBean(500, oGson.toJson("Error while uploading file: " + name));
+                oReplyBean = new ReplyBean(500, "Error while uploading file: " + name);
             }
         } else {
-            oReplyBean = new ReplyBean(500, oGson.toJson("Can't read image"));
+            oReplyBean = new ReplyBean(500, "Cant read image");
         }
         return oReplyBean;
     }

@@ -9,7 +9,7 @@ moduleFactura.controller('facturaCreateController', ['$scope', '$http', '$locati
         $scope.ajaxDatoFactura = {
             id: null,
             fecha: null,
-            iva: null
+            iva: null            
         };
 
 
@@ -28,6 +28,7 @@ moduleFactura.controller('facturaCreateController', ['$scope', '$http', '$locati
             }).then(function (response) {
                 $scope.status = response.status;
                 $scope.mensaje = true;
+                $scope.idCreado = response.data.message.id;
             }, function (response) {
                 $scope.ajaxDatoFactura = response.data.message || 'Request failed';
                 $scope.status = response.status;

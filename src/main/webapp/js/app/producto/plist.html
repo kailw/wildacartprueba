@@ -150,7 +150,7 @@
     <div class="grid-container">
         <div class="grid-item" ng-repeat="fila in ajaxDataProductos" style="text-align: center;">
             <div class="grid-contenido"  ng-class="{'noExistencias': fila.existencias == 0 }"> 
-                <i class="fa fa-box-open" style="font-size: 180px;" ></i>
+                <img ng-src="images/{{fila.foto}}" style="width: 245px;" alt=""/>
             </div>
 
             <div class="grid-contenido">

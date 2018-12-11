@@ -19,13 +19,18 @@ moduleProducto.controller('productoEditController', ['$scope', '$http', '$locati
 
 
         $scope.guardar = function () {
+            $scope.upload();
+            var foto = 'default.svg';
+            if ($scope.file !== undefined) {
+                foto = $scope.file.name;
+            }
             var json = {
                 id: $scope.ajaxDatoProducto.id,
                 codigo: $scope.ajaxDatoProducto.codigo,
                 desc: $scope.ajaxDatoProducto.desc,
                 existencias: $scope.ajaxDatoProducto.existencias,
                 precio: $scope.ajaxDatoProducto.precio,
-                foto: $scope.ajaxDatoProducto.foto,
+                foto: foto,
                 id_tipoProducto: $scope.ajaxDatoProducto.obj_tipoProducto.id
             };
             $http({
@@ -69,6 +74,37 @@ moduleProducto.controller('productoEditController', ['$scope', '$http', '$locati
                 });
             } else {
                 form.userForm.obj_tipoProducto.$setValidity('valid', true);
+            }
+        };
+        $scope.upload = function () {
+            var file = $scope.file;
+            var oformData = new FormData();
+            oformData.append('file', file);
+
+            $http({
+                headers: {'Content-Type': undefined},
+                method: 'POST',
+                data: oformData,
+                url: 'json?ob=producto&op=addimage'
+            }).then(function (response) {
+                console.log(response);
+            }, function (response) {
+                console.log(response);
+            });
+        };
+
+    }]).directive('fileModel', ['$parse', function ($parse) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var model = $parse(attrs.fileModel);
+                var modelSetter = model.assign;
+
+                element.bind('change', function () {
+                    scope.$apply(function () {
+                        modelSetter(scope, element[0].files[0]);
+                    });
+                });
             }
         };
     }]);

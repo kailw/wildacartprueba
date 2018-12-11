@@ -70,7 +70,8 @@
                             <div ng-show="userForm.foto.$invalid && !userForm.foto.$pristine" class="alert alert-danger" >Foto requerida.</div>
                         </div>            -->
             <div class="col-5">
-                <input type="file" name="file" ng-model="foto"/>
+                <input type="file" name="file" class="form-control-file" id="file" file-model="file" onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])"/>
+                <img id="output" src="images/default.svg" alt="default" style="width: 60px; height: 50px;"/>
             </div>
 
         </div>
@@ -129,14 +130,14 @@
 
         <div class="form-group row justify-content-center">
             <div class="col-2">
-                <button ng-click="guardar()" type="button" class="btn btn-primary" ng-disabled="userForm.$invalid">Crear</button>   
+                <button ng-click="crear()" type="button" class="btn btn-primary" ng-disabled="userForm.$invalid">Crear</button>   
             </div>
             <div class="col-5">                           
             </div>            
         </div>
     </form>    
     <div class="alert alert-success" ng-show="mensaje">
-        Se ha creado el {{ob}} llamado "{{descripcion}}"
+        Se ha creado el {{ob}} con el id {{idCreado}} llamado "{{descripcion}}"
     </div>
 </main>
 <!--<footer class="footer" ng-include="'js/app/footer.html'"></footer>-->

@@ -29,6 +29,7 @@ moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', '$locati
             }).then(function (response) {
                 $scope.status = response.status;
                 $scope.mensaje = true;
+                $scope.idCreado = response.data.message.id;
             }, function (response) {
                 $scope.ajaxDatoUsuario = response.data.message || 'Request failed';
                 $scope.status = response.status;

@@ -1,6 +1,6 @@
 <header-component></header-component>
 <main role="main" class="container" style="margin-bottom: 100px;">
-    
+
     <div class="primeraParte"></div>
     <a href="javascript:window.history.back();"> <button class="btn btn-success">Volver</button> </a>    
     <ng-form name="userForm" style="margin-bottom: 50px;" ng-show="!mensaje">
@@ -36,7 +36,7 @@
             </div>
             <div class="col-5">
                 <input type="text" class="form-control " id="descripcion" name="descripcion" ng-model="ajaxDatoProducto.desc" ng-required="true"
-                     ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/" ng-class="{ 'is-invalid' : userForm.descripcion.$invalid && !userForm.descripcion.$pristine, 'is-valid': userForm.descripcion.$valid && !userForm.descripcion.$pristine}"/>
+                       ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/" ng-class="{ 'is-invalid' : userForm.descripcion.$invalid && !userForm.descripcion.$pristine, 'is-valid': userForm.descripcion.$valid && !userForm.descripcion.$pristine}"/>
                 <div ng-show="!userForm.descripcion.$valid && !userForm.descripcion.$pristine && !userForm.descripcion.$error.pattern" class="alert alert-danger" role="alert">
                     Descripcion obligatoria
                 </div>
@@ -67,7 +67,7 @@
             </div>
             <div class="col-5">
                 <input type="text" class="form-control" id="precio" name="precio" ng-model="ajaxDatoProducto.precio" ng-required="true"
-                    ng-pattern="/^[0-9][0-9]*$/" ng-class="{ 'is-invalid' : userForm.precio.$invalid && !userForm.precio.$pristine, 'is-valid': userForm.precio.$valid && !userForm.precio.$pristine}"/>
+                       ng-pattern="/^[0-9][0-9]*$/" ng-class="{ 'is-invalid' : userForm.precio.$invalid && !userForm.precio.$pristine, 'is-valid': userForm.precio.$valid && !userForm.precio.$pristine}"/>
                 <div ng-show="!userForm.precio.$valid" class="alert alert-danger" role="alert">
                     Precio obligatorio
                 </div>
@@ -78,9 +78,11 @@
                 <label for="foto" class="col-form-label">Foto</label>
             </div>
             <div class="col-5">
-                <input type="text" class="form-control" id="foto" name="foto" ng-model="ajaxDatoProducto.foto" ng-required="true"
-                  ng-class="{ 'is-invalid' : userForm.foto.$invalid && !userForm.foto.$pristine, 'is-valid': userForm.foto.$valid && !userForm.foto.$pristine}"/>
-                <div ng-show="userForm.foto.$invalid && !userForm.foto.$pristine" class="alert alert-danger" >Foto requerida.</div>
+                <input type="file" name="file" class="form-control-file" id="file" file-model="file" ng-model="foto" onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])"/>
+                <img id="output" src="images/{{ajaxDatoProducto.foto}}" alt="default" style="width: 60px; height: 50px;"/>                
+                <!--                <input type="text" class="form-control" id="foto" name="foto" ng-model="ajaxDatoProducto.foto" ng-required="true"
+                                  ng-class="{ 'is-invalid' : userForm.foto.$invalid && !userForm.foto.$pristine, 'is-valid': userForm.foto.$valid && !userForm.foto.$pristine}"/>
+                                <div ng-show="userForm.foto.$invalid && !userForm.foto.$pristine" class="alert alert-danger" >Foto requerida.</div>-->
             </div>            
         </div>
 

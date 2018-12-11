@@ -5,11 +5,6 @@ moduleTipousuario.controller('tipousuarioCreateController', ['$scope', '$http', 
         $scope.id = $routeParams.id;
         $scope.ob = "tipousuario";
 
-        if (sessionService) {
-            $scope.usuariologeado = sessionService.getUserName();
-            $scope.loginH = true;
-            $scope.usuariologeadoID = sessionService.getId();
-        }
 
         $scope.guardar = function () {
             var json = {
@@ -23,6 +18,7 @@ moduleTipousuario.controller('tipousuarioCreateController', ['$scope', '$http', 
                 params: {json: JSON.stringify(json)}
             }).then(function (response) {
                 $scope.status = response.status;
+                $scope.idCreado = response.data.message.id;
                 $scope.mensaje = true;
             }, function (response) {               
                 $scope.status = response.status;
