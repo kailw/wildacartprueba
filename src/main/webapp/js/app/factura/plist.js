@@ -76,7 +76,7 @@ moduleFactura.controller('facturaPlistController', ['$scope', '$http', '$locatio
             url: '/json?ob=' + $scope.ob + '&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
-            $scope.ajaxDataFacturas = response.data.message;
+            $scope.ajaxDataFacturas = response.data.message;            
         }, function (response) {
             $scope.status = response.status;
             $scope.ajaxDataFacturas = response.data.message || 'Request failed';

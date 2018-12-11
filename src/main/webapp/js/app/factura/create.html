@@ -12,7 +12,7 @@
             </div>
             <div class="col-5">
                 <md-datepicker ng-model="myDate" id="fecha" name="fecha" md-placeholder="Fecha" ng-required="true"
-               ng-class="{ 'is-invalid' : userForm.fecha.$invalid && !userForm.fecha.$pristine, 'is-valid': userForm.fecha.$valid && !userForm.fecha.$pristine}">
+                               ng-class="{ 'is-invalid' : userForm.fecha.$invalid && !userForm.fecha.$pristine, 'is-valid': userForm.fecha.$valid && !userForm.fecha.$pristine}">
                 </md-datepicker>
                 <div ng-show="userForm.fecha.$invalid && !userForm.fecha.$pristine && !userForm.fecha.$error.pattern" class="alert alert-danger" role="alert">
                     Fecha no válida

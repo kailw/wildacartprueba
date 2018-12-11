@@ -1,14 +1,14 @@
 'use strict';
 
-moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', "sessionService", "$route", "$window","countcarritoService",
-    function ($scope, $http, $location, toolService, $routeParams, sessionService, $route, $window,countcarritoService) {
+moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', "sessionService", "$route", "$window", "countcarritoService",
+    function ($scope, $http, $location, toolService, $routeParams, sessionService, $route, $window, countcarritoService) {
 
         $scope.totalPages = 1;
         $scope.select = ["5", "10", "25", "50", "500"];
         $scope.ob = "carrito";
         $scope.error = "";
         $scope.productoComprado = false;
-
+        $scope.usuariologeadoID = sessionService.getId();
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
             $scope.orderURLCliente = "";
@@ -83,14 +83,14 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
                         for (var i = 0; i < response.data.message.length; i++) {
                             $scope.precioProducto += (response.data.message[i].obj_Producto.precio * response.data.message[i].cantidad);
                             $scope.cantidadProducto += response.data.message[i].cantidad;
-                        }                        
+                        }
                     }
 
                     if (operacion === "reduce") {
                         for (var j = 0; j < response.data.message.length; j++) {
                             $scope.precioProducto += response.data.message[j].obj_Producto.precio;
                             $scope.cantidadProducto += response.data.message[j].cantidad;
-                        }                        
+                        }
                     }
                 }
                 countcarritoService.updateCarrito();

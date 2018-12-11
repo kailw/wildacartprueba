@@ -17,7 +17,7 @@ moduleFactura.controller('facturaNewUserController', ['$scope', '$http', '$route
         $scope.guardar = function () {
             var json = {
                 id: null,
-                fecha: null,
+                fecha: $scope.myDate,
                 iva: $scope.iva,
                 id_usuario: $scope.ajaxDatosUser.id
             };
@@ -65,7 +65,6 @@ moduleFactura.controller('facturaNewUserController', ['$scope', '$http', '$route
          //CALENDARIO
 
         $scope.myDate = new Date();
-
         $scope.minDate = new Date(
                 $scope.myDate.getFullYear(),
                 $scope.myDate.getMonth() - 2,

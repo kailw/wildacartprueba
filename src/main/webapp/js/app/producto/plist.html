@@ -42,7 +42,7 @@
                 <i class="fa fa-broom"> Limpiar</i>
             </button>
             <a  href="{{ob}}/create/"> 
-                <button type="button" class="btn btn-warning btn-sm" style="width: 100px; height:30px;">
+                <button type="button" class="btn btn-warning btn-sm" style="width: 100px; height:30px;background: cover; ">
                     <i class="fa fa-plus"> Crear</i>
                 </button>
             </a>            
@@ -150,7 +150,7 @@
     <div class="grid-container">
         <div class="grid-item" ng-repeat="fila in ajaxDataProductos" style="text-align: center;">
             <div class="grid-contenido"  ng-class="{'noExistencias': fila.existencias == 0 }"> 
-                <img ng-src="images/{{fila.foto}}" style="width: 245px;" alt=""/>
+                <img ng-src="images/{{fila.foto}}" style="width: 250px; height: 180px;" alt=""/>
             </div>
 
             <div class="grid-contenido">

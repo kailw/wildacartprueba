@@ -47,15 +47,17 @@
 
         <div class="form-group row justify-content-center">
             <div class="col-2">
-                <label for="id_factura" class="col-form-label">Tipo Factura</label>
+                <label for="id_factura" class="col-form-label">Id Factura</label>
             </div>
             <div class="col-5">
-                <input type="text" class="form-control" id="id_factura" name="id_factura" ng-model="ajaxDatoLinea.obj_Factura.id" ng-required="true" />                                                   
+                <input type="text" class="form-control" id="id_factura" name="id_factura" ng-model="ajaxDatoLinea.obj_Factura.id" ng-required="true" disabled/>                                                   
                 <div ng-show="!userForm.id_factura.$valid" class="alert alert-danger" role="alert">
                     Factura obligatorio
                 </div>                
             </div>
-        </div>        
+        </div>  
+        
+        
         <div class="form-group row justify-content-center">
             <div class="col-2">
                 <button ng-click="guardar()" type="button" class="btn btn-primary" ng-disabled="userForm.$invalid">Guardar</button>   

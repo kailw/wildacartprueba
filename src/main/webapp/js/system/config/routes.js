@@ -18,7 +18,7 @@ wildcart.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/factura/view/:id?', {templateUrl: 'js/app/factura/view.html', controller: 'facturaViewController'});
         $routeProvider.when('/factura/edit/:id?', {templateUrl: 'js/app/factura/edit.html', controller: 'facturaEditController'});
         $routeProvider.when('/factura/remove/:id?', {templateUrl: 'js/app/factura/remove.html', controller: 'facturaRemoveController'});
-        $routeProvider.when('/factura/create', {templateUrl: 'js/app/factura/create.html', controller: 'facturaCreateController'});        
+        $routeProvider.when('/factura/create/:id?', {templateUrl: 'js/app/factura/create.html', controller: 'facturaCreateController'});        
         $routeProvider.when('/factura/plistlinea/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/factura/plistlinea.html', controller: 'facturaPlistLineaController'});
         $routeProvider.when('/factura/newfacturauser/:id?', {templateUrl: 'js/app/factura/newfacturauser.html', controller: 'facturaNewUserController'});
      

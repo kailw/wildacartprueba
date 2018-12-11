@@ -6,40 +6,48 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item hvr-pop" ng-class="{'active': c.isActive('/home')}">
-                <a class="nav-link" href="home"><i class="fa fa-home"></i> <span class="desaparece"> Home</span><span class="sr-only">(current)</span></a>
+            <li class="nav-item" ng-class="{'active': c.isActive('/home')}">
+                <a class="nav-link hvr-pop" href="home"><i class="fa fa-home"></i> 
+                    <span class="desaparece"> Home</span><span class="sr-only">(current)</span>
+                </a>
             </li>
 
-            <li class="nav-item hvr-pop"  ng-show="c.loginH"  ng-class="{'active': c.isActive('/usuario/plist')}">
-                <a class="nav-link" href="usuario/plist" 
+            <li class="nav-item"  ng-show="c.loginH" ng-class="{'active': c.isActive('/usuario/plist')}">
+                <a class="nav-link hvr-pop" href="usuario/plist" 
                    ng-class="{'active': (c.isActive('/usuario/plist') || c.isActive('/usuario/view') || c.isActive('/usuario/edit') || c.isActive('/usuario/remove')
                                || c.isActive('/usuario/create'))}">
-                    <i class="fa fa-users"></i> <span class="desaparece">Usuarios</span></a>
+                    <i class="fa fa-users"></i> <span class="desaparece">Usuarios</span>
+                </a>
             </li>
 
-            <li class="nav-item hvr-pop"  ng-show="c.loginH"  ng-class="{'active': (c.isActive('/tipousuario/plist') || c.isActive('/tipousuario/view') || c.isActive('/tipousuario/edit') || c.isActive('/tipousuario/remove')
-                        || c.isActive('/tipousuario/create'))}">
-                <a class="nav-link" href="tipousuario/plist">
-                    <i class="fa fa-user"></i> <span class="desaparece">Tipo Usuario</span></a>
+            <li class="nav-item" ng-show="c.loginH"  ng-class="{'active': c.isActive('/tipousuario/plist')}">
+                <a class="nav-link hvr-pop" href="tipousuario/plist"
+                   ng-class="{'active': (c.isActive('/tipousuario/plist') || c.isActive('/tipousuario/view') || c.isActive('/tipousuario/edit') || c.isActive('/tipousuario/remove')
+                               || c.isActive('/tipousuario/create'))}">
+                    <i class="fa fa-user"></i> <span class="desaparece">Tipo Usuario</span>
+                </a>
+            </li>
+            
+            
+
+            <li class="nav-item"  ng-show="c.loginH"  ng-class="{'active': c.isActive('/producto/plist')}">                        
+                <a class="nav-link hvr-pop" href="producto/plist" ng-class="{'active': (c.isActive('/producto/plist') || c.isActive('/producto/view') || c.isActive('/producto/edit') || c.isActive('/producto/remove'))}">
+                    <i class="fa fa-box-open"></i> <span class="desaparece">Productos</span>
+                </a>
             </li>
 
-            <li class="nav-item hvr-pop"  ng-show="c.loginH"  ng-class="{'active': (c.isActive('/producto/plist') || c.isActive('/producto/view') || c.isActive('/producto/edit') || c.isActive('/producto/remove')
-                        || c.isActive('/producto/create'))}">
-                <a class="nav-link" href="producto/plist">
-                    <i class="fa fa-box-open"></i> <span class="desaparece">Productos</span></a>
+            <li class="nav-item"  ng-show="c.loginH"  ng-class="{'active': c.isActive('/tipoproducto')}">                        
+                <a class="nav-link hvr-pop" href="tipoproducto/plist">                    
+                    <i class="fa fa-box"></i> <span class="desaparece">Tipo Producto</span>
+                </a>
             </li>
 
-            <li class="nav-item hvr-pop"  ng-show="c.loginH"  ng-class="{'active': (c.isActive('/tipoproducto/plist') || c.isActive('/tipoproducto/view') || c.isActive('/tipoproducto/edit') || c.isActive('/tipoproducto/remove')
-                        || c.isActive('/tipoproducto/create'))}">
-                <a class="nav-link" href="tipoproducto/plist">
-                    <i class="fa fa-box"></i> <span class="desaparece">Tipo Producto</span></a>
-            </li>
-
-            <li class="nav-item hvr-pop" ng-show="c.loginH" ng-class="{'active': c.isActive('/factura/plist')}">
-                <a class="nav-link" href="factura/plist" ng-class="{'active': (c.isActive('/factura/plist') || c.isActive('/linea/plist')
+            <li class="nav-item" ng-show="c.loginH" ng-class="{'active': c.isActive('/factura/plist')}">
+                <a class="nav-link hvr-pop" href="factura/plist" ng-class="{'active': (c.isActive('/factura/plist') || c.isActive('/linea/plist')
                             || c.isActive('/factura/view') || c.isActive('/factura/edit') || c.isActive('/factura/remove') || c.isActive('/linea/view')
                             || c.isActive('/linea/remove') || c.isActive('/linea/edit') || c.isActive('/factura/create'))}">
-                    <i class="fa fa-file-invoice-dollar"></i> <span class="desaparece">Facturas</span></a>
+                    <i class="fa fa-file-invoice-dollar"></i> <span class="desaparece">Facturas</span>
+                </a>
             </li>
         </ul>
 
