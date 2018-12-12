@@ -47,110 +47,12 @@
                 </button>
             </a>            
         </div>
-    </div>
-    <!--
+    </div>    
     
-        <div class="table-responsive">
-            <table class="table table-striped table-sm">
-                <tr class="thead-dark">
-                    <th>
-                        ID
-                        <button type="button" class="btn btn-light btn-sm" ng-click="ordena('id', 'asc')">
-                            <i class="fas fa-long-arrow-alt-up"></i>
-                        </button>
-                        <button type="button" class="btn btn-light btn-sm" ng-click="ordena('id', 'desc')">
-                            <i class="fas fa-long-arrow-alt-down"></i>
-                        </button>
-                    </th>
-                    <th>
-                        Codigo
-                        <button type="button" class="btn btn-light btn-sm" ng-click="ordena('codigo', 'asc')">
-                            <i class="fas fa-long-arrow-alt-up"></i>
-                        </button>
-                        <button type="button" class="btn btn-light btn-sm" ng-click="ordena('codigo', 'desc')">
-                            <i class="fas fa-long-arrow-alt-down"></i>
-                        </button>
-                    </th>
-                    <th>
-                        Descripción
-                        <button type="button" class="btn btn-light btn-sm" ng-click="ordena('desc', 'asc')">
-                            <a class="fas fa-long-arrow-alt-up" ></a>
-    
-                        </button>
-                        <button type="button" class="btn btn-light btn-sm" ng-click="ordena('desc', 'desc')">
-                            <i class="fas fa-long-arrow-alt-down"></i>
-                        </button>
-                    </th>
-                    <th>
-                        Existencias
-                        <button type="button" class="btn btn-light btn-sm" ng-click="ordena('existencias', 'asc')">
-                            <i class="fas fa-long-arrow-alt-up"></i>
-                        </button>
-                        <button type="button" class="btn btn-light btn-sm" ng-click="ordena('existencias', 'desc')">
-                            <i class="fas fa-long-arrow-alt-down"></i>
-                        </button>
-                    </th>
-                    <th>
-                        Precio
-                        <button type="button" class="btn btn-light btn-sm" ng-click="ordena('precio', 'asc')">
-                            <i class="fas fa-long-arrow-alt-up"></i>
-                        </button>
-                        <button type="button" class="btn btn-light btn-sm" ng-click="ordena('precio', 'desc')">
-                            <i class="fas fa-long-arrow-alt-down"></i>
-                        </button>
-                    </th>
-                    <th>
-                        Foto
-                        <button type="button" class="btn btn-light btn-sm" ng-click="ordena('foto', 'asc')">
-                            <i class="fas fa-long-arrow-alt-up"></i>
-                        </button>
-                        <button type="button" class="btn btn-light btn-sm" ng-click="ordena('foto', 'desc')">
-                            <i class="fas fa-long-arrow-alt-down"></i>
-                        </button>
-                    </th>
-                    <th>
-                        Tipo de producto
-                        <button type="button" class="btn btn-light btn-sm" ng-click="ordena('id_tipoProducto', 'asc')">
-                            <i class="fas fa-long-arrow-alt-up"></i>
-                        </button>
-                        <button type="button" class="btn btn-light btn-sm" ng-click="ordena('id_tipoProducto', 'desc')">
-                            <i class="fas fa-long-arrow-alt-down"></i>
-                        </button>
-                    </th>
-                    <th>
-                        Acciones                
-                    </th>
-                </tr>
-                <tr ng-repeat="fila in ajaxDataProductos">
-                    <td>{{fila.id}}</td>
-                    <td>{{fila.codigo}}</td>
-                    <td>{{fila.desc}}</td>
-                    <td>{{fila.existencias}}</td>
-                    <td>{{fila.precio}}</td>
-                    <td>{{fila.foto}}</td>                
-                    <td>                    
-                        <a href="tipoproducto/view/{{fila.obj_tipoProducto.id}}">{{fila.obj_tipoProducto.desc}}</a>
-                    </td>  
-                    <td> 
-                        <a  href="{{ob}}/view/{{fila.id}}"> 
-                            <button style="font-size:15px" class="btn btn-info"><i class="fa fa-eye"></i></button>
-                        </a> 
-                        <a  href="{{ob}}/edit/{{fila.id}}"> 
-                            <button style="font-size:15px" class="btn btn-success"><i class="fa fa-edit"></i></button>
-                        </a> 
-                        <a  href="{{ob}}/remove/{{fila.id}}"> 
-                            <button style="font-size:15px" class="btn btn-danger"><i class="fa fa-trash-alt"></i></button>
-                        </a> 
-                    </td>                                  
-                </tr>
-            </table>s
-        </div>-->
-
-
     <div class="grid-container">
         <div class="grid-item" ng-repeat="fila in ajaxDataProductos" style="text-align: center;">
             <div class="grid-contenido"  ng-class="{'noExistencias': fila.existencias == 0 }"> 
-                <img ng-src="images/{{fila.foto}}" style="width: 250px; height: 180px;" alt=""/>
+                <img ng-src="images/{{fila.foto}}" style="width: 250px; height: 180px;border-radius: 10%;" alt=""/>
             </div>
 
             <div class="grid-contenido">

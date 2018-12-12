@@ -5,12 +5,6 @@
 
     <form name="userForm" style="margin-bottom: 50px;" ng-show="!mensaje">
         <h3 style="text-align: center"> <i class="fa fa-box-open"></i> Crear Tipo Producto</h3>
-        <!--        <div class="form-group row">            
-                    <label for="id" class="col-2 col-form-label">ID</label>
-                    <div class="col-8">
-                        <input type="text" class="form-control" id="id" name="id" ng-disabled="true" ng-model="id" />
-                    </div>
-                </div>-->
 
         <div class="form-group row justify-content-center">
             <div class="col-2">
@@ -40,7 +34,7 @@
         </div>
     </form>
     <div class="alert alert-success" ng-show="mensaje">
-        Se ha creado el {{ob}} con el id {{idCreado}} llamado "{{desc}}"
+        Se ha creado el tipo producto con el id {{idCreado}} llamado "{{desc}}"
     </div>
 </main>
 <footer class="footer" ng-include="'js/app/footer.html'"></footer>

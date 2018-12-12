@@ -9,7 +9,7 @@ moduleFactura.controller('facturaCreateController', ['$scope', '$http', '$locati
         $scope.ajaxDatoFactura = {
             id: null,
             fecha: null,
-            iva: null            
+            iva: null
         };
 
 
@@ -18,7 +18,7 @@ moduleFactura.controller('facturaCreateController', ['$scope', '$http', '$locati
                 id: null,
                 fecha: $scope.myDate,
                 iva: $scope.iva,
-                obj_Usuario:{id:$scope.ajaxDatoFactura.id}
+                obj_Usuario: {id: $scope.ajaxDatoFactura.id}
             };
             $http({
                 method: 'GET',
@@ -35,6 +35,12 @@ moduleFactura.controller('facturaCreateController', ['$scope', '$http', '$locati
             });
         };
 
+        $scope.usuarioView = function (id) {
+            if (id !== null) {
+                $location.url("usuario/view/" + id);
+            } else {                  
+            }
+        };
 
         $scope.isActive = toolService.isActive;
 
@@ -67,7 +73,7 @@ moduleFactura.controller('facturaCreateController', ['$scope', '$http', '$locati
             }
         };
         //CALENDARIO
-        
+
 
         $scope.myDate = new Date();
 

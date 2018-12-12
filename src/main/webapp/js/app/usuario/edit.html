@@ -53,12 +53,16 @@
             </div>
             <div class="col-5">
                 <input type="text"  class="form-control"
-                       ng-class="{ 'is-invalid' : userForm.ape1.$invalid && !userForm.ape1.$pristine, 'is-valid' :userForm.ape1.$valid && !userForm.ape1.$pristine}" id="ape1" name="ape1" ng-model="ajaxDatoUsuario.ape1" ng-required="true" ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/"/>
-                <div ng-show="userForm.ape1.$invalid && !userForm.ape1.$pristine && !userForm.ape1.$error.pattern" class="alert alert-danger" role="alert">
+                       ng-class="{ 'is-invalid' : userForm.ape1.$invalid && !userForm.ape1.$pristine, 'is-valid' :userForm.ape1.$valid && !userForm.ape1.$pristine}" id="ape1" name="ape1" ng-model="ajaxDatoUsuario.ape1" ng-required="true" ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/"
+                       ng-maxlength="11"/>
+                <div ng-show="!userForm.ape1.$error.maxlength && userForm.ape1.$invalid && !userForm.ape1.$pristine && !userForm.ape1.$error.pattern" class="alert alert-danger" role="alert">
                     Primer apellido obligatorio
                 </div>
                 <div ng-show="userForm.ape1.$error.pattern" class="alert alert-danger" role="alert">
                     Primer apellido no válido
+                </div>
+                <div ng-show="userForm.ape1.$error.maxlength" class="alert alert-danger" role="alert">
+                    Primer apellido demasiado largo
                 </div>
             </div>
         </div>
@@ -67,12 +71,16 @@
                 <label for="ape2" class="col-form-label">Segundo apellido</label>
             </div>
             <div class="col-5">
-                <input type="text"  class="form-control" ng-class="{ 'is-invalid' : userForm.ape2.$invalid && !userForm.ape2.$pristine, 'is-valid' :userForm.ape2.$valid && !userForm.ape2.$pristine}" id="ape2" name="ape2" ng-model="ajaxDatoUsuario.ape2" ng-required="true"  ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/" />
-                <div ng-show="userForm.ape2.$invalid && !userForm.ape2.$pristine && !userForm.ape2.$error.pattern" class="alert alert-danger" role="alert">
+                <input type="text"  class="form-control" ng-class="{ 'is-invalid' : userForm.ape2.$invalid && !userForm.ape2.$pristine, 'is-valid' :userForm.ape2.$valid && !userForm.ape2.$pristine}" id="ape2" name="ape2" ng-model="ajaxDatoUsuario.ape2" ng-required="true"  ng-pattern="/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/" 
+                       ng-maxlength="11"/>
+                <div ng-show="!userForm.ape2.$error.maxlength && userForm.ape2.$invalid && !userForm.ape2.$pristine && !userForm.ape2.$error.pattern" class="alert alert-danger" role="alert">
                     Segundo apellido obligatorio
                 </div>
                 <div ng-show="userForm.ape2.$error.pattern" class="alert alert-danger" role="alert">
                     Segundo apellido no válido
+                </div>
+                <div ng-show="userForm.ape2.$error.maxlength" class="alert alert-danger" role="alert">
+                    Segundo apellido demasiado largo
                 </div>
             </div>
         </div>
@@ -166,18 +174,18 @@
         </div>
 
 
-<!--        <div class="form-group row justify-content-center">
-            <label for="pass" class="col-2 col-form-label">Contraseña</label>
-            <input type="password" class="form-control" ng-class="{' is-invalid': userForm.pass.$invalid && !userForm.pass.$pristine}"
-                   id="pass" name="pass" ng-model="ajaxDatoUsuario.pass" ng-minlength="6" ng-required="true"/>
-            <div ng-show="userForm.pass.$error.minlength" class="alert alert-danger" role="alert">
-                La longitud de la constraseña es demasiado corta
-            </div>
-            <div ng-show="!userForm.pass.$valid" class="alert alert-danger" role="alert">
-                Contraseña obligatorio
-            </div>
-        </div>-->
-        
+        <!--        <div class="form-group row justify-content-center">
+                    <label for="pass" class="col-2 col-form-label">Contraseña</label>
+                    <input type="password" class="form-control" ng-class="{' is-invalid': userForm.pass.$invalid && !userForm.pass.$pristine}"
+                           id="pass" name="pass" ng-model="ajaxDatoUsuario.pass" ng-minlength="6" ng-required="true"/>
+                    <div ng-show="userForm.pass.$error.minlength" class="alert alert-danger" role="alert">
+                        La longitud de la constraseña es demasiado corta
+                    </div>
+                    <div ng-show="!userForm.pass.$valid" class="alert alert-danger" role="alert">
+                        Contraseña obligatorio
+                    </div>
+                </div>-->
+
     </ng-form>    
     <div class="alert alert-success" ng-show="mensajeOK">
         Datos actualizados correctamente del {{ob}} {{ajaxDatoUsuario.id}}

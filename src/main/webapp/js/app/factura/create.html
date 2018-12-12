@@ -59,7 +59,7 @@
                            type="text"                           
                            ng-model-options="{debounce: 1000}"
                            maxlength="5" ng-required="true"  class="form-control" 
-                           ng-class="{ 'is-invalid' : userForm.id_Usuario.$invalid && !userForm.id_Usuario.$pristine, 'is-valid': userForm.id_Usuario.$valid && !userForm.id_Usuario.$pristine}" />
+                           ng-class="{ 'is-invalid' : userForm.id_Usuario.$invalid && !userForm.id_Usuario.$pristine, 'is-valid': userForm.id_Usuario.$valid}" />
                 </div>
             </div>
         </div>
@@ -67,10 +67,16 @@
             <div class="col-2">               
             </div>
             <div class="col-5">                   
-                <div class="form-group">
-                    <a href="usuario/view/{{ajaxDatoFactura.id}}" class="form-control btn btn-light" style="background: lightgray; color:dark; text-align:left;" ng-class="{ 'disabled': userForm.id_Usuario.$invalid}">
-                        <span>Usuario: {{ajaxDatoFactura.nombre}} {{vacio}}</span>
-                    </a>
+                <div class="form-group" >
+                    <!--                    <a href="usuario/view/{{ajaxDatoFactura.id}}" class="form-control btn btn-light" ng-class="{ 'disabled': userForm.id_Usuario.$invalid}">                                            -->
+                    <div style="background-color: lightgray; padding: 10px; border-radius: 6px;"  ng-click="usuarioView(ajaxDatoFactura.id)">
+                        Usuario: {{ajaxDatoFactura.nombre}} {{vacio}}
+                    </div>
+<!--                    <div style="background-color: lightgray; padding: 10px; border-radius: 6px;" ng-if="ajaxDatoFactura.id < 0" ng-click="">
+                        Usuario: {{ajaxDatoFactura.nombre}} {{vacio}}
+                    </div>-->
+
+                    <!--                    </a>-->
                 </div>
             </div>
         </div>

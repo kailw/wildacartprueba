@@ -144,6 +144,7 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
         ;
 
         $scope.isActive = toolService.isActive;
+        
         $scope.showAlert = function (titulo, description) {
             $mdDialog.show(
                     $mdDialog.alert()

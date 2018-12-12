@@ -118,7 +118,7 @@
                            size="5"
                            ng-model-options="{debounce: 1000}"
                            maxlength="5" ng-required="true"  class="form-control" 
-                           ng-class="{ 'is-invalid' : userForm.id_tipoUsuario.$invalid && !userForm.id_tipoUsuario.$pristine, 'is-valid': userForm.id_tipoUsuario.$valid && !userForm.id_tipoUsuario.$pristine}" />
+                           ng-class="{ 'is-invalid' : userForm.id_tipoUsuario.$invalid && !userForm.id_tipoUsuario.$pristine, 'is-valid': userForm.id_tipoUsuario.$valid}" />
                 </div>
             </div>
         </div>    
@@ -127,7 +127,7 @@
             </div>
             <div class="col-5">                   
                 <div class="form-group">
-                    <a href="tipousuario/view/{{ajaxDatoUsuario.id}}" class="form-control btn btn-light" style="background: lightgray; color:dark; text-align:left;" ng-class="{ 'disabled': userForm.id_tipoUsuario.$invalid}"  style="width: auto;">
+                    <a href="tipousuario/view/{{ajaxDatoUsuario.id}}" class="form-control btn btn-light" style="background: lightgray; color:dark; text-align:left;" ng-class="{ 'disabled': userForm.id_tipoUsuario.$invalid}">
                         <span >Tipo de usuario: {{ajaxDatoUsuario.desc}} {{vacio}}</span>
                     </a>
                 </div>

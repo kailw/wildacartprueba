@@ -1,6 +1,5 @@
 <header-component></header-component>
 <main role="main" class="container" style="margin-bottom: 100px;">
-
     <div class="primeraParte"></div>
     <a href="javascript:window.history.back();"> <button class="btn btn-success">Volver</button> </a>    
     <form name="userForm" style="margin-bottom: 50px;" ng-show="!mensaje">
@@ -10,11 +9,8 @@
                 <label for="id_factura" class="col-form-label">ID Factura</label>
             </div>
             <div class="col-5">
-                <input type="text" class="form-control" id="id_factura" name="id_factura" ng-model="id_factura" ng-required="true" ng-disbled="true"
-                       ng-class="{ 'is-invalid' : userForm.id_factura.$invalid && !userForm.id_factura.$pristine, 'is-valid': userForm.id_factura.$valid && !userForm.id_factura.$pristine}" disabled/>
-                <div ng-show="!userForm.id_factura.$valid && !userForm.id_factura.$pristine" class="alert alert-danger" role="alert">
-                    Factura obligatorio
-                </div>                
+                <input type="text" class="form-control-plaintext" id="id_factura" name="id_factura" ng-model="id_factura" ng-required="true" ng-disbled="true"
+                     ng-class="{ 'is-invalid' : userForm.id_factura.$invalid && !userForm.id_factura.$pristine, 'is-valid': userForm.id_factura.$valid && !userForm.id_factura.$pristine}" disabled/>             
             </div>
         </div> 
         <div class="form-group row justify-content-center">
