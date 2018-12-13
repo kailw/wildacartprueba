@@ -6,8 +6,8 @@ moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', '$locati
         $scope.ob = "usuario";
 
         $scope.ajaxDatoUsuario = {
-            id : null,
-            desc : null
+            id: null,
+            desc: null
         };
 
         $scope.guardar = function () {
@@ -39,17 +39,13 @@ moduleUsuario.controller('usuarioCreateController', ['$scope', '$http', '$locati
 
         $scope.tipoUsuarioRefresh = function (quiensoy, consulta) {
             var form = quiensoy;
-            if ($scope.vacio === "") {
-                $scope.vacio;
-            } else {
-                $scope.vacio = "";
-            }
+            $scope.vacio = "";
             if (consulta) {
                 $http({
                     method: 'GET',
                     url: 'json?ob=tipousuario&op=get&id=' + $scope.ajaxDatoUsuario.id
-                }).then(function (response) {                    
-                    $scope.ajaxDatoUsuario = response.data.message;                                       
+                }).then(function (response) {
+                    $scope.ajaxDatoUsuario = response.data.message;
                     if ($scope.ajaxDatoUsuario !== null) {
                         form.userForm.id_tipoUsuario.$setValidity('valid', true);
                     } else {
