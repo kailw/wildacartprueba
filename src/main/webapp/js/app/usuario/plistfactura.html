@@ -40,7 +40,7 @@
             </nav>
         </div>   
 
-        <div class="col-md-auto col-4">
+        <div class="col-md-auto col-4">            
             <button type="button" class="btn btn-danger btn-sm" style="width: auto; height:30px;" ng-click="resetOrder()">
                 <i class="fa fa-broom"> Limpiar</i>
             </button>
@@ -89,6 +89,9 @@
 
                             <a href="factura/remove/{{fila.id}}">
                                 <button style="font-size:15px" class="btn btn-danger"><i class="fa fa-trash-alt"></i></button>
+                            </a>
+                            <a ng-click="pdf(fila.id,fila.fecha, fila.iva)">
+                                <button style="font-size:15px" class="btn btn-primary" ng-class="{'disabled': {{fila.link_linea}} <= 0}"><i class="fa fa-print"></i></button>
                             </a>
                         </td>                        
                     </tr>

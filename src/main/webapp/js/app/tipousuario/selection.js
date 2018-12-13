@@ -54,7 +54,9 @@ function cController($http) {
 
 
     self.save = function (id, desc) {
-        self.obj = { id : id, desc: desc};
+//        self.obj = { id : id, desc: desc};
+        self.obj.id = id;
+        self.obj.desc = desc;
         self.onTipousuarioSet();
     };
     

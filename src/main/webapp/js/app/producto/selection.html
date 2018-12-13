@@ -204,8 +204,8 @@
                         <li class="page-item" ng-show="c.page != c.totalPages" >
                             <a class="page-link" ng-click="c.update(c.page--1)" >Next</a>
                         </li>
-                        <li class="page-item">
-                            <a class="page-link" ng-show="c.page != c.totalPages - 1 && c.page != c.totalPages" ng-click="c.pagina(c.totalPages)">Last</a>
+                         <li class="page-item">
+                            <a class="page-link" ng-show="c.page != c.totalPages - 1 && c.page != c.totalPages" ng-click="c.update(c.totalPages)">Last</a>
                         </li>
                     </ul>
                 </nav>
@@ -214,8 +214,7 @@
 
         <div class="modal-footer">
             <button type="button" class="btn btn-danger" ng-click="c.resetOrder()">Reset</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" ng-click="c.save()">Save</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>            
         </div>
     </div>
 </div>

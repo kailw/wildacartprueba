@@ -36,7 +36,7 @@ moduleFactura.controller('facturaCreateController', ['$scope', '$http', '$locati
         };
 
         $scope.usuarioView = function (id) {
-            if (id !== null) {
+            if (id > 0 && id !== undefined) {
                 $location.url("usuario/view/" + id);
             } else {                  
             }
