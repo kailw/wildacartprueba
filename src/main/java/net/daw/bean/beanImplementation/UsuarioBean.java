@@ -10,8 +10,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import net.daw.bean.genericBeanImplementation.GenericBeanImplementation;
 import net.daw.bean.publicBeanInterface.BeanInterface;
-import net.daw.dao.FacturaDao;
-import net.daw.dao.TipousuarioDao;
+import net.daw.dao.daoImplementation.FacturaDao;
+import net.daw.dao.daoImplementation.TipousuarioDao;
 import net.daw.helper.EncodingHelper;
 
 /**

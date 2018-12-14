@@ -137,7 +137,7 @@
                     <a  href="{{ob}}/remove/{{fila.id}}"> 
                         <button style="font-size:15px" class="btn btn-danger"><i class="fa fa-trash-alt"></i></button>
                     </a> 
-                    <a ng-click="pdf(fila.id, fila.fecha, fila.iva, fila.obj_Usuario.id)" class="btn btn-primary"  ng-class="{'disabled': {{fila.link_linea}} <= 0}">
+                    <a ng-click="pdf(fila.id, fila.fecha, fila.iva, fila.obj_Usuario)" class="btn btn-primary"  ng-class="{'disabled': {{fila.link_linea}} <= 0}">
                         <i class="fa fa-print" style="color:black"></i>
                     </a>
                 </td>                                  

@@ -21,9 +21,9 @@ import net.daw.bean.beanImplementation.ReplyBean;
 import net.daw.bean.beanImplementation.UsuarioBean;
 import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
-import net.daw.dao.FacturaDao;
-import net.daw.dao.LineaDao;
-import net.daw.dao.ProductoDao;
+import net.daw.dao.daoImplementation.FacturaDao;
+import net.daw.dao.daoImplementation.LineaDao;
+import net.daw.dao.daoImplementation.ProductoDao;
 import net.daw.factory.ConnectionFactory;
 import net.daw.helper.EncodingHelper;
 

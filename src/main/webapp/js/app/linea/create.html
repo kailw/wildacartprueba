@@ -21,10 +21,10 @@
                 <input type="text" class="form-control " id="cantidad" name="cantidad" ng-model="cantidad" ng-required="true" ng-pattern="/^[0-9][0-9]*$/"
                        ng-class="{ 'is-invalid' : userForm.cantidad.$invalid && !userForm.cantidad.$pristine, 'is-valid': userForm.cantidad.$valid && !userForm.cantidad.$pristine}"/>
                 <div ng-show="userForm.cantidad.$invalid && !userForm.cantidad.$pristine && !userForm.cantidad.$error.pattern" class="alert alert-danger" role="alert">
-                    Iva obligatorio
+                    Cantidad obligatorio
                 </div>
                 <div ng-show="userForm.cantidad.$error.pattern" class="alert alert-danger" role="alert">
-                    Iva no válido
+                    Cantidad no válido
                 </div>
             </div>
         </div>

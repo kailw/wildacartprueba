@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.daw.dao;
+package net.daw.dao.daoImplementation;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,27 +11,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import net.daw.bean.beanImplementation.ProductoBean;
+import net.daw.bean.beanImplementation.TipoproductoBean;
 import net.daw.helper.SqlBuilder;
 
 /**
  *
  * @author a044531896d
  */
-public class ProductoDao {
+public class TipoproductoDao {
 
     Connection oConnection;
     String ob = null;
 
-    public ProductoDao(Connection oConnection, String ob) {
+    public TipoproductoDao(Connection oConnection, String ob) {
         super();
         this.oConnection = oConnection;
         this.ob = ob;
     }
 
-    public ProductoBean get(int id, Integer expand) throws Exception {
+    public TipoproductoBean get(int id, Integer expand) throws Exception {
         String strSQL = "SELECT * FROM " + ob + " WHERE id=?";
-        ProductoBean oProductoBean;        
+        TipoproductoBean oTipoproductoBean;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
@@ -39,11 +39,10 @@ public class ProductoDao {
             oPreparedStatement.setInt(1, id);
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
-                oProductoBean = new ProductoBean();
-                oProductoBean.fill(oResultSet, oConnection, expand);
-                                          
+                oTipoproductoBean = new TipoproductoBean();
+                oTipoproductoBean.fill(oResultSet, oConnection, expand);
             } else {
-                oProductoBean = null;
+                oTipoproductoBean = null;
             }
         } catch (SQLException e) {
             throw new Exception("Error en Dao get de " + ob, e);
@@ -55,7 +54,7 @@ public class ProductoDao {
                 oPreparedStatement.close();
             }
         }
-        return oProductoBean;
+        return oTipoproductoBean;
     }
 
     public int remove(int id) throws Exception {
@@ -100,11 +99,11 @@ public class ProductoDao {
         return res;
     }
 
-    public ProductoBean create(ProductoBean oProductoBean) throws Exception {
+    public TipoproductoBean create(TipoproductoBean oTipoproductoBean) throws Exception {
         String strSQL = "INSERT INTO " + ob;
-        strSQL += "(" + oProductoBean.getColumns() + ")";
+        strSQL += "(" + oTipoproductoBean.getColumns() + ")";
         strSQL += " VALUES ";
-        strSQL += "(" + oProductoBean.getValues() + ")";
+        strSQL += "(" + oTipoproductoBean.getValues() + ")";
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
@@ -112,9 +111,9 @@ public class ProductoDao {
             oPreparedStatement.executeUpdate();
             oResultSet = oPreparedStatement.getGeneratedKeys();
             if (oResultSet.next()) {
-                oProductoBean.setId(oResultSet.getInt(1));
+                oTipoproductoBean.setId(oResultSet.getInt(1));
             } else {
-                oProductoBean.setId(0);
+                oTipoproductoBean.setId(0);
             }
         } catch (SQLException e) {
             throw new Exception("Error en Dao create de " + ob, e);
@@ -126,16 +125,19 @@ public class ProductoDao {
                 oPreparedStatement.close();
             }
         }
-        return oProductoBean;
+        return oTipoproductoBean;
     }
 
-    public int update(ProductoBean oProductoBean) throws Exception {
+    public int update(TipoproductoBean oTipoproductoBean) throws Exception {
         int iResult = 0;
         String strSQL = "UPDATE " + ob + " SET ";
-        strSQL += oProductoBean.getPairs(ob);
+        strSQL += oTipoproductoBean.getPairs(ob);
+
         PreparedStatement oPreparedStatement = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement.setString(1, oTipoproductoBean.getDesc());
+            oPreparedStatement.setInt(2, oTipoproductoBean.getId());
             iResult = oPreparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -148,10 +150,10 @@ public class ProductoDao {
         return iResult;
     }
 
-    public ArrayList<ProductoBean> getpage(int iRpp, int iPage, HashMap<String, String> hmOrder,Integer expand) throws Exception {
+    public ArrayList<TipoproductoBean> getpage(int iRpp, int iPage, HashMap<String, String> hmOrder, Integer expand) throws Exception {
         String strSQL = "SELECT * FROM " + ob;
         strSQL += SqlBuilder.buildSqlOrder(hmOrder);
-        ArrayList<ProductoBean> alProductoBean;
+        ArrayList<TipoproductoBean> alTipoproductoBean;
         if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {
             strSQL += " LIMIT " + (iPage - 1) * iRpp + ", " + iRpp;
             ResultSet oResultSet = null;
@@ -159,13 +161,11 @@ public class ProductoDao {
             try {
                 oPreparedStatement = oConnection.prepareStatement(strSQL);
                 oResultSet = oPreparedStatement.executeQuery();
-                alProductoBean = new ArrayList<ProductoBean>();
+                alTipoproductoBean = new ArrayList<TipoproductoBean>();
                 while (oResultSet.next()) {
-                    ProductoBean oProductoBean = new ProductoBean();
-                    
-                    oProductoBean.fill(oResultSet, oConnection, expand);
-                    
-                    alProductoBean.add(oProductoBean);
+                    TipoproductoBean oTipoproductoBean = new TipoproductoBean();
+                    oTipoproductoBean.fill(oResultSet, oConnection, expand);
+                    alTipoproductoBean.add(oTipoproductoBean);
                 }
             } catch (SQLException e) {
                 throw new Exception("Error en Dao getpage de " + ob, e);
@@ -180,7 +180,7 @@ public class ProductoDao {
         } else {
             throw new Exception("Error en Dao getpage de " + ob);
         }
-        return alProductoBean;
-    }
+        return alTipoproductoBean;
 
+    }
 }

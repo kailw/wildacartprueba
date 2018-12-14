@@ -6,7 +6,7 @@
 package net.daw.bean.beanImplementation;
 
 import com.google.gson.annotations.Expose;
-import net.daw.dao.TipoproductoDao;
+import net.daw.dao.daoImplementation.TipoproductoDao;
 import net.daw.helper.EncodingHelper;
 import java.sql.Connection;
 import java.sql.ResultSet;

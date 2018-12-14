@@ -2,8 +2,8 @@
 
 <div class="container">
     <form name="userForm" style="margin-top: 80px;" ng-show="formulario">
-        <div class="form-group row justify-content-md-center">            
-            <div class="col-sm-8 col-md-5">
+        <div class="form-group row justify-content-center">            
+            <div class="col-sm-10 col-md-6">
                 <label for="login">Login</label>
                 <input type="text" class="form-control" name="login" id="login" placeholder="Introduce tu nombre de usuario" ng-model="login" 
                   ng-required="true" ng-class="{ 'is-invalid' : userForm.login.$invalid && !userForm.login.$pristine, 'is-valid' :userForm.login.$valid && !userForm.login.$pristine}" ng-keyup="$event.keyCode == 13 && log()"/>
@@ -13,8 +13,8 @@
                 </div>
             </div>
         </div>    
-        <div class="form-group row justify-content-md-center">            
-            <div class="col-sm-8 col-md-5">
+        <div class="form-group row justify-content-center">            
+            <div class="col-sm-10 col-md-6">
                 <label for="pass">Password</label>
                 <input type="password" class="form-control" name="pass" id="pass" 
                        ng-class="{ 'is-invalid' : userForm.pass.$invalid && !userForm.pass.$pristine, 'is-valid' :userForm.pass.$valid && !userForm.pass.$pristine}" placeholder="Introduce tu contraseña" ng-model="pass" ng-required="true" ng-keyup="$event.keyCode == 13 && log()"/>
@@ -26,8 +26,8 @@
             </div>
         </div>        
     </form>
-    <div class="row justify-content-md-center">
-        <div class="col-sm-8 col-md-5">            
+    <div class="row justify-content-center">
+        <div class="col-sm-10 col-md-6">            
             <div class="alert alert-danger" role="alert" ng-show="errorLogin">
                 Te has equivocado.
             </div>
@@ -35,7 +35,7 @@
         </div>
     </div>
     <div class="form-group row justify-content-md-center">
-        <div class="col-sm-8 col-md-5">
+        <div class="col-sm-10 col-md-6">
             <div ng-show="yesLogin" style="margin-top: 80px">
                 <div class="alert alert-success" role="alert">
                     <i class="fa fa-grin-beam"> Estas dentro.</i> 

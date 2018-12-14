@@ -1,0 +1,88 @@
+package net.daw.dao.daoImplementation;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import net.daw.bean.beanImplementation.FacturaBean;
+import net.daw.dao.genericDaoImplementation.GenericDaoImplementation;
+import net.daw.dao.publicDaoInterface.DaoInterface;
+import net.daw.helper.SqlBuilder;
+
+public class FacturaDao extends GenericDaoImplementation implements DaoInterface{
+
+    Connection oConnection;
+    String ob = null;
+
+    public FacturaDao(Connection oConnection, String ob) {
+        super(oConnection, ob);        
+    }
+      
+
+    public int getcountFacturaUser(int idusuario) throws Exception {
+        String strSQL = "SELECT COUNT(id) FROM " + ob + " WHERE id_usuario=? ";
+
+        int res = 0;
+        ResultSet oResultSet = null;
+        PreparedStatement oPreparedStatement = null;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement.setInt(1, idusuario);
+            oResultSet = oPreparedStatement.executeQuery();
+            if (oResultSet.next()) {
+                res = oResultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error en Dao getcountFacturaUser de " + ob, e);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return res;
+    }
+
+    public ArrayList<FacturaBean> getpageXusuario(int iRpp, int iPage, HashMap<String, String> hmOrder, int idUsuario, Integer expand) throws Exception {
+        String strSQL = "SELECT * FROM " + ob;
+        strSQL += SqlBuilder.buildSqlOrder(hmOrder);
+        ArrayList<FacturaBean> alFacturaBean;
+        if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {
+            strSQL += " WHERE id_usuario=? ";
+            strSQL += " LIMIT " + (iPage - 1) * iRpp + ", " + iRpp;
+            ResultSet oResultSet = null;
+            PreparedStatement oPreparedStatement = null;
+            try {
+
+                oPreparedStatement = oConnection.prepareStatement(strSQL);
+                oPreparedStatement.setInt(1, idUsuario);
+                oResultSet = oPreparedStatement.executeQuery();
+                alFacturaBean = new ArrayList<FacturaBean>();
+
+                while (oResultSet.next()) {
+                    FacturaBean oFacturaBean = new FacturaBean();
+                    oFacturaBean.fill(oResultSet, oConnection, expand);
+                    alFacturaBean.add(oFacturaBean);
+                }
+            } catch (SQLException e) {
+                throw new Exception("Error en Dao getpageXusuario de " + ob, e);
+            } finally {
+                if (oResultSet != null) {
+                    oResultSet.close();
+                }
+                if (oPreparedStatement != null) {
+                    oPreparedStatement.close();
+                }
+            }
+        } else {
+            throw new Exception("Error en Dao getpage de " + ob);
+        }
+        return alFacturaBean;
+
+    }
+}

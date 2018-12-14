@@ -10,8 +10,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import net.daw.bean.genericBeanImplementation.GenericBeanImplementation;
 import net.daw.bean.publicBeanInterface.BeanInterface;
-import net.daw.dao.FacturaDao;
-import net.daw.dao.ProductoDao;
+import net.daw.dao.daoImplementation.FacturaDao;
+import net.daw.dao.daoImplementation.ProductoDao;
 
 /**
  *
@@ -74,28 +74,28 @@ public class LineaBean extends GenericBeanImplementation implements BeanInterfac
     }
 
     @Override
-    public LineaBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws Exception {
+//    public LineaBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws Exception {
+//
+//        this.setId(oResultSet.getInt("id"));
+//        this.setCantidad(oResultSet.getInt("cantidad"));
+//
+//        if (expand > 0) {
+//            ProductoDao oProductoDao = new ProductoDao(oConnection, "producto");
+//            this.setObj_Producto(oProductoDao.get(oResultSet.getInt("id_producto"), expand - 1));
+//        } else {
+//            this.setId_producto(oResultSet.getInt("id_producto"));
+//        }
+//        if (expand > 0) {
+//            FacturaDao oFacturaDao = new FacturaDao(oConnection, "factura");
+//            this.setObj_Factura(oFacturaDao.get(oResultSet.getInt("id_factura"), expand - 1));
+//        } else {
+//            this.setId_factura(oResultSet.getInt("id_factura"));
+//        }
+//
+//        return this;
+//    }
 
-        this.setId(oResultSet.getInt("id"));
-        this.setCantidad(oResultSet.getInt("cantidad"));
-
-        if (expand > 0) {
-            ProductoDao oProductoDao = new ProductoDao(oConnection, "producto");
-            this.setObj_Producto(oProductoDao.get(oResultSet.getInt("id_producto"), expand - 1));
-        } else {
-            this.setId_producto(oResultSet.getInt("id_producto"));
-        }
-        if (expand > 0) {
-            FacturaDao oFacturaDao = new FacturaDao(oConnection, "factura");
-            this.setObj_Factura(oFacturaDao.get(oResultSet.getInt("id_factura"), expand - 1));
-        } else {
-            this.setId_factura(oResultSet.getInt("id_factura"));
-        }
-
-        return this;
-    }
-
-    @Override
+    
     public String getColumns() {
         String strColumns = "";
         strColumns += "id,";

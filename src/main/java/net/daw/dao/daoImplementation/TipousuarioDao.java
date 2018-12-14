@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package net.daw.dao;
+package net.daw.dao.daoImplementation;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,27 +6,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import net.daw.bean.beanImplementation.LineaBean;
+
+import net.daw.bean.beanImplementation.TipousuarioBean;
 import net.daw.helper.SqlBuilder;
 
-/**
- *
- * @author a044531896d
- */
-public class LineaDao {
+public class TipousuarioDao {
 
     Connection oConnection;
     String ob = null;
 
-    public LineaDao(Connection oConnection, String ob) {
+    public TipousuarioDao(Connection oConnection, String ob) {
         super();
         this.oConnection = oConnection;
         this.ob = ob;
     }
 
-    public LineaBean get(int id, Integer expand) throws Exception {
+    public TipousuarioBean get(int id, Integer expand) throws Exception {
         String strSQL = "SELECT * FROM " + ob + " WHERE id=?";
-        LineaBean oLineaBean;
+        TipousuarioBean oTipousuarioBean;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
@@ -39,10 +31,12 @@ public class LineaDao {
             oPreparedStatement.setInt(1, id);
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
-                oLineaBean = new LineaBean();
-                oLineaBean.fill(oResultSet, oConnection, expand);
+                oTipousuarioBean = new TipousuarioBean();
+
+                oTipousuarioBean.fill(oResultSet, oConnection, expand);
+
             } else {
-                oLineaBean = null;
+                oTipousuarioBean = null;
             }
         } catch (SQLException e) {
             throw new Exception("Error en Dao get de " + ob, e);
@@ -54,7 +48,7 @@ public class LineaDao {
                 oPreparedStatement.close();
             }
         }
-        return oLineaBean;
+        return oTipousuarioBean;
     }
 
     public int remove(int id) throws Exception {
@@ -99,21 +93,19 @@ public class LineaDao {
         return res;
     }
 
-    public LineaBean create(LineaBean oLineaBean) throws Exception {
-        String strSQL = "INSERT INTO " + ob;
-        strSQL += "(" + oLineaBean.getColumns() + ")";
-        strSQL += " VALUES ";
-        strSQL += "(" + oLineaBean.getValues() + ")";
+    public TipousuarioBean create(TipousuarioBean oTipousuarioBean) throws Exception {
+        String strSQL = "INSERT INTO " + ob + " (`id`, `desc`) VALUES (NULL, ?); ";
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement.setString(1, oTipousuarioBean.getDesc());
             oPreparedStatement.executeUpdate();
             oResultSet = oPreparedStatement.getGeneratedKeys();
             if (oResultSet.next()) {
-                oLineaBean.setId(oResultSet.getInt(1));
+                oTipousuarioBean.setId(oResultSet.getInt(1));
             } else {
-                oLineaBean.setId(0);
+                oTipousuarioBean.setId(0);
             }
         } catch (SQLException e) {
             throw new Exception("Error en Dao create de " + ob, e);
@@ -125,16 +117,18 @@ public class LineaDao {
                 oPreparedStatement.close();
             }
         }
-        return oLineaBean;
+        return oTipousuarioBean;
     }
 
-    public int update(LineaBean oLineaBean) throws Exception {
+    public int update(TipousuarioBean oTipousuarioBean) throws Exception {
         int iResult = 0;
-        String strSQL = "UPDATE " + ob + " SET ";
-        strSQL += oLineaBean.getPairs(ob);
+        String strSQL = "UPDATE " + ob + " SET `desc`=? WHERE " + ob + ".`id`=?;";
+
         PreparedStatement oPreparedStatement = null;
         try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL);            
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement.setString(1, oTipousuarioBean.getDesc());
+            oPreparedStatement.setInt(2, oTipousuarioBean.getId());
             iResult = oPreparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -147,10 +141,10 @@ public class LineaDao {
         return iResult;
     }
 
-    public ArrayList<LineaBean> getpage(int iRpp, int iPage, HashMap<String, String> hmOrder, Integer expand) throws Exception {
+    public ArrayList<TipousuarioBean> getpage(int iRpp, int iPage, HashMap<String, String> hmOrder, Integer expand) throws Exception {
         String strSQL = "SELECT * FROM " + ob;
         strSQL += SqlBuilder.buildSqlOrder(hmOrder);
-        ArrayList<LineaBean> alLineaBean;
+        ArrayList<TipousuarioBean> alTipousuarioBean;
         if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {
             strSQL += " LIMIT " + (iPage - 1) * iRpp + ", " + iRpp;
             ResultSet oResultSet = null;
@@ -158,11 +152,13 @@ public class LineaDao {
             try {
                 oPreparedStatement = oConnection.prepareStatement(strSQL);
                 oResultSet = oPreparedStatement.executeQuery();
-                alLineaBean = new ArrayList<LineaBean>();
+                alTipousuarioBean = new ArrayList<>();
                 while (oResultSet.next()) {
-                    LineaBean oLineaBean = new LineaBean();                    
-                    oLineaBean.fill(oResultSet, oConnection, expand);
-                    alLineaBean.add(oLineaBean);
+                    TipousuarioBean oTipousuarioBean = new TipousuarioBean();
+                    
+                    oTipousuarioBean.fill(oResultSet, oConnection, expand);
+                    
+                    alTipousuarioBean.add(oTipousuarioBean);
                 }
             } catch (SQLException e) {
                 throw new Exception("Error en Dao getpage de " + ob, e);
@@ -177,69 +173,7 @@ public class LineaDao {
         } else {
             throw new Exception("Error en Dao getpage de " + ob);
         }
-        return alLineaBean;
-
-    }
-
-    public int getcountxlinea(int idFactura) throws Exception {
-        String strSQL = "SELECT COUNT(id) FROM " + ob;
-        strSQL += " WHERE id_factura=? ";
-        int res = 0;
-        ResultSet oResultSet = null;
-        PreparedStatement oPreparedStatement = null;
-        try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oPreparedStatement.setInt(1, idFactura);
-            oResultSet = oPreparedStatement.executeQuery();
-            if (oResultSet.next()) {
-                res = oResultSet.getInt(1);
-            }
-        } catch (SQLException e) {
-            throw new Exception("Error en Dao get de " + ob, e);
-        } finally {
-            if (oResultSet != null) {
-                oResultSet.close();
-            }
-            if (oPreparedStatement != null) {
-                oPreparedStatement.close();
-            }
-        }
-        return res;
-    }
-
-    public ArrayList<LineaBean> getLineaFactura(int iRpp, int iPage, int idFactura, Integer expand) throws Exception {
-        String strSQL = "SELECT * FROM " + ob;
-        ArrayList<LineaBean> alLineaBean;
-        if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {
-            strSQL += " WHERE id_factura=? ";
-            strSQL += " LIMIT " + (iPage - 1) * iRpp + ", " + iRpp;
-            ResultSet oResultSet = null;
-            PreparedStatement oPreparedStatement = null;
-            try {
-
-                oPreparedStatement = oConnection.prepareStatement(strSQL);
-                oPreparedStatement.setInt(1, idFactura);
-                oResultSet = oPreparedStatement.executeQuery();
-                alLineaBean = new ArrayList<LineaBean>();
-                while (oResultSet.next()) {
-                    LineaBean oLineaBean = new LineaBean();
-                    oLineaBean.fill(oResultSet, oConnection, expand);
-                    alLineaBean.add(oLineaBean);
-                }
-            } catch (SQLException e) {
-                throw new Exception("Error en Dao getpage de " + ob, e);
-            } finally {
-                if (oResultSet != null) {
-                    oResultSet.close();
-                }
-                if (oPreparedStatement != null) {
-                    oPreparedStatement.close();
-                }
-            }
-        } else {
-            throw new Exception("Error en Dao getpage de " + ob);
-        }
-        return alLineaBean;
+        return alTipousuarioBean;
 
     }
 

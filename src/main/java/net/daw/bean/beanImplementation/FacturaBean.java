@@ -14,8 +14,8 @@ import java.time.ZoneId;
 import java.util.Date;
 import net.daw.bean.genericBeanImplementation.GenericBeanImplementation;
 import net.daw.bean.publicBeanInterface.BeanInterface;
-import net.daw.dao.LineaDao;
-import net.daw.dao.UsuarioDao;
+import net.daw.dao.daoImplementation.LineaDao;
+import net.daw.dao.daoImplementation.UsuarioDao;
 import net.daw.helper.EncodingHelper;
 
 /**
