@@ -55,11 +55,7 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
 
         $scope.tipoUsuarioRefresh = function (quiensoy, consulta) {
             var form = quiensoy;
-            if ($scope.vacio == "") {
-                $scope.vacio;
-            } else {
-                $scope.vacio = "";
-            }
+            $scope.vacio = "";            
             if (consulta) {                
                 $http({
                     method: 'GET',

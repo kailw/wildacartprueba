@@ -168,13 +168,14 @@ moduleUsuario.controller('usuarioPlistFacturaController', ['$scope', 'toolServic
                 var pagina = 1;
                 doc.setFontSize(10);
                 doc.text(95, 290, "Pagina " + pagina);
-                for (var i = 0; i < $scope.ajaxDatoLineaFactura.length; i++) {
-                    if (i % 18 === 0 && i !== 0) {
+                for (var i = 0; i < $scope.ajaxDatoLineaFactura.length; i++) {                    
+                    if (i % 18 === 0 && i !== 0) {                        
                         doc.addPage('a4', 1);
-                        doc.addImage(imgData, 'JPEG', 10, 14, 58, 40);
+                        doc.addImage(imgData, 'JPEG', 10, 14, 58, 40);                        
                         $scope.dibujarHeader(id, fecha);
-                        linea = 110;
+                        linea = 110;                                                
                         pagina += pagina;
+                        doc.text(95, 290, "Pagina " + pagina);
                     }
                     doc.setFontSize(13);
                     $scope.productoCodigo = $scope.ajaxDatoLineaFactura[i].obj_Producto.codigo;
@@ -201,12 +202,11 @@ moduleUsuario.controller('usuarioPlistFacturaController', ['$scope', 'toolServic
                 doc.text(125, 279, $scope.productoCantidadTotal.toString());
                 doc.text(80, 279, iva.toString() + " %");
 
-                $scope.precioTotal = $scope.productoPrecioTotal * (iva / 100 + 1);
+                $scope.precioTotal = $scope.productoPrecioTotal + ($scope.productoPrecioTotal * (iva / 100 + 1));
 
                 doc.text(170, 279, $scope.precioTotal.toFixed(2).toString());
 
-                doc.setFontSize(10);
-                doc.text(95, 290, "Pagina " + pagina);
+                doc.setFontSize(10);                
                 doc.save("facturaNo." + id + ".pdf");
 
             }, function (response) {
@@ -256,8 +256,8 @@ moduleUsuario.controller('usuarioPlistFacturaController', ['$scope', 'toolServic
             doc.text(115, 17, 'Fecha Factura:    ' + fecha);
 
             doc.setFontType('normal');
-            doc.setFontSize(13);
-        }
+            doc.setFontSize(10);            
+        };
 
     }
 ]);
