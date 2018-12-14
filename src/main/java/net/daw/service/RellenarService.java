@@ -7,9 +7,9 @@ package net.daw.service;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import net.daw.bean.ProductoBean;
-import net.daw.bean.TipousuarioBean;
-import net.daw.bean.UsuarioBean;
+import net.daw.bean.beanImplementation.ProductoBean;
+import net.daw.bean.beanImplementation.TipousuarioBean;
+import net.daw.bean.beanImplementation.UsuarioBean;
 
 /**
  *

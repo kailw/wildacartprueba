@@ -3,23 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.daw.bean;
+package net.daw.bean.beanImplementation;
 
 import com.google.gson.annotations.Expose;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import net.daw.bean.genericBeanImplementation.GenericBeanImplementation;
+import net.daw.bean.publicBeanInterface.BeanInterface;
 import net.daw.dao.FacturaDao;
 import net.daw.dao.TipousuarioDao;
 import net.daw.helper.EncodingHelper;
 
 /**
  *
- * @author jesus
+ * @author kevin
  */
-public class UsuarioBean {
-
-    @Expose
-    private int id;
+public class UsuarioBean extends GenericBeanImplementation implements BeanInterface{
 
     @Expose
     private String dni;
@@ -64,13 +63,6 @@ public class UsuarioBean {
         this.obj_tipoUsuario = obj_tipoUsuario;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getDni() {
         return dni;
@@ -128,6 +120,7 @@ public class UsuarioBean {
         this.id_tipoUsuario = id_tipoUsuario;
     }
 
+    @Override
     public UsuarioBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws Exception {
 
         this.setId(oResultSet.getInt("id"));
@@ -149,6 +142,7 @@ public class UsuarioBean {
         return this;
     }
 
+    @Override
     public String getColumns() {
         String strColumns = "";
         strColumns += "id,";
@@ -162,6 +156,7 @@ public class UsuarioBean {
         return strColumns;
     }
 
+    @Override
     public String getValues() {
         String strColumns = "";
         strColumns += "null,";
@@ -175,6 +170,7 @@ public class UsuarioBean {
         return strColumns;
     }
 
+    @Override
     public String getPairs(String ob) {
         String strPairs = "";
         strPairs += "dni =" + EncodingHelper.quotate(dni) + ",";

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import net.daw.bean.FacturaBean;
+import net.daw.bean.beanImplementation.FacturaBean;
 import net.daw.helper.SqlBuilder;
 
 public class FacturaDao {

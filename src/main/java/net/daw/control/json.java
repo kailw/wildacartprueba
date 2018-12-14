@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import net.daw.bean.ReplyBean;
+import net.daw.bean.beanImplementation.ReplyBean;
 import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.constant.ConfigurationConstants;
 import net.daw.constant.ConfigurationConstants.EnvironmentConstans;

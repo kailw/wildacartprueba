@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import net.daw.bean.LineaBean;
+import net.daw.bean.beanImplementation.LineaBean;
 import net.daw.helper.SqlBuilder;
 
 /**
@@ -100,14 +100,14 @@ public class LineaDao {
     }
 
     public LineaBean create(LineaBean oLineaBean) throws Exception {
-        String strSQL = "INSERT INTO " + ob + " (`id`, `cantidad`, `id_producto`, `id_factura`) VALUES (NULL, ?,?,?); ";
+        String strSQL = "INSERT INTO " + ob;
+        strSQL += "(" + oLineaBean.getColumns() + ")";
+        strSQL += " VALUES ";
+        strSQL += "(" + oLineaBean.getValues() + ")";
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oPreparedStatement.setInt(1, oLineaBean.getCantidad());
-            oPreparedStatement.setInt(2, oLineaBean.getId_producto());
-            oPreparedStatement.setInt(3, oLineaBean.getId_factura());
             oPreparedStatement.executeUpdate();
             oResultSet = oPreparedStatement.getGeneratedKeys();
             if (oResultSet.next()) {
@@ -130,15 +130,11 @@ public class LineaDao {
 
     public int update(LineaBean oLineaBean) throws Exception {
         int iResult = 0;
-        String strSQL = "UPDATE " + ob + " SET `cantidad`= ?, `id_producto`= ?, `id_factura`= ? WHERE `" + ob + "`.`id` = ?;";
-
+        String strSQL = "UPDATE " + ob + " SET ";
+        strSQL += oLineaBean.getPairs(ob);
         PreparedStatement oPreparedStatement = null;
         try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oPreparedStatement.setInt(1, oLineaBean.getCantidad());
-            oPreparedStatement.setInt(2, oLineaBean.getId_producto());
-            oPreparedStatement.setInt(3, oLineaBean.getId_factura());
-            oPreparedStatement.setInt(4, oLineaBean.getId());
+            oPreparedStatement = oConnection.prepareStatement(strSQL);            
             iResult = oPreparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -164,8 +160,7 @@ public class LineaDao {
                 oResultSet = oPreparedStatement.executeQuery();
                 alLineaBean = new ArrayList<LineaBean>();
                 while (oResultSet.next()) {
-                    LineaBean oLineaBean = new LineaBean();
-                    oLineaBean.setId(oResultSet.getInt("id"));
+                    LineaBean oLineaBean = new LineaBean();                    
                     oLineaBean.fill(oResultSet, oConnection, expand);
                     alLineaBean.add(oLineaBean);
                 }
@@ -211,7 +206,8 @@ public class LineaDao {
         }
         return res;
     }
-        public ArrayList<LineaBean> getLineaFactura(int iRpp, int iPage, int idFactura, Integer expand) throws Exception {
+
+    public ArrayList<LineaBean> getLineaFactura(int iRpp, int iPage, int idFactura, Integer expand) throws Exception {
         String strSQL = "SELECT * FROM " + ob;
         ArrayList<LineaBean> alLineaBean;
         if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {
@@ -225,7 +221,6 @@ public class LineaDao {
                 oPreparedStatement.setInt(1, idFactura);
                 oResultSet = oPreparedStatement.executeQuery();
                 alLineaBean = new ArrayList<LineaBean>();
-
                 while (oResultSet.next()) {
                     LineaBean oLineaBean = new LineaBean();
                     oLineaBean.fill(oResultSet, oConnection, expand);

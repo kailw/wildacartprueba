@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import net.daw.bean.ProductoBean;
+import net.daw.bean.beanImplementation.ProductoBean;
 import net.daw.helper.SqlBuilder;
 
 /**
@@ -101,17 +101,14 @@ public class ProductoDao {
     }
 
     public ProductoBean create(ProductoBean oProductoBean) throws Exception {
-        String strSQL = "INSERT INTO " + ob + " (`id`, `codigo`, `desc`, `existencias`, `precio`, `foto`, `id_tipoProducto`) VALUES (NULL, ?,?,?,?,?,?);";
+        String strSQL = "INSERT INTO " + ob;
+        strSQL += "(" + oProductoBean.getColumns() + ")";
+        strSQL += " VALUES ";
+        strSQL += "(" + oProductoBean.getValues() + ")";
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oPreparedStatement.setString(1, oProductoBean.getCodigo());
-            oPreparedStatement.setString(2, oProductoBean.getDesc());
-            oPreparedStatement.setInt(3, oProductoBean.getExistencias());
-            oPreparedStatement.setFloat(4, oProductoBean.getPrecio());
-            oPreparedStatement.setString(5, oProductoBean.getFoto());
-            oPreparedStatement.setInt(6, oProductoBean.getId_tipoProducto());
             oPreparedStatement.executeUpdate();
             oResultSet = oPreparedStatement.getGeneratedKeys();
             if (oResultSet.next()) {
@@ -134,18 +131,11 @@ public class ProductoDao {
 
     public int update(ProductoBean oProductoBean) throws Exception {
         int iResult = 0;
-        String strSQL = "UPDATE " + ob + " SET codigo = ?, `desc` = ?, existencias = ?, precio = ?, foto = ?, id_tipoProducto = ? WHERE "+ ob + ".id = ? ;";
-
+        String strSQL = "UPDATE " + ob + " SET ";
+        strSQL += oProductoBean.getPairs(ob);
         PreparedStatement oPreparedStatement = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oPreparedStatement.setString(1, oProductoBean.getCodigo());
-            oPreparedStatement.setString(2, oProductoBean.getDesc());
-            oPreparedStatement.setInt(3, oProductoBean.getExistencias());
-            oPreparedStatement.setFloat(4, oProductoBean.getPrecio());
-            oPreparedStatement.setString(5, oProductoBean.getFoto());
-            oPreparedStatement.setInt(6, oProductoBean.getId_tipoProducto());
-            oPreparedStatement.setInt(7, oProductoBean.getId());
             iResult = oPreparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -189,33 +179,6 @@ public class ProductoDao {
             }
         } else {
             throw new Exception("Error en Dao getpage de " + ob);
-        }
-        return alProductoBean;
-    }
-
-    public ArrayList<?> getAllid() throws Exception {
-        String strSQL = "SELECT `id` FROM " + ob;
-        ArrayList<Integer> alProductoBean;
-        ResultSet oResultSet = null;
-        PreparedStatement oPreparedStatement = null;
-        try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oResultSet = oPreparedStatement.executeQuery();
-            alProductoBean = new ArrayList<Integer>();
-            while (oResultSet.next()) {
-                ProductoBean oProductoBean = new ProductoBean();
-                oProductoBean.setId(oResultSet.getInt("id"));
-
-            }
-        } catch (SQLException e) {
-            throw new Exception("Error en Dao getpage de " + ob, e);
-        } finally {
-            if (oResultSet != null) {
-                oResultSet.close();
-            }
-            if (oPreparedStatement != null) {
-                oPreparedStatement.close();
-            }
         }
         return alProductoBean;
     }
