@@ -67,7 +67,7 @@ public class CarritoService implements Serializable {
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
             ProductoDao oProductoDao = new ProductoDao(oConnection, "producto");
-            ProductoBean oProductoBean = oProductoDao.get(id, 1);
+            ProductoBean oProductoBean = (ProductoBean) oProductoDao.get(id, 1);
             Integer existencias = oProductoBean.getExistencias();
 
             //Para saber si tenemos agregado el producto al carrito de compras
@@ -266,7 +266,7 @@ public ReplyBean reduce() throws Exception {
             //ya tenemos el bean relleno, solo falta crear la factura
             FacturaDao oFacturaDao = new FacturaDao(oConnection, "factura");
 
-            FacturaBean oFacturaBeanCreada = oFacturaDao.create(oFacturaBean);
+            FacturaBean oFacturaBeanCreada = (FacturaBean) oFacturaDao.create(oFacturaBean);
             int id_factura = oFacturaBeanCreada.getId();
             //YA TENEMOS CREADA LA FACTURA Y FATA HACER BUCLE PARA CREAR LINEAS
             LineaDao oLineaDao;

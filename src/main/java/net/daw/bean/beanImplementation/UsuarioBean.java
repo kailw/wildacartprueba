@@ -135,7 +135,7 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
 
         if (expand > 0) {
             TipousuarioDao otipousuarioDao = new TipousuarioDao(oConnection, "tipousuario");
-            this.setObj_tipoUsuario(otipousuarioDao.get(oResultSet.getInt("id_tipoUsuario"), expand - 1));
+            this.setObj_tipoUsuario((TipousuarioBean) otipousuarioDao.get(oResultSet.getInt("id_tipoUsuario"), expand - 1));
         } else {
             this.setId_tipoUsuario(oResultSet.getInt("id_tipoUsuario"));
         }

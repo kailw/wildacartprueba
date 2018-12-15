@@ -22,10 +22,11 @@ import net.daw.helper.SqlBuilder;
  */
 public class GenericDaoImplementation implements DaoInterface {
 
-    Connection oConnection;
-    String ob = null;
+    protected Connection oConnection;
+    protected String ob = null;
 
-    public GenericDaoImplementation(Connection oConnection, String ob) {        
+    public GenericDaoImplementation(Connection oConnection, String ob) {    
+        super();
         this.oConnection = oConnection;
         this.ob = ob;
     }

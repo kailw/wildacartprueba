@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import net.daw.bean.beanImplementation.ItemBean;
 import net.daw.bean.beanImplementation.ReplyBean;
 import net.daw.bean.beanImplementation.UsuarioBean;
+import net.daw.bean.publicBeanInterface.BeanInterface;
 import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
 import net.daw.dao.daoImplementation.UsuarioDao;
@@ -55,7 +56,7 @@ public class UsuarioService {
                 oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
                 oConnection = oConnectionPool.newConnection();
                 UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
-                UsuarioBean oUsuarioBean = oUsuarioDao.get(id, 1);
+                UsuarioBean oUsuarioBean = (UsuarioBean) oUsuarioDao.get(id, 1);
                 Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
                 oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
             } catch (Exception ex) {
@@ -141,7 +142,7 @@ public class UsuarioService {
                 oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
                 oConnection = oConnectionPool.newConnection();
                 UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
-                oUsuarioBean = oUsuarioDao.create(oUsuarioBean);
+                oUsuarioBean = (UsuarioBean) oUsuarioDao.create(oUsuarioBean);
                 oReplyBean = new ReplyBean(200, oGson.toJson(oUsuarioBean));
             } catch (Exception ex) {
                 oReplyBean = new ReplyBean(500,
@@ -195,7 +196,7 @@ public class UsuarioService {
                 oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
                 oConnection = oConnectionPool.newConnection();
                 UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
-                ArrayList<UsuarioBean> alUsuarioBean = oUsuarioDao.getpage(iRpp, iPage, hmOrder, 1);
+                ArrayList<BeanInterface> alUsuarioBean = oUsuarioDao.getpage(iRpp, iPage, hmOrder, 1);
                 Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
                 oReplyBean = new ReplyBean(200, oGson.toJson(alUsuarioBean));
             } catch (Exception ex) {
@@ -254,7 +255,7 @@ public class UsuarioService {
             oConnection = oConnectionPool.newConnection();
             UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, ob);
 
-            UsuarioBean oUsuarioBean = oUsuarioDao.login(strLogin, strPassword);            
+            UsuarioBean oUsuarioBean = (UsuarioBean) oUsuarioDao.login(strLogin, strPassword);            
             if (oUsuarioBean != null) {
                 oRequest.getSession().setAttribute("user", oUsuarioBean);                
                 Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();

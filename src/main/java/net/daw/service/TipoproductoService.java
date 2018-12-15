@@ -12,6 +12,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import net.daw.bean.beanImplementation.ReplyBean;
 import net.daw.bean.beanImplementation.TipoproductoBean;
+import net.daw.bean.publicBeanInterface.BeanInterface;
 import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
 import net.daw.dao.daoImplementation.TipoproductoDao;
@@ -42,7 +43,7 @@ public class TipoproductoService {
 			oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
 			oConnection = oConnectionPool.newConnection();
 			TipoproductoDao oTipoproductoDao = new TipoproductoDao(oConnection, ob);
-			TipoproductoBean oTipoproductoBean = oTipoproductoDao.get(id,1);
+			TipoproductoBean oTipoproductoBean = (TipoproductoBean) oTipoproductoDao.get(id,1);
 			Gson oGson = new Gson();
 			oReplyBean = new ReplyBean(200, oGson.toJson(oTipoproductoBean));
 		} catch (Exception ex) {
@@ -111,7 +112,7 @@ public class TipoproductoService {
 			oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
 			oConnection = oConnectionPool.newConnection();
 			TipoproductoDao oTipoproductoDao = new TipoproductoDao(oConnection, ob);
-			oTipoproductoBean = oTipoproductoDao.create(oTipoproductoBean);
+			oTipoproductoBean = (TipoproductoBean) oTipoproductoDao.create(oTipoproductoBean);
 			oReplyBean = new ReplyBean(200, oGson.toJson(oTipoproductoBean));
 		} catch (Exception ex) {
 			oReplyBean = new ReplyBean(500,
@@ -157,7 +158,7 @@ public class TipoproductoService {
 			oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
 			oConnection = oConnectionPool.newConnection();
 			TipoproductoDao oTipoproductoDao = new TipoproductoDao(oConnection, ob);
-			ArrayList<TipoproductoBean> alTipoproductoBean = oTipoproductoDao.getpage(iRpp, iPage, hmOrder,1);
+			ArrayList<BeanInterface> alTipoproductoBean = oTipoproductoDao.getpage(iRpp, iPage, hmOrder,1);
 			Gson oGson = new Gson();
 			oReplyBean = new ReplyBean(200, oGson.toJson(alTipoproductoBean));
 		} catch (Exception ex) {

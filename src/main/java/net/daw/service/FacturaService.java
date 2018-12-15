@@ -13,6 +13,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import net.daw.bean.beanImplementation.FacturaBean;
 import net.daw.bean.beanImplementation.ReplyBean;
+import net.daw.bean.publicBeanInterface.BeanInterface;
 import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
 import net.daw.dao.daoImplementation.FacturaDao;
@@ -44,7 +45,7 @@ public class FacturaService {
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
             FacturaDao oFacturaDao = new FacturaDao(oConnection, ob);
-            FacturaBean oFacturaBean = oFacturaDao.get(id, 1);
+            FacturaBean oFacturaBean = (FacturaBean) oFacturaDao.get(id, 1);
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(oFacturaBean));
         } catch (Exception ex) {
@@ -113,7 +114,7 @@ public class FacturaService {
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
             FacturaDao oFacturaDao = new FacturaDao(oConnection, ob);
-            oFacturaBean = oFacturaDao.create(oFacturaBean);
+            oFacturaBean = (FacturaBean) oFacturaDao.create(oFacturaBean);
             oReplyBean = new ReplyBean(200, oGson.toJson(oFacturaBean));
         } catch (Exception ex) {
             throw new Exception("ERROR: Service level: create method: " + ob + " object", ex);
@@ -157,7 +158,7 @@ public class FacturaService {
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
             FacturaDao oFacturaDao = new FacturaDao(oConnection, ob);
-            ArrayList<FacturaBean> alFacturaBean = oFacturaDao.getpage(iRpp, iPage, hmOrder, 1);
+            ArrayList<BeanInterface> alFacturaBean = oFacturaDao.getpage(iRpp, iPage, hmOrder, 1);
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(alFacturaBean));
         } catch (Exception ex) {

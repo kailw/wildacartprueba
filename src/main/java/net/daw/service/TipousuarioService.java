@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import net.daw.bean.beanImplementation.ReplyBean;
 import net.daw.bean.beanImplementation.TipousuarioBean;
+import net.daw.bean.publicBeanInterface.BeanInterface;
 import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
 import net.daw.dao.daoImplementation.TipousuarioDao;
@@ -37,7 +38,7 @@ public class TipousuarioService {
 			oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
 			oConnection = oConnectionPool.newConnection();
 			TipousuarioDao oTipousuarioDao = new TipousuarioDao(oConnection, ob);
-			TipousuarioBean oTipousuarioBean = oTipousuarioDao.get(id,1);
+			TipousuarioBean oTipousuarioBean = (TipousuarioBean) oTipousuarioDao.get(id,1);
 			Gson oGson = new Gson();
 			oReplyBean = new ReplyBean(200, oGson.toJson(oTipousuarioBean));
 		} catch (Exception ex) {
@@ -108,7 +109,7 @@ public class TipousuarioService {
 			oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
 			oConnection = oConnectionPool.newConnection();
 			TipousuarioDao oTipousuarioDao = new TipousuarioDao(oConnection, ob);
-			oTipousuarioBean = oTipousuarioDao.create(oTipousuarioBean);
+			oTipousuarioBean = (TipousuarioBean) oTipousuarioDao.create(oTipousuarioBean);
 			oReplyBean = new ReplyBean(200, oGson.toJson(oTipousuarioBean));
 		} catch (Exception ex) {
 			oReplyBean = new ReplyBean(500,
@@ -154,7 +155,7 @@ public class TipousuarioService {
 			oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
 			oConnection = oConnectionPool.newConnection();
 			TipousuarioDao oTipousuarioDao = new TipousuarioDao(oConnection, ob);
-			ArrayList<TipousuarioBean> alTipousuarioBean = oTipousuarioDao.getpage(iRpp, iPage, hmOrder, 1);
+			ArrayList<BeanInterface> alTipousuarioBean = oTipousuarioDao.getpage(iRpp, iPage, hmOrder, 1);
 			Gson oGson = new Gson();
 			oReplyBean = new ReplyBean(200, oGson.toJson(alTipousuarioBean));
 		} catch (Exception ex) {

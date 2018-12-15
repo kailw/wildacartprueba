@@ -13,6 +13,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import net.daw.bean.beanImplementation.LineaBean;
 import net.daw.bean.beanImplementation.ReplyBean;
+import net.daw.bean.publicBeanInterface.BeanInterface;
 import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
 import net.daw.dao.daoImplementation.LineaDao;
@@ -44,7 +45,7 @@ public class LineaService {
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
             LineaDao oLineaDao = new LineaDao(oConnection, ob);
-            LineaBean oLineaBean = oLineaDao.get(id, 1);
+            LineaBean oLineaBean = (LineaBean) oLineaDao.get(id, 1);
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(oLineaBean));
         } catch (Exception ex) {
@@ -113,7 +114,7 @@ public class LineaService {
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
             LineaDao oLineaDao = new LineaDao(oConnection, ob);
-            oLineaBean = oLineaDao.create(oLineaBean);
+            oLineaBean = (LineaBean) oLineaDao.create(oLineaBean);
             oReplyBean = new ReplyBean(200, oGson.toJson(oLineaBean));
         } catch (Exception ex) {
             oReplyBean = new ReplyBean(500,
@@ -159,7 +160,7 @@ public class LineaService {
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
             LineaDao oLineaDao = new LineaDao(oConnection, ob);
-            ArrayList<LineaBean> alLineaBean = oLineaDao.getpage(iRpp, iPage, hmOrder, 1);
+            ArrayList<BeanInterface> alLineaBean = oLineaDao.getpage(iRpp, iPage, hmOrder, 1);
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(alLineaBean));
         } catch (Exception ex) {

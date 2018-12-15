@@ -22,10 +22,10 @@ public class LineaBean extends GenericBeanImplementation implements BeanInterfac
     @Expose
     private int cantidad;
 
-    @Expose(serialize = false)
+    @Expose
     private int id_producto;
 
-    @Expose(serialize = false)
+    @Expose
     private int id_factura;
 
     @Expose(deserialize = false)
@@ -74,34 +74,35 @@ public class LineaBean extends GenericBeanImplementation implements BeanInterfac
     }
 
     @Override
-//    public LineaBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws Exception {
-//
-//        this.setId(oResultSet.getInt("id"));
-//        this.setCantidad(oResultSet.getInt("cantidad"));
-//
-//        if (expand > 0) {
-//            ProductoDao oProductoDao = new ProductoDao(oConnection, "producto");
-//            this.setObj_Producto(oProductoDao.get(oResultSet.getInt("id_producto"), expand - 1));
-//        } else {
-//            this.setId_producto(oResultSet.getInt("id_producto"));
-//        }
-//        if (expand > 0) {
-//            FacturaDao oFacturaDao = new FacturaDao(oConnection, "factura");
-//            this.setObj_Factura(oFacturaDao.get(oResultSet.getInt("id_factura"), expand - 1));
-//        } else {
-//            this.setId_factura(oResultSet.getInt("id_factura"));
-//        }
-//
-//        return this;
-//    }
+    public LineaBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws Exception {
+
+        this.setId(oResultSet.getInt("id"));
+        this.setCantidad(oResultSet.getInt("cantidad"));
+
+        if (expand > 0) {
+            ProductoDao oProductoDao = new ProductoDao(oConnection, "producto");
+            this.setObj_Producto((ProductoBean) oProductoDao.get(oResultSet.getInt("id_producto"), expand - 1));
+        } else {
+            this.setId_producto(oResultSet.getInt("id_producto"));
+        }
+        if (expand > 0) {
+            FacturaDao oFacturaDao = new FacturaDao(oConnection, "factura");
+            this.setObj_Factura((FacturaBean) oFacturaDao.get(oResultSet.getInt("id_factura"), expand - 1));
+        } else {
+            this.setId_factura(oResultSet.getInt("id_factura"));
+        }
+
+        return this;
+    }
 
     
+    @Override
     public String getColumns() {
         String strColumns = "";
         strColumns += "id,";
         strColumns += "cantidad,";
-        strColumns += "id_factura,";
-        strColumns += "id_producto";        
+        strColumns += "id_producto,";
+        strColumns += "id_factura";        
         return strColumns;
     }
 
@@ -120,8 +121,8 @@ public class LineaBean extends GenericBeanImplementation implements BeanInterfac
         String strPairs = "";
         strPairs += "id=" + id + ",";
         strPairs += "cantidad=" + cantidad + ",";
-        strPairs += "id_factura=" + id_factura + ",";
-        strPairs += "id_producto=" + id_producto;
+        strPairs += "id_producto=" + id_producto + ",";
+        strPairs += "id_factura=" + id_factura;
         strPairs += " WHERE id=" + id;
         return strPairs;
     }

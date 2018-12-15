@@ -14,8 +14,6 @@ import net.daw.helper.SqlBuilder;
 
 public class FacturaDao extends GenericDaoImplementation implements DaoInterface{
 
-    Connection oConnection;
-    String ob = null;
 
     public FacturaDao(Connection oConnection, String ob) {
         super(oConnection, ob);        
@@ -24,7 +22,6 @@ public class FacturaDao extends GenericDaoImplementation implements DaoInterface
 
     public int getcountFacturaUser(int idusuario) throws Exception {
         String strSQL = "SELECT COUNT(id) FROM " + ob + " WHERE id_usuario=? ";
-
         int res = 0;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;

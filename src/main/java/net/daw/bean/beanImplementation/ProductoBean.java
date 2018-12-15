@@ -101,7 +101,7 @@ public class ProductoBean extends GenericBeanImplementation implements BeanInter
         this.setId_tipoProducto(oResultSet.getInt("id_tipoProducto"));
         if (expand > 0) {
             TipoproductoDao otipoproductoDao = new TipoproductoDao(oConnection, "tipoproducto");
-            this.setObj_tipoProducto(otipoproductoDao.get(oResultSet.getInt("id_tipoProducto"), expand - 1));
+            this.setObj_tipoProducto((TipoproductoBean) otipoproductoDao.get(oResultSet.getInt("id_tipoProducto"), expand - 1));
         } else {
             this.setId_tipoProducto(oResultSet.getInt("id_tipoProducto"));
         }

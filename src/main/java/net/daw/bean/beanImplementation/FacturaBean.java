@@ -89,7 +89,7 @@ public class FacturaBean extends GenericBeanImplementation implements BeanInterf
 
         if (expand > 0) {
             UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, "usuario");
-            this.setObj_Usuario(oUsuarioDao.get(oResultSet.getInt("id_usuario"), expand - 1));
+            this.setObj_Usuario((UsuarioBean) oUsuarioDao.get(oResultSet.getInt("id_usuario"), expand - 1));
         } else {
             this.setId_usuario(oResultSet.getInt("id_usuario"));
         }

@@ -5,6 +5,10 @@
  */
 package net.daw.factory;
 
+import net.daw.bean.beanImplementation.FacturaBean;
+import net.daw.bean.beanImplementation.LineaBean;
+import net.daw.bean.beanImplementation.ProductoBean;
+import net.daw.bean.beanImplementation.TipoproductoBean;
 import net.daw.bean.beanImplementation.TipousuarioBean;
 import net.daw.bean.beanImplementation.UsuarioBean;
 import net.daw.bean.publicBeanInterface.BeanInterface;
@@ -23,6 +27,18 @@ public class BeanFactory {
                 break;
             case "tipousuario":
                 oBean = new TipousuarioBean();
+                break;
+            case "producto":
+                oBean = new ProductoBean();
+                break;
+            case "tipoproducto":
+                oBean = new TipoproductoBean();
+                break;
+            case "factura":
+                oBean = new FacturaBean();
+                break;
+            case "linea":
+                oBean = new LineaBean();
                 break;
         }
         return oBean;
