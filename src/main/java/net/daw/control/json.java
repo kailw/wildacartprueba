@@ -3,22 +3,14 @@ package net.daw.control;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import net.daw.bean.beanImplementation.ReplyBean;
-import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.constant.ConfigurationConstants;
 import net.daw.constant.ConfigurationConstants.EnvironmentConstans;
-import net.daw.constant.ConnectionConstants;
-import net.daw.factory.ConnectionFactory;
 import net.daw.factory.ServiceFactory;
-import net.daw.helper.EncodingHelper;
 import net.daw.helper.JsonHelper;
 
 /**

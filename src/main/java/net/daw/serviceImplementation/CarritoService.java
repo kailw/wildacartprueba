@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.daw.service;
+package net.daw.serviceImplementation;
 
 import com.google.gson.Gson;
 import java.io.Serializable;
@@ -21,17 +21,19 @@ import net.daw.bean.beanImplementation.ReplyBean;
 import net.daw.bean.beanImplementation.UsuarioBean;
 import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
-import net.daw.dao.daoImplementation.FacturaDao;
-import net.daw.dao.daoImplementation.LineaDao;
-import net.daw.dao.daoImplementation.ProductoDao;
+import net.daw.dao.daoImplementation_1.FacturaDao_1;
+import net.daw.dao.daoImplementation_1.LineaDao_1;
+import net.daw.dao.daoImplementation_1.ProductoDao_1;
 import net.daw.factory.ConnectionFactory;
 import net.daw.helper.EncodingHelper;
+import net.daw.service.genericServiceImplementation.GenericServiceImplementation;
+import net.daw.service.publicServiceInterface.ServiceInterface;
 
 /**
  *
  * @author a024465169t
  */
-public class CarritoService implements Serializable {
+public class CarritoService extends GenericServiceImplementation implements ServiceInterface {
 
     HttpServletRequest oRequest;
     String ob = null;
@@ -40,10 +42,10 @@ public class CarritoService implements Serializable {
     ArrayList<ItemBean> cart = null;
     Connection oConnection = null;
 
-    public CarritoService(HttpServletRequest oRequest) {
-        super();
+    public CarritoService(HttpServletRequest oRequest, String ob) {
+        super(oRequest, ob);
         this.oRequest = oRequest;
-        ob = oRequest.getParameter("ob");
+        this.ob = ob;
     }
 
     public ReplyBean add() throws Exception {
@@ -66,7 +68,7 @@ public class CarritoService implements Serializable {
             Integer cant = Integer.parseInt(oRequest.getParameter("cantidad"));
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
-            ProductoDao oProductoDao = new ProductoDao(oConnection, "producto");
+            ProductoDao_1 oProductoDao = new ProductoDao_1(oConnection, "producto");
             ProductoBean oProductoBean = (ProductoBean) oProductoDao.get(id, 1);
             Integer existencias = oProductoBean.getExistencias();
 
@@ -146,20 +148,18 @@ public class CarritoService implements Serializable {
     }
 
     public ReplyBean totalproduct() throws Exception {
-        HttpSession sesion = oRequest.getSession();        
+        HttpSession sesion = oRequest.getSession();
         try {
             cart = (ArrayList<ItemBean>) sesion.getAttribute("cart");
             oReplyBean = new ReplyBean(200, EncodingHelper.quotate(String.valueOf(cart.size())));
-            
+
         } catch (Exception e) {
             oReplyBean = new ReplyBean(500, "Error en totalproduct CartService: " + e.getMessage());
         }
         return oReplyBean;
     }
 
-
-
-public ReplyBean reduce() throws Exception {
+    public ReplyBean reduce() throws Exception {
         //Obtenemos la sesion actual
         HttpSession sesion = oRequest.getSession();
 
@@ -210,7 +210,7 @@ public ReplyBean reduce() throws Exception {
 //            Integer cant = Integer.parseInt(oRequest.getParameter("cantidad"));
 //            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
 //            oConnection = oConnectionPool.newConnection();
-//            ProductoDao oProductoDao = new ProductoDao(oConnection, "producto");
+//            ProductoDao_1 oProductoDao = new ProductoDao_1(oConnection, "producto");
 //            ProductoBean oProductoBean = oProductoDao.get(id, 2);
 //
 //            Integer existencias = oProductoBean.getExistencias();
@@ -242,7 +242,6 @@ public ReplyBean reduce() throws Exception {
 //
 //        return oReplyBean;
 //    }
-
     public ReplyBean buy() throws Exception {
 
         ConnectionInterface oConnectionPool = null;
@@ -264,15 +263,15 @@ public ReplyBean reduce() throws Exception {
             oFacturaBean.setIva(21.0f);
 
             //ya tenemos el bean relleno, solo falta crear la factura
-            FacturaDao oFacturaDao = new FacturaDao(oConnection, "factura");
+            FacturaDao_1 oFacturaDao = new FacturaDao_1(oConnection, "factura");
 
             FacturaBean oFacturaBeanCreada = (FacturaBean) oFacturaDao.create(oFacturaBean);
             int id_factura = oFacturaBeanCreada.getId();
             //YA TENEMOS CREADA LA FACTURA Y FATA HACER BUCLE PARA CREAR LINEAS
-            LineaDao oLineaDao;
+            LineaDao_1 oLineaDao;
             LineaBean oLineaBean;
-            ProductoDao oProductoDao = new ProductoDao(oConnection, "producto");
-            oLineaDao = new LineaDao(oConnection, "linea");
+            ProductoDao_1 oProductoDao = new ProductoDao_1(oConnection, "producto");
+            oLineaDao = new LineaDao_1(oConnection, "linea");
             ProductoBean oProductoBean;
 
             for (ItemBean ib : cart) {
@@ -300,29 +299,20 @@ public ReplyBean reduce() throws Exception {
                 oProductoDao.update(oProductoBean);
 
             }
-
             oConnection.commit();
-
             cart.clear();
             sesion.setAttribute("cart", cart);
-
             oReplyBean = new ReplyBean(200, EncodingHelper.quotate("Factura nº " + id_factura + " creada con éxito"));
-
         } catch (Exception e) {
-
             try {
                 oConnection.rollback();
             } catch (SQLException excep) {
-
             }
-
             oReplyBean = new ReplyBean(500, "Error en buy CartService: " + e.getMessage());
         } finally {
             oConnectionPool.disposeConnection();
         }
-
         return oReplyBean;
-
     }
 
 }

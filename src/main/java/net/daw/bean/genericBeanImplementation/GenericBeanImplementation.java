@@ -45,7 +45,7 @@ public class GenericBeanImplementation implements BeanInterface {
     }
 
     @Override
-    public String getPairs(String ob) {
+    public String getPairs() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

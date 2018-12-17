@@ -10,8 +10,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import net.daw.bean.genericBeanImplementation.GenericBeanImplementation;
 import net.daw.bean.publicBeanInterface.BeanInterface;
-import net.daw.dao.daoImplementation.FacturaDao;
-import net.daw.dao.daoImplementation.ProductoDao;
+import net.daw.dao.daoImplementation_1.FacturaDao_1;
+import net.daw.dao.daoImplementation_1.ProductoDao_1;
 
 /**
  *
@@ -80,13 +80,13 @@ public class LineaBean extends GenericBeanImplementation implements BeanInterfac
         this.setCantidad(oResultSet.getInt("cantidad"));
 
         if (expand > 0) {
-            ProductoDao oProductoDao = new ProductoDao(oConnection, "producto");
+            ProductoDao_1 oProductoDao = new ProductoDao_1(oConnection, "producto");
             this.setObj_Producto((ProductoBean) oProductoDao.get(oResultSet.getInt("id_producto"), expand - 1));
         } else {
             this.setId_producto(oResultSet.getInt("id_producto"));
         }
         if (expand > 0) {
-            FacturaDao oFacturaDao = new FacturaDao(oConnection, "factura");
+            FacturaDao_1 oFacturaDao = new FacturaDao_1(oConnection, "factura");
             this.setObj_Factura((FacturaBean) oFacturaDao.get(oResultSet.getInt("id_factura"), expand - 1));
         } else {
             this.setId_factura(oResultSet.getInt("id_factura"));
@@ -117,7 +117,7 @@ public class LineaBean extends GenericBeanImplementation implements BeanInterfac
     }
 
     @Override
-    public String getPairs(String ob) {
+    public String getPairs() {
         String strPairs = "";
         strPairs += "id=" + id + ",";
         strPairs += "cantidad=" + cantidad + ",";

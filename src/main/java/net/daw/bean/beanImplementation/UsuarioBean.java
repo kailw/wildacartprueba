@@ -10,8 +10,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import net.daw.bean.genericBeanImplementation.GenericBeanImplementation;
 import net.daw.bean.publicBeanInterface.BeanInterface;
-import net.daw.dao.daoImplementation.FacturaDao;
-import net.daw.dao.daoImplementation.TipousuarioDao;
+import net.daw.dao.daoImplementation_1.FacturaDao_1;
+import net.daw.dao.daoImplementation_1.TipousuarioDao_1;
 import net.daw.helper.EncodingHelper;
 
 /**
@@ -130,11 +130,11 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
         this.setApe2(oResultSet.getString("ape2"));
         this.setLogin(oResultSet.getString("login"));
         this.setPass(oResultSet.getString("pass"));
-        FacturaDao oFacturaDao = new FacturaDao(oConnection, "factura");
+        FacturaDao_1 oFacturaDao = new FacturaDao_1(oConnection, "factura");
         this.setNumFactura(oFacturaDao.getcountFacturaUser(this.id));
 
         if (expand > 0) {
-            TipousuarioDao otipousuarioDao = new TipousuarioDao(oConnection, "tipousuario");
+            TipousuarioDao_1 otipousuarioDao = new TipousuarioDao_1(oConnection, "tipousuario");
             this.setObj_tipoUsuario((TipousuarioBean) otipousuarioDao.get(oResultSet.getInt("id_tipoUsuario"), expand - 1));
         } else {
             this.setId_tipoUsuario(oResultSet.getInt("id_tipoUsuario"));
@@ -171,7 +171,7 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
     }
 
     @Override
-    public String getPairs(String ob) {
+    public String getPairs() {
         String strPairs = "";
         strPairs += "dni =" + EncodingHelper.quotate(dni) + ",";
         strPairs += "nombre =" + EncodingHelper.quotate(nombre) + ",";

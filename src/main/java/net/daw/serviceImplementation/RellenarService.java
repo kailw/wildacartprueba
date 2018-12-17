@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.daw.service;
+package net.daw.serviceImplementation;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import net.daw.bean.beanImplementation.ProductoBean;
-import net.daw.bean.beanImplementation.TipousuarioBean;
 import net.daw.bean.beanImplementation.UsuarioBean;
 
 /**

@@ -44,7 +44,7 @@ public class TipousuarioBean extends GenericBeanImplementation implements BeanIn
     }
 
     @Override
-    public String getPairs(String ob) {
+    public String getPairs() {
         String strPairs = "";
         strPairs += "tipousuario.id=" + id + ",";
         strPairs += "tipousuario.desc=" + EncodingHelper.quotate(desc);

@@ -53,7 +53,7 @@ public class TipoproductoBean extends GenericBeanImplementation implements BeanI
     }
     
     @Override
-    public String getPairs(String ob){
+    public String getPairs(){
         String strPairs = "";
         strPairs += "id=" + id +",";
         strPairs += "tipoproducto.desc='" + desc + "'";

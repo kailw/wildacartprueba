@@ -57,8 +57,7 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
                     $scope.precioProducto += (response.data.message[i].obj_Producto.precio * response.data.message[i].cantidad);
                     $scope.cantidadProducto += response.data.message[i].cantidad;
                 }
-            }
-            sessionService.setCountCarrito($scope.cantidadProducto);
+            }            
         }, function (response) {
             $scope.status = response.status;
             $scope.error += $scope.status + " " + response.message || 'Request failed';
@@ -112,7 +111,6 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
                     $scope.carritoVacioTabla = false;
                 }
                 sessionService.setCountCarrito(0);
-
             }, function (response) {
                 $scope.status = response.status;
                 $scope.error += $scope.status + " " + response.message || 'Request failed';
@@ -131,6 +129,7 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
                 $scope.carritoVacioTabla = false;
                 $scope.carritoVacio = false;
                 console.log($scope.ajaxDataCarritoShow);
+                countcarritoService.updateCarrito();
             }, function (response) {
                 $scope.status = response.status;
                 $scope.error += $scope.status + " " + response.data.message || 'Request failed';

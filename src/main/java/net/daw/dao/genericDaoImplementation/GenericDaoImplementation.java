@@ -25,8 +25,7 @@ public class GenericDaoImplementation implements DaoInterface {
     protected Connection oConnection;
     protected String ob = null;
 
-    public GenericDaoImplementation(Connection oConnection, String ob) {    
-        super();
+    public GenericDaoImplementation(Connection oConnection, String ob) {            
         this.oConnection = oConnection;
         this.ob = ob;
     }
@@ -139,7 +138,7 @@ public class GenericDaoImplementation implements DaoInterface {
     public int update(BeanInterface oBean) throws Exception {
         int iResult = 0;
         String strSQL = "UPDATE " + ob + " SET ";
-        strSQL += oBean.getPairs(ob);
+        strSQL += oBean.getPairs();
 
         PreparedStatement oPreparedStatement = null;
         try {

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.daw.service;
+package net.daw.service.genericServiceImplementation;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,31 +11,37 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
-import net.daw.bean.beanImplementation.LineaBean;
 import net.daw.bean.beanImplementation.ReplyBean;
+import net.daw.bean.beanImplementation.UsuarioBean;
 import net.daw.bean.publicBeanInterface.BeanInterface;
 import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
-import net.daw.dao.daoImplementation.LineaDao;
+import net.daw.dao.publicDaoInterface.DaoInterface;
+import net.daw.factory.BeanFactory;
 import net.daw.factory.ConnectionFactory;
+import net.daw.factory.DaoFactory;
 import net.daw.helper.EncodingHelper;
 import net.daw.helper.ParameterCook;
+import net.daw.service.publicServiceInterface.ServiceInterface;
 
 /**
  *
- * @author a044531896d
+ * @author kevin
  */
-public class LineaService {
+public class GenericServiceImplementation implements ServiceInterface {
 
     HttpServletRequest oRequest;
     String ob = null;
+//    UsuarioBean  usuarioSession;
+    
 
-    public LineaService(HttpServletRequest oRequest) {
-        super();
+    public GenericServiceImplementation(HttpServletRequest oRequest, String ob) {
         this.oRequest = oRequest;
         ob = oRequest.getParameter("ob");
+        this.ob = ob;
     }
 
+    @Override
     public ReplyBean get() throws Exception {
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
@@ -44,21 +50,19 @@ public class LineaService {
             Integer id = Integer.parseInt(oRequest.getParameter("id"));
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
-            LineaDao oLineaDao = new LineaDao(oConnection, ob);
-            LineaBean oLineaBean = (LineaBean) oLineaDao.get(id, 1);
+            DaoInterface oDao = DaoFactory.getDao(oConnection, ob);
+            BeanInterface oBean = oDao.get(id, 1);
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            oReplyBean = new ReplyBean(200, oGson.toJson(oLineaBean));
+            oReplyBean = new ReplyBean(200, oGson.toJson(oBean));
         } catch (Exception ex) {
-            oReplyBean = new ReplyBean(500,
-                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+            oReplyBean = new ReplyBean(500, "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
         } finally {
             oConnectionPool.disposeConnection();
         }
-
         return oReplyBean;
-
     }
 
+    @Override
     public ReplyBean remove() throws Exception {
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
@@ -67,19 +71,18 @@ public class LineaService {
             Integer id = Integer.parseInt(oRequest.getParameter("id"));
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
-            LineaDao oLineaDao = new LineaDao(oConnection, ob);
-            int iRes = oLineaDao.remove(id);
+            DaoInterface oDao = DaoFactory.getDao(oConnection, ob);
+            int iRes = oDao.remove(id);
             oReplyBean = new ReplyBean(200, Integer.toString(iRes));
         } catch (Exception ex) {
-            oReplyBean = new ReplyBean(500,
-                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+            oReplyBean = new ReplyBean(500, "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
         } finally {
             oConnectionPool.disposeConnection();
         }
         return oReplyBean;
-
     }
 
+    @Override
     public ReplyBean getcount() throws Exception {
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
@@ -87,21 +90,19 @@ public class LineaService {
         try {
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
-            LineaDao oLineaDao = new LineaDao(oConnection, ob);
-            int registros = oLineaDao.getcount();
+            DaoInterface oDao = DaoFactory.getDao(oConnection, ob);
+            int registros = oDao.getcount();
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(registros));
         } catch (Exception ex) {
-            oReplyBean = new ReplyBean(500,
-                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+            oReplyBean = new ReplyBean(500, "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
         } finally {
             oConnectionPool.disposeConnection();
         }
-
         return oReplyBean;
-
     }
 
+    @Override
     public ReplyBean create() throws Exception {
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
@@ -109,22 +110,21 @@ public class LineaService {
         try {
             String strJsonFromClient = oRequest.getParameter("json");
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            LineaBean oLineaBean = new LineaBean();
-            oLineaBean = oGson.fromJson(strJsonFromClient, LineaBean.class);
+            BeanInterface oBean = BeanFactory.getBeanFromJson(ob, oGson, strJsonFromClient);
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
-            LineaDao oLineaDao = new LineaDao(oConnection, ob);
-            oLineaBean = (LineaBean) oLineaDao.create(oLineaBean);
-            oReplyBean = new ReplyBean(200, oGson.toJson(oLineaBean));
+            DaoInterface oDao = DaoFactory.getDao(oConnection, ob);
+            oBean = oDao.create(oBean);
+            oReplyBean = new ReplyBean(200, oGson.toJson(oBean));
         } catch (Exception ex) {
-            oReplyBean = new ReplyBean(500,
-                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+            throw new Exception("ERROR: Service level: create method: " + ob + " object", ex);
         } finally {
             oConnectionPool.disposeConnection();
         }
         return oReplyBean;
     }
 
+    @Override
     public ReplyBean update() throws Exception {
         int iRes = 0;
         ReplyBean oReplyBean = null;
@@ -133,22 +133,21 @@ public class LineaService {
         try {
             String strJsonFromClient = oRequest.getParameter("json");
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            LineaBean oLineaBean = new LineaBean();
-            oLineaBean = oGson.fromJson(strJsonFromClient, LineaBean.class);
+            BeanInterface oBean = BeanFactory.getBeanFromJson(ob, oGson, strJsonFromClient);
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
-            LineaDao oLineaDao = new LineaDao(oConnection, ob);
-            iRes = oLineaDao.update(oLineaBean);
+            DaoInterface oDao = DaoFactory.getDao(oConnection, ob);
+            iRes = oDao.update(oBean);
             oReplyBean = new ReplyBean(200, Integer.toString(iRes));
         } catch (Exception ex) {
-            oReplyBean = new ReplyBean(500,
-                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+            throw new Exception("ERROR: Service level: update method: " + ob + " object", ex);
         } finally {
             oConnectionPool.disposeConnection();
         }
         return oReplyBean;
     }
 
+    @Override
     public ReplyBean getpage() throws Exception {
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
@@ -159,64 +158,17 @@ public class LineaService {
             HashMap<String, String> hmOrder = ParameterCook.getOrderParams(oRequest.getParameter("order"));
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
-            LineaDao oLineaDao = new LineaDao(oConnection, ob);
-            ArrayList<BeanInterface> alLineaBean = oLineaDao.getpage(iRpp, iPage, hmOrder, 1);
+            DaoInterface oDao = DaoFactory.getDao(oConnection, ob);
+            ArrayList<BeanInterface> alBean = oDao.getpage(iRpp, iPage, hmOrder, 1);
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            oReplyBean = new ReplyBean(200, oGson.toJson(alLineaBean));
+            oReplyBean = new ReplyBean(200, oGson.toJson(alBean));
         } catch (Exception ex) {
-            oReplyBean = new ReplyBean(500,
-                    "ERROR: " + EncodingHelper.escapeQuotes(EncodingHelper.escapeLine(ex.getMessage())));
+            throw new Exception("ERROR: Service level: getpage method: " + ob + " object", ex);
         } finally {
             oConnectionPool.disposeConnection();
         }
 
         return oReplyBean;
-
     }
 
-    public ReplyBean getLineaFactura() throws Exception {
-        ReplyBean oReplyBean;
-        ConnectionInterface oConnectionPool = null;
-        Connection oConnection;
-        try {
-            Integer id_factura = Integer.parseInt(oRequest.getParameter("id"));
-            Integer iRpp = Integer.parseInt(oRequest.getParameter("rpp"));
-            Integer iPage = Integer.parseInt(oRequest.getParameter("page"));
-            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
-            oConnection = oConnectionPool.newConnection();
-            LineaDao oLineaDao = new LineaDao(oConnection, ob);
-            ArrayList<LineaBean> alLineaBean = oLineaDao.getLineaFactura(iRpp, iPage, id_factura, 1);
-            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            oReplyBean = new ReplyBean(200, oGson.toJson(alLineaBean));
-        } catch (Exception ex) {
-            throw new Exception("ERROR: Service level: getLineaFactura method: " + ob + " object" + ex.getMessage(), ex);
-        } finally {
-            oConnectionPool.disposeConnection();
-        }
-
-        return oReplyBean;
-
-    }
-
-    public ReplyBean getcountxlinea() throws Exception {
-        ReplyBean oReplyBean;
-        ConnectionInterface oConnectionPool = null;
-        Connection oConnection;
-        try {
-            Integer id_factura = Integer.parseInt(oRequest.getParameter("id"));
-            oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
-            oConnection = oConnectionPool.newConnection();
-            LineaDao oLineaDao = new LineaDao(oConnection, ob);
-            int registros = oLineaDao.getcountxlinea(id_factura);
-            Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
-            oReplyBean = new ReplyBean(200, oGson.toJson(registros));
-        } catch (Exception ex) {
-            throw new Exception("ERROR: Service level: getcount method: " + ob + " object", ex);
-        } finally {
-            oConnectionPool.disposeConnection();
-        }
-
-        return oReplyBean;
-
-    }
 }

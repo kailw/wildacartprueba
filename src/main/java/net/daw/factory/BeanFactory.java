@@ -5,6 +5,7 @@
  */
 package net.daw.factory;
 
+import com.google.gson.Gson;
 import net.daw.bean.beanImplementation.FacturaBean;
 import net.daw.bean.beanImplementation.LineaBean;
 import net.daw.bean.beanImplementation.ProductoBean;
@@ -39,6 +40,31 @@ public class BeanFactory {
                 break;
             case "linea":
                 oBean = new LineaBean();
+                break;
+        }
+        return oBean;
+    }
+
+    public static BeanInterface getBeanFromJson(String ob, Gson oGson, String strJsonFromClient) {
+        BeanInterface oBean = null;
+        switch (ob) {
+            case "usuario":
+                oBean = oGson.fromJson(strJsonFromClient, UsuarioBean.class);
+                break;
+            case "tipousuario":
+                oBean = oGson.fromJson(strJsonFromClient, TipousuarioBean.class);
+                break;
+            case "tipoproducto":
+                oBean = oGson.fromJson(strJsonFromClient, TipoproductoBean.class);
+                break;
+            case "producto":
+                oBean = oGson.fromJson(strJsonFromClient, ProductoBean.class);
+                break;
+            case "factura":
+                oBean = oGson.fromJson(strJsonFromClient, FacturaBean.class);
+                break;
+            case "linea":
+                oBean = oGson.fromJson(strJsonFromClient, LineaBean.class);
                 break;
         }
         return oBean;

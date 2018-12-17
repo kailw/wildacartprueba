@@ -151,7 +151,7 @@ moduleFactura.controller('facturaPlistController', ['$scope', '$http', '$locatio
                     $scope.productoCantidadTotal += $scope.ajaxDatoLineaFactura[i].cantidad;
                     $scope.productoPrecio = $scope.ajaxDatoLineaFactura[i].obj_Producto.precio * $scope.productoCantidad;
                     $scope.productoPrecioUno = $scope.ajaxDatoLineaFactura[i].obj_Producto.precio;
-                    $scope.productoPrecioTotal += $scope.ajaxDatoLineaFactura[i].obj_Producto.precio;
+                    $scope.productoPrecioTotal += $scope.ajaxDatoLineaFactura[i].obj_Producto.precio * $scope.productoCantidad;
                     doc.text(10, linea, $scope.productoCodigo);
                     doc.text(40, linea, $scope.productoDesc);
                     doc.text(125, linea, $scope.productoCantidad.toString());
@@ -169,7 +169,7 @@ moduleFactura.controller('facturaPlistController', ['$scope', '$http', '$locatio
                 doc.text(125, 279, $scope.productoCantidadTotal.toString());
                 doc.text(80, 279, iva.toString() + " %");
 
-                $scope.precioTotal = $scope.productoPrecioTotal + ($scope.productoPrecioTotal * (iva / 100 + 1));
+                $scope.precioTotal = $scope.productoPrecioTotal + ($scope.productoPrecioTotal * iva / 100);
 
                 doc.text(170, 279, $scope.precioTotal.toFixed(2).toString());
 

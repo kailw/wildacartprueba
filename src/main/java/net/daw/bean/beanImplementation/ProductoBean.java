@@ -6,7 +6,7 @@
 package net.daw.bean.beanImplementation;
 
 import com.google.gson.annotations.Expose;
-import net.daw.dao.daoImplementation.TipoproductoDao;
+import net.daw.dao.daoImplementation_1.TipoproductoDao_1;
 import net.daw.helper.EncodingHelper;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -100,7 +100,7 @@ public class ProductoBean extends GenericBeanImplementation implements BeanInter
         this.setFoto(oResultSet.getString("foto"));
         this.setId_tipoProducto(oResultSet.getInt("id_tipoProducto"));
         if (expand > 0) {
-            TipoproductoDao otipoproductoDao = new TipoproductoDao(oConnection, "tipoproducto");
+            TipoproductoDao_1 otipoproductoDao = new TipoproductoDao_1(oConnection, "tipoproducto");
             this.setObj_tipoProducto((TipoproductoBean) otipoproductoDao.get(oResultSet.getInt("id_tipoProducto"), expand - 1));
         } else {
             this.setId_tipoProducto(oResultSet.getInt("id_tipoProducto"));
@@ -136,15 +136,15 @@ public class ProductoBean extends GenericBeanImplementation implements BeanInter
     }
 
     @Override
-    public String getPairs(String ob) {
+    public String getPairs() {
         String strPairs = "";
         strPairs += "id=" + id + ",";
         strPairs += "codigo=" + EncodingHelper.quotate(codigo) + ",";
-        strPairs += "desc=" + EncodingHelper.quotate(desc) + ",";
+        strPairs += "`desc`=" + EncodingHelper.quotate(desc) + ",";
         strPairs += "existencias=" + existencias + ",";
         strPairs += "precio=" + precio + ",";
         strPairs += "foto=" + EncodingHelper.quotate(foto) + ",";
-        strPairs += "id_tipoProducto=" + id_tipoProducto + ",";
+        strPairs += "id_tipoProducto=" + id_tipoProducto;
         strPairs += " WHERE id=" + id;
         return strPairs;
     }

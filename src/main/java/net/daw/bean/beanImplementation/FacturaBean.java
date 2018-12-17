@@ -14,8 +14,8 @@ import java.time.ZoneId;
 import java.util.Date;
 import net.daw.bean.genericBeanImplementation.GenericBeanImplementation;
 import net.daw.bean.publicBeanInterface.BeanInterface;
-import net.daw.dao.daoImplementation.LineaDao;
-import net.daw.dao.daoImplementation.UsuarioDao;
+import net.daw.dao.daoImplementation_1.LineaDao_1;
+import net.daw.dao.daoImplementation_1.UsuarioDao_1;
 import net.daw.helper.EncodingHelper;
 
 /**
@@ -84,11 +84,11 @@ public class FacturaBean extends GenericBeanImplementation implements BeanInterf
         this.setId(oResultSet.getInt("id"));
         this.setFecha(oResultSet.getDate("fecha"));
         this.setIva(oResultSet.getFloat("iva"));
-        LineaDao oLineaDao = new LineaDao(oConnection, "linea");
+        LineaDao_1 oLineaDao = new LineaDao_1(oConnection, "linea");
         this.setLink_linea(oLineaDao.getcountxlinea(this.id));
 
         if (expand > 0) {
-            UsuarioDao oUsuarioDao = new UsuarioDao(oConnection, "usuario");
+            UsuarioDao_1 oUsuarioDao = new UsuarioDao_1(oConnection, "usuario");
             this.setObj_Usuario((UsuarioBean) oUsuarioDao.get(oResultSet.getInt("id_usuario"), expand - 1));
         } else {
             this.setId_usuario(oResultSet.getInt("id_usuario"));
@@ -98,7 +98,7 @@ public class FacturaBean extends GenericBeanImplementation implements BeanInterf
 
     
     @Override
-    public String getPairs(String ob) {
+    public String getPairs() {
         ZoneId defaultZoneId = ZoneId.systemDefault();
 
         Instant instant = fecha.toInstant();
