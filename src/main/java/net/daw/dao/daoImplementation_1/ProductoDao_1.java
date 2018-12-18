@@ -6,6 +6,7 @@
 package net.daw.dao.daoImplementation_1;
 
 import java.sql.Connection;
+import net.daw.bean.beanImplementation.UsuarioBean;
 import net.daw.dao.genericDaoImplementation.GenericDaoImplementation;
 import net.daw.dao.publicDaoInterface.DaoInterface;
 
@@ -14,9 +15,11 @@ import net.daw.dao.publicDaoInterface.DaoInterface;
  * @author a044531896d
  */
 public class ProductoDao_1 extends GenericDaoImplementation implements DaoInterface {
+   // UsuarioBean usuarioSession;
 
     public ProductoDao_1(Connection oConnection, String ob) {
         super(oConnection, ob);
+        //this.usuarioSession = usuarioSession;
 
     }
 

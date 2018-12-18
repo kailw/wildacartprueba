@@ -15,7 +15,9 @@ import net.daw.bean.beanImplementation.UsuarioBean;
 import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
 import net.daw.dao.daoImplementation_1.UsuarioDao_1;
+import net.daw.dao.publicDaoInterface.DaoInterface;
 import net.daw.factory.ConnectionFactory;
+import net.daw.factory.DaoFactory;
 import net.daw.helper.EncodingHelper;
 import net.daw.service.genericServiceImplementation.GenericServiceImplementation;
 import net.daw.service.publicServiceInterface.ServiceInterface;
@@ -84,7 +86,7 @@ public class UsuarioService extends GenericServiceImplementation implements Serv
         try {
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
-            UsuarioDao_1 oUsuarioDao = new UsuarioDao_1(oConnection, ob);
+            UsuarioDao_1 oUsuarioDao = new UsuarioDao_1(oConnection, ob);            
             UsuarioBean oUsuarioBean = oUsuarioDao.login(strLogin, strPassword);
             if (oUsuarioBean != null) {
                 oRequest.getSession().setAttribute("user", oUsuarioBean);

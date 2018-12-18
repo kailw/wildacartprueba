@@ -11,40 +11,37 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import net.daw.bean.beanImplementation.LineaBean;
 import net.daw.bean.beanImplementation.UsuarioBean;
 import net.daw.bean.publicBeanInterface.BeanInterface;
 import net.daw.dao.genericDaoImplementation.GenericDaoImplementation;
 import net.daw.dao.publicDaoInterface.DaoInterface;
-import net.daw.factory.BeanFactory;
 
 /**
  *
- * @author jesus
+ * @author a044531896d
  */
-public class UsuarioDao_2 extends GenericDaoImplementation implements DaoInterface {
+public class LineaDao_2 extends GenericDaoImplementation implements DaoInterface {
 
     UsuarioBean usuarioSession;
 
-    public UsuarioDao_2(Connection oConnection, String ob, UsuarioBean usuarioSession) {
+    public LineaDao_2(Connection oConnection, String ob, UsuarioBean usuarioSession) {
         super(oConnection, ob);
         this.usuarioSession = usuarioSession;
     }
 
-    public UsuarioBean login(String strUserName, String strPassword) throws Exception {
-        String strSQL = "SELECT * FROM " + ob + " WHERE login = ? AND pass = ?";
-        UsuarioBean oUsuarioBean;
+    public int getcountxlinea(int idFactura) throws Exception {        
+        String strSQL = "SELECT COUNT(id) FROM " + ob;
+        strSQL += " WHERE id_factura=? ";
+        int res = 0;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oPreparedStatement.setString(1, strUserName);
-            oPreparedStatement.setString(2, strPassword);
+            oPreparedStatement.setInt(1, idFactura);
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
-                oUsuarioBean = new UsuarioBean();
-                oUsuarioBean.fill(oResultSet, oConnection, 1);
-            } else {
-                oUsuarioBean = null;
+                res = oResultSet.getInt(1);
             }
         } catch (SQLException e) {
             throw new Exception("Error en Dao get de " + ob, e);
@@ -56,29 +53,29 @@ public class UsuarioDao_2 extends GenericDaoImplementation implements DaoInterfa
                 oPreparedStatement.close();
             }
         }
-        return oUsuarioBean;
+        return res;
     }
 
-    @Override
-    public BeanInterface get(int id, Integer expand) throws Exception {
-        if (id == usuarioSession.getId()) {
-            String strSQL = "SELECT * FROM " + ob + " WHERE id=?";
-            BeanInterface oBean;
+    public ArrayList<LineaBean> getLineaFactura(int iRpp, int iPage, int idFactura, Integer expand) throws Exception {
+        String strSQL = "SELECT * FROM " + ob;
+        ArrayList<LineaBean> alLineaBean;
+        if (iRpp > 0 && iRpp < 100000 && iPage > 0 && iPage < 100000000) {
+            strSQL += " WHERE id_factura=? ";
+            strSQL += " LIMIT " + (iPage - 1) * iRpp + ", " + iRpp;
             ResultSet oResultSet = null;
             PreparedStatement oPreparedStatement = null;
             try {
                 oPreparedStatement = oConnection.prepareStatement(strSQL);
-                oPreparedStatement.setInt(1, id);
+                oPreparedStatement.setInt(1, idFactura);
                 oResultSet = oPreparedStatement.executeQuery();
-                if (oResultSet.next()) {
-                    oBean = BeanFactory.getBean(ob);
-                    oBean.fill(oResultSet, oConnection, expand);
-
-                } else {
-                    oBean = null;
+                alLineaBean = new ArrayList<LineaBean>();
+                while (oResultSet.next()) {
+                    LineaBean oLineaBean = new LineaBean();
+                    oLineaBean.fill(oResultSet, oConnection, expand);
+                    alLineaBean.add(oLineaBean);
                 }
             } catch (SQLException e) {
-                throw new Exception("Error en Dao get de " + ob, e);
+                throw new Exception("Error en Dao getpage de " + ob, e);
             } finally {
                 if (oResultSet != null) {
                     oResultSet.close();
@@ -87,37 +84,10 @@ public class UsuarioDao_2 extends GenericDaoImplementation implements DaoInterfa
                     oPreparedStatement.close();
                 }
             }
-            return oBean;
         } else {
-            throw new Exception("Error en Dao get de " + ob + ": No autorizado");
+            throw new Exception("Error en Dao getpage de " + ob);
         }
-    }
-
-    @Override
-    public int update(BeanInterface oBean) throws Exception {
-        int id = oBean.getId();
-        if (id == usuarioSession.getId()) {
-            int iResult = 0;
-            String strSQL = "UPDATE " + ob + " SET ";
-            strSQL += oBean.getPairs();
-
-            PreparedStatement oPreparedStatement = null;
-            try {
-                oPreparedStatement = oConnection.prepareStatement(strSQL);
-                iResult = oPreparedStatement.executeUpdate();
-
-            } catch (SQLException e) {
-                throw new Exception("Error en Dao update de " + ob, e);
-            } finally {
-                if (oPreparedStatement != null) {
-                    oPreparedStatement.close();
-                }
-            }
-            return iResult;
-
-        } else {
-            throw new Exception("Error en Dao update de " + ob + ": No autorizado");
-        }
+        return alLineaBean;
     }
 
     @Override
@@ -131,12 +101,13 @@ public class UsuarioDao_2 extends GenericDaoImplementation implements DaoInterfa
     }
 
     @Override
-    public BeanInterface create(BeanInterface oBean) throws Exception {
-        throw new Exception("Error en Dao create de " + ob + ": No autorizado");
+    public int update(BeanInterface oBean) throws Exception {
+        throw new Exception("Error en Dao update de " + ob + ": No autorizado");
     }
 
     @Override
     public ArrayList<BeanInterface> getpage(int iRpp, int iPage, HashMap<String, String> hmOrder, Integer expand) throws Exception {
         throw new Exception("Error en Dao getpage de " + ob + ": No autorizado");
     }
+
 }

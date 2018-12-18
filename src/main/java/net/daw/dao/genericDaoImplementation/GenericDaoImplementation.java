@@ -24,10 +24,12 @@ public class GenericDaoImplementation implements DaoInterface {
 
     protected Connection oConnection;
     protected String ob = null;
+    //protected UsuarioBean usuarioSession;
 
     public GenericDaoImplementation(Connection oConnection, String ob) {            
         this.oConnection = oConnection;
         this.ob = ob;
+        //this.usuarioSession = usuarioSession;
     }
 
     @Override

@@ -114,7 +114,6 @@ public class CarritoService extends GenericServiceImplementation implements Serv
             oReplyBean = new ReplyBean(200, oGson.toJson(cart));
 
         } catch (Exception ex) {
-//            Logger.getLogger(CartService.class.getName()).log(Level.SEVERE, null, ex);
             oReplyBean = new ReplyBean(500, "Error en add CartService: " + ex.getMessage());
         } finally {
             oConnectionPool.disposeConnection();

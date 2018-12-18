@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import net.daw.bean.beanImplementation.LineaBean;
+import net.daw.bean.beanImplementation.UsuarioBean;
 import net.daw.dao.genericDaoImplementation.GenericDaoImplementation;
 import net.daw.dao.publicDaoInterface.DaoInterface;
 
@@ -20,9 +21,11 @@ import net.daw.dao.publicDaoInterface.DaoInterface;
  */
 public class LineaDao_1 extends GenericDaoImplementation implements DaoInterface {
 
+    //UsuarioBean usuarioSession;
 
     public LineaDao_1(Connection oConnection, String ob) {
         super(oConnection, ob);
+      //  this.usuarioSession = usuarioSession;
     }
 
     public int getcountxlinea(int idFactura) throws Exception {

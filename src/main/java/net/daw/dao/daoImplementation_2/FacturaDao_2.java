@@ -1,5 +1,6 @@
-package net.daw.dao.daoImplementation_1;
+package net.daw.dao.daoImplementation_2;
 
+import net.daw.dao.daoImplementation_1.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,41 +13,46 @@ import net.daw.dao.genericDaoImplementation.GenericDaoImplementation;
 import net.daw.dao.publicDaoInterface.DaoInterface;
 import net.daw.helper.SqlBuilder;
 
-public class FacturaDao_1 extends GenericDaoImplementation implements DaoInterface{
+public class FacturaDao_2 extends GenericDaoImplementation implements DaoInterface {
 
-    //UsuarioBean usuarioSession;
-    public FacturaDao_1(Connection oConnection, String ob) {
-        super(oConnection, ob);        
-        //this.usuarioSession = usuarioSession;                                                                       
+    UsuarioBean usuarioSession;
+
+    public FacturaDao_2(Connection oConnection, String ob, UsuarioBean usuarioSession) {
+        super(oConnection, ob);
+        this.usuarioSession = usuarioSession;
     }
-      
 
-    public int getcountFacturaUser(int idusuario) throws Exception {
-        String strSQL = "SELECT COUNT(id) FROM " + ob + " WHERE id_usuario=? ";
-        int res = 0;
-        ResultSet oResultSet = null;
-        PreparedStatement oPreparedStatement = null;
-        try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oPreparedStatement.setInt(1, idusuario);
-            oResultSet = oPreparedStatement.executeQuery();
-            if (oResultSet.next()) {
-                res = oResultSet.getInt(1);
+    public int getcountFacturaUser(int idUsuario) throws Exception {
+        if (idUsuario == usuarioSession.getId()) {
+            String strSQL = "SELECT COUNT(id) FROM " + ob + " WHERE id_usuario=? ";
+            int res = 0;
+            ResultSet oResultSet = null;
+            PreparedStatement oPreparedStatement = null;
+            try {
+                oPreparedStatement = oConnection.prepareStatement(strSQL);
+                oPreparedStatement.setInt(1, idUsuario);
+                oResultSet = oPreparedStatement.executeQuery();
+                if (oResultSet.next()) {
+                    res = oResultSet.getInt(1);
+                }
+            } catch (SQLException e) {
+                throw new Exception("Error en Dao getcountFacturaUser de " + ob, e);
+            } finally {
+                if (oResultSet != null) {
+                    oResultSet.close();
+                }
+                if (oPreparedStatement != null) {
+                    oPreparedStatement.close();
+                }
             }
-        } catch (SQLException e) {
-            throw new Exception("Error en Dao getcountFacturaUser de " + ob, e);
-        } finally {
-            if (oResultSet != null) {
-                oResultSet.close();
-            }
-            if (oPreparedStatement != null) {
-                oPreparedStatement.close();
-            }
+            return res;
+        } else {
+            throw new Exception("Error en Dao getcountFacturaUser de " + ob + ": No autorizado");
         }
-        return res;
     }
 
     public ArrayList<FacturaBean> getpageXusuario(int iRpp, int iPage, HashMap<String, String> hmOrder, int idUsuario, Integer expand) throws Exception {
+        if (idUsuario == usuarioSession.getId()) {
         String strSQL = "SELECT * FROM " + ob;
         strSQL += SqlBuilder.buildSqlOrder(hmOrder);
         ArrayList<FacturaBean> alFacturaBean;
@@ -78,9 +84,11 @@ public class FacturaDao_1 extends GenericDaoImplementation implements DaoInterfa
                 }
             }
         } else {
-            throw new Exception("Error en Dao getpage de " + ob);
+            throw new Exception("Error en Dao getpageXusuario de " + ob);
         }
         return alFacturaBean;
-
+        }else {
+             throw new Exception("Error en Dao getpageXusuario de " + ob + ": No autorizado");
+        }
     }
 }
