@@ -15,11 +15,10 @@ import net.daw.dao.publicDaoInterface.DaoInterface;
  * @author a044531896d
  */
 public class ProductoDao_1 extends GenericDaoImplementation implements DaoInterface {
-   // UsuarioBean usuarioSession;
+  
 
-    public ProductoDao_1(Connection oConnection, String ob) {
-        super(oConnection, ob);
-        //this.usuarioSession = usuarioSession;
+    public ProductoDao_1(Connection oConnection, String ob, UsuarioBean oUsuarioBeanSession) {
+        super(oConnection, ob,oUsuarioBeanSession);       
 
     }
 

@@ -23,14 +23,21 @@ import net.daw.dao.publicDaoInterface.DaoInterface;
  */
 public class LineaDao_2 extends GenericDaoImplementation implements DaoInterface {
 
-    UsuarioBean usuarioSession;
-
-    public LineaDao_2(Connection oConnection, String ob, UsuarioBean usuarioSession) {
-        super(oConnection, ob);
-        this.usuarioSession = usuarioSession;
+    public LineaDao_2(Connection oConnection, String ob, UsuarioBean oUsuarioBeanSession) {
+        super(oConnection, ob, oUsuarioBeanSession);
     }
 
-    public int getcountxlinea(int idFactura) throws Exception {        
+    @Override
+    public BeanInterface get(int id, Integer expand) throws Exception {
+        LineaBean oLineaBean = (LineaBean) super.get(id, expand);
+        if (oLineaBean.getObj_Factura().getObj_Usuario().getId() == oUsuarioBeanSession.getId()) {
+            return oLineaBean;
+        } else {
+            throw new Exception("Error en Dao get de " + ob + ": No autorizado");
+        }
+    }
+
+    public int getcountxlinea(int idFactura) throws Exception {
         String strSQL = "SELECT COUNT(id) FROM " + ob;
         strSQL += " WHERE id_factura=? ";
         int res = 0;

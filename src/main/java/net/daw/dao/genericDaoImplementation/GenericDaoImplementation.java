@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import net.daw.bean.beanImplementation.UsuarioBean;
 import net.daw.bean.publicBeanInterface.BeanInterface;
 import net.daw.dao.publicDaoInterface.DaoInterface;
 import net.daw.factory.BeanFactory;
@@ -24,22 +25,43 @@ public class GenericDaoImplementation implements DaoInterface {
 
     protected Connection oConnection;
     protected String ob = null;
-    //protected UsuarioBean usuarioSession;
+    protected UsuarioBean oUsuarioBeanSession;
+    protected int idSessionUser;
+    protected int idSessionUserTipe;
+    protected String strSQL_get;
+    protected String strSQL_remove;
+    protected String strSQL_getcount;
+    protected String strSQL_create;
+    protected String strSQL_update;
+    protected String strSQL_getpage;
 
-    public GenericDaoImplementation(Connection oConnection, String ob) {            
+    public GenericDaoImplementation(Connection oConnection, String ob, UsuarioBean oUsuarioBeanSession) {
         this.oConnection = oConnection;
         this.ob = ob;
-        //this.usuarioSession = usuarioSession;
+        if (oUsuarioBeanSession != null) {
+            this.oUsuarioBeanSession = oUsuarioBeanSession;
+            this.idSessionUser = oUsuarioBeanSession.getId();
+            this.idSessionUserTipe = oUsuarioBeanSession.getId_tipoUsuario();
+        }
+
+        //Sacadas todas las sentencias SQL de los metodos
+        strSQL_get = "SELECT * FROM " + ob + " WHERE id=?";
+        strSQL_remove = "DELETE FROM " + ob + " WHERE id=?";
+        strSQL_getcount = "SELECT COUNT(id) FROM " + ob;
+        //strSQL_create = "INSERT INTO " + ob;
+        //strSQL_update = "UPDATE " + ob + " SET ";
+        strSQL_getpage = "SELECT * FROM " + ob;
+
     }
 
     @Override
     public BeanInterface get(int id, Integer expand) throws Exception {
-        String strSQL = "SELECT * FROM " + ob + " WHERE id=?";
+        //String strSQL = "SELECT * FROM " + ob + " WHERE id=?";
         BeanInterface oBean;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement = oConnection.prepareStatement(strSQL_get);
             oPreparedStatement.setInt(1, id);
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
@@ -65,10 +87,10 @@ public class GenericDaoImplementation implements DaoInterface {
     @Override
     public int remove(int id) throws Exception {
         int iRes = 0;
-        String strSQL = "DELETE FROM " + ob + " WHERE id=?";
+        //String strSQL = "DELETE FROM " + ob + " WHERE id=?";
         PreparedStatement oPreparedStatement = null;
         try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement = oConnection.prepareStatement(strSQL_remove);
             oPreparedStatement.setInt(1, id);
             iRes = oPreparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -83,12 +105,12 @@ public class GenericDaoImplementation implements DaoInterface {
 
     @Override
     public int getcount() throws Exception {
-        String strSQL = "SELECT COUNT(id) FROM " + ob;
+        //String strSQL = "SELECT COUNT(id) FROM " + ob;
         int res = 0;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement = oConnection.prepareStatement(strSQL_getcount);
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
                 res = oResultSet.getInt(1);
@@ -190,5 +212,4 @@ public class GenericDaoImplementation implements DaoInterface {
         }
         return alBean;
     }
-
 }

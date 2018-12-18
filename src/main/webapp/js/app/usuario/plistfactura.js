@@ -121,31 +121,6 @@ moduleUsuario.controller('usuarioPlistFacturaController', ['$scope', 'toolServic
 
         $scope.isActive = toolService.isActive;
 
-        $scope.lineas = function () {
-            $http({
-                method: 'GET',
-                url: '/json?ob=linea&op=getlineafactura&rpp=10&page=1&id=' + $scope.id
-            }).then(function (response) {
-                $scope.status = response.status;
-                $scope.ajaxDatoLineaFactura = response.data.message;
-                $scope.idUsuarioFactura = response.data.message[0].obj_Factura.id_usuario;
-                $scope.idFactura = response.data.message[0].obj_Factura.id;
-                $http({
-                    method: 'GET',
-                    url: '/json?ob=usuario&op=get&id=' + $scope.idUsuarioFactura
-                }).then(function (response) {
-                    $scope.status = response.status;
-                    $scope.ajaxDatosUsuarios = response.data.message;
-                }, function (response) {
-                    $scope.status = response.status;
-                    $scope.ajaxDatosUsuarios = response.data.message || 'Request failed';
-                });
-            }, function (response) {
-                $scope.status = response.status;
-                $scope.ajaxDatoLineaFactura = response.data.message || 'Request failed';
-            });
-        };
-
         var doc = new jsPDF();
 
         $scope.pdf = function (id, fecha, iva) {

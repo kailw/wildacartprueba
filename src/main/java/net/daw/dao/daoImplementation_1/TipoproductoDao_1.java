@@ -16,10 +16,8 @@ import net.daw.dao.publicDaoInterface.DaoInterface;
  */
 public class TipoproductoDao_1 extends GenericDaoImplementation implements DaoInterface {
 
-
-    public TipoproductoDao_1(Connection oConnection, String ob) {
-        super(oConnection,ob);        
+    public TipoproductoDao_1(Connection oConnection, String ob, UsuarioBean oUsuarioBeanSession) {
+        super(oConnection, ob, oUsuarioBeanSession);
     }
-    
 
 }

@@ -17,10 +17,19 @@ moduleProducto.controller('productoEditController', ['$scope', '$http', '$locati
             $scope.status = response.status;
         });
 
+        $scope.ajaxDatoProducto = {
+            id: null,
+            codigo: null,
+            desc: null,
+            existencias: null,
+            precio: null,
+            foto: "deafult.svg",
+            obj_tipoProducto: { id : null }
+        };
 
         $scope.guardar = function () {
             $scope.upload();
-            var foto = 'default.svg';
+            var foto = $scope.ajaxDatoProducto.foto;
             if ($scope.file !== undefined) {
                 foto = $scope.file.name;
             }

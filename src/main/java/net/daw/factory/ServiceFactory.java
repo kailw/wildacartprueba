@@ -93,9 +93,9 @@ public class ServiceFactory {
                     case "getpage":
                         oReplyBean = oUsuarioService.getpage();
                         break;
-                    case "fill":
-                        oReplyBean = oUsuarioService.cargarUsuarios();
-                        break;
+//                    case "fill":
+//                        oReplyBean = oUsuarioService.cargarUsuarios();
+//                        break;
                     case "login":
                         oReplyBean = oUsuarioService.login();
                         break;

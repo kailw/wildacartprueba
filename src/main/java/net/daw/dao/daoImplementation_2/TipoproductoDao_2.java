@@ -20,21 +20,13 @@ import net.daw.dao.publicDaoInterface.DaoInterface;
  */
 public class TipoproductoDao_2 extends GenericDaoImplementation implements DaoInterface {
 
-    UsuarioBean usuarioSession;
-
-    public TipoproductoDao_2(Connection oConnection, String ob, UsuarioBean usuarioSession) {
-        super(oConnection, ob);
-        this.usuarioSession = usuarioSession;
+    public TipoproductoDao_2(Connection oConnection, String ob, UsuarioBean oUsuarioBeanSession) {
+        super(oConnection, ob, oUsuarioBeanSession);
     }
 
     @Override
     public int remove(int id) throws Exception {
         throw new Exception("Error en Dao remove de " + ob + ": No autorizado");
-    }
-
-    @Override
-    public int getcount() throws Exception {
-        throw new Exception("Error en Dao getcount de " + ob + ": No autorizado");
     }
 
     @Override
@@ -45,12 +37,6 @@ public class TipoproductoDao_2 extends GenericDaoImplementation implements DaoIn
     @Override
     public int update(BeanInterface oBean) throws Exception {
         throw new Exception("Error en Dao update de " + ob + ": No autorizado");
-    }
-
-    @Override
-    public ArrayList<BeanInterface> getpage(int iRpp, int iPage, HashMap<String, String> hmOrder, Integer expand) throws Exception {
-        throw new Exception("Error en Dao getpage de " + ob + ": No autorizado");
-
     }
 
 }

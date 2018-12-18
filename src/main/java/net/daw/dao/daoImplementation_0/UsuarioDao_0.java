@@ -3,28 +3,62 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.daw.dao.daoImplementation_1;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import net.daw.bean.beanImplementation.UsuarioBean;
+import net.daw.bean.publicBeanInterface.BeanInterface;
 import net.daw.dao.genericDaoImplementation.GenericDaoImplementation;
 import net.daw.dao.publicDaoInterface.DaoInterface;
 
 /**
  *
- * @author jesus
+ * @author Ramón
  */
-public class UsuarioDao_1 extends GenericDaoImplementation implements DaoInterface {
+public class UsuarioDao_0 extends GenericDaoImplementation implements DaoInterface {
 
-    public UsuarioDao_1(Connection oConnection, String ob, UsuarioBean oUsuarioBeanSession) {
-        super(oConnection, ob, oUsuarioBeanSession);
+    public UsuarioDao_0(Connection oConnection, String ob, UsuarioBean oUsuarioBeanSession) {
+        super(oConnection, ob,oUsuarioBeanSession);
+
+    }
+
+    @Override
+    public BeanInterface get(int id, Integer expand) throws Exception {
+        throw new Exception("Error en Dao remove de " + ob + ": No autorizado");
+    }
+
+    @Override
+    public int remove(int id) throws Exception {
+        throw new Exception("Error en Dao remove de " + ob + ": No autorizado");
+    }
+
+    @Override
+    public int getcount() throws Exception {
+        throw new Exception("Error en Dao remove de " + ob + ": No autorizado");
+    }
+
+    @Override
+    public BeanInterface create(BeanInterface oBean) throws Exception {
+        throw new Exception("Error en Dao remove de " + ob + ": No autorizado");
+    }
+
+    @Override
+    public int update(BeanInterface oBean) throws Exception {
+        throw new Exception("Error en Dao remove de " + ob + ": No autorizado");
+    }
+
+    @Override
+    public ArrayList<BeanInterface> getpage(int iRpp, int iPage, HashMap<String, String> hmOrder, Integer expand) throws Exception {
+        throw new Exception("Error en Dao remove de " + ob + ": No autorizado");
     }
 
     public UsuarioBean login(String strUserName, String strPassword) throws Exception {
-        String strSQL = "SELECT * FROM " + ob + " WHERE login = ? AND pass = ?";
+        String strSQL = "SELECT * FROM " + ob + " WHERE login=? AND pass=?";
         UsuarioBean oUsuarioBean;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;

@@ -23,11 +23,8 @@ import net.daw.factory.BeanFactory;
  */
 public class UsuarioDao_2 extends GenericDaoImplementation implements DaoInterface {
 
-    UsuarioBean usuarioSession;
-
-    public UsuarioDao_2(Connection oConnection, String ob, UsuarioBean usuarioSession) {
-        super(oConnection, ob);
-        this.usuarioSession = usuarioSession;
+    public UsuarioDao_2(Connection oConnection, String ob, UsuarioBean oUsuarioBeanSession) {
+        super(oConnection, ob, oUsuarioBeanSession);
     }
 
     public UsuarioBean login(String strUserName, String strPassword) throws Exception {
@@ -61,7 +58,7 @@ public class UsuarioDao_2 extends GenericDaoImplementation implements DaoInterfa
 
     @Override
     public BeanInterface get(int id, Integer expand) throws Exception {
-        if (id == usuarioSession.getId()) {
+        if (id == oUsuarioBeanSession.getId()) {
             String strSQL = "SELECT * FROM " + ob + " WHERE id=?";
             BeanInterface oBean;
             ResultSet oResultSet = null;
@@ -96,7 +93,7 @@ public class UsuarioDao_2 extends GenericDaoImplementation implements DaoInterfa
     @Override
     public int update(BeanInterface oBean) throws Exception {
         int id = oBean.getId();
-        if (id == usuarioSession.getId()) {
+        if (id == oUsuarioBeanSession.getId()) {
             int iResult = 0;
             String strSQL = "UPDATE " + ob + " SET ";
             strSQL += oBean.getPairs();

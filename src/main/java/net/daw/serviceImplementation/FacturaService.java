@@ -17,6 +17,7 @@ import net.daw.bean.publicBeanInterface.BeanInterface;
 import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
 import net.daw.dao.daoImplementation_1.FacturaDao_1;
+import net.daw.dao.daoImplementation_2.FacturaDao_2;
 import net.daw.dao.publicDaoInterface.DaoInterface;
 import net.daw.factory.ConnectionFactory;
 import net.daw.factory.DaoFactory;
@@ -29,15 +30,15 @@ import net.daw.service.publicServiceInterface.ServiceInterface;
  *
  * @author a044531896d
  */
-public class FacturaService extends GenericServiceImplementation implements ServiceInterface{
+public class FacturaService extends GenericServiceImplementation implements ServiceInterface {
 
-    HttpServletRequest oRequest;  
+    HttpServletRequest oRequest;
     String ob = null;
 
     public FacturaService(HttpServletRequest oRequest, String ob) {
         super(oRequest, ob);
         this.oRequest = oRequest;
-        this.ob = ob;        
+        this.ob = ob;
     }
 
     public ReplyBean getcountFacturaUser() throws Exception {
@@ -48,9 +49,8 @@ public class FacturaService extends GenericServiceImplementation implements Serv
             Integer id = Integer.parseInt(oRequest.getParameter("id"));
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
-            FacturaDao_1 oFacturaDao = new FacturaDao_1(oConnection, ob);
-            DaoInterface oDao = DaoFactory.getDao(oConnection, ob,usuarioSession);
-            int registros = oFacturaDao.getcountFacturaUser(id);            
+            FacturaDao_2 oFacturaDao = (FacturaDao_2) DaoFactory.getDao(oConnection, ob, usuarioSession);
+            int registros = oFacturaDao.getcountFacturaUser(id);
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(registros));
         } catch (Exception ex) {
@@ -74,8 +74,8 @@ public class FacturaService extends GenericServiceImplementation implements Serv
             HashMap<String, String> hmOrder = ParameterCook.getOrderParams(oRequest.getParameter("order"));
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
-            FacturaDao_1 oFacturaDao = new FacturaDao_1(oConnection, ob);
-            ArrayList<FacturaBean> alLineaBean = oFacturaDao.getpageXusuario(iRpp, iPage, hmOrder, id_usuario, 1);            
+            FacturaDao_2 oFacturaDao = (FacturaDao_2) DaoFactory.getDao(oConnection, ob, usuarioSession);
+            ArrayList<FacturaBean> alLineaBean = oFacturaDao.getpageXusuario(iRpp, iPage, hmOrder, id_usuario, 1);
             Gson oGson = (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create();
             oReplyBean = new ReplyBean(200, oGson.toJson(alLineaBean));
         } catch (Exception ex) {

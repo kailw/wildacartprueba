@@ -12,14 +12,12 @@ import net.daw.dao.genericDaoImplementation.GenericDaoImplementation;
 import net.daw.dao.publicDaoInterface.DaoInterface;
 import net.daw.helper.SqlBuilder;
 
-public class FacturaDao_1 extends GenericDaoImplementation implements DaoInterface{
+public class FacturaDao_1 extends GenericDaoImplementation implements DaoInterface {
 
-    //UsuarioBean usuarioSession;
-    public FacturaDao_1(Connection oConnection, String ob) {
-        super(oConnection, ob);        
-        //this.usuarioSession = usuarioSession;                                                                       
+    public FacturaDao_1(Connection oConnection, String ob, UsuarioBean oUsuarioBeanSession) {
+        super(oConnection, ob, oUsuarioBeanSession);
+
     }
-      
 
     public int getcountFacturaUser(int idusuario) throws Exception {
         String strSQL = "SELECT COUNT(id) FROM " + ob + " WHERE id_usuario=? ";

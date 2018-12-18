@@ -7,8 +7,8 @@ import net.daw.dao.publicDaoInterface.DaoInterface;
 
 public class TipousuarioDao_1 extends GenericDaoImplementation implements DaoInterface {
 
-    public TipousuarioDao_1(Connection oConnection, String ob) {
-        super(oConnection, ob);
+    public TipousuarioDao_1(Connection oConnection, String ob, UsuarioBean oUsuarioBeanSession) {
+        super(oConnection, ob, oUsuarioBeanSession);
 
     }
 

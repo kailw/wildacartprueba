@@ -12,13 +12,16 @@ import net.daw.bean.genericBeanImplementation.GenericBeanImplementation;
 import net.daw.bean.publicBeanInterface.BeanInterface;
 import net.daw.dao.daoImplementation_1.FacturaDao_1;
 import net.daw.dao.daoImplementation_1.TipousuarioDao_1;
+import net.daw.dao.daoImplementation_2.FacturaDao_2;
+import net.daw.dao.publicDaoInterface.DaoInterface;
+import net.daw.factory.DaoFactory;
 import net.daw.helper.EncodingHelper;
 
 /**
  *
  * @author kevin
  */
-public class UsuarioBean extends GenericBeanImplementation implements BeanInterface{
+public class UsuarioBean extends GenericBeanImplementation implements BeanInterface {
 
     @Expose
     private String dni;
@@ -62,7 +65,6 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
     public void setObj_tipoUsuario(TipousuarioBean obj_tipoUsuario) {
         this.obj_tipoUsuario = obj_tipoUsuario;
     }
-
 
     public String getDni() {
         return dni;
@@ -121,7 +123,7 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
     }
 
     @Override
-    public UsuarioBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws Exception {
+    public UsuarioBean fill(ResultSet oResultSet, Connection oConnection, Integer expand, UsuarioBean oUsuarioBeanSession) throws Exception {
 
         this.setId(oResultSet.getInt("id"));
         this.setDni(oResultSet.getString("dni"));
@@ -130,11 +132,19 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
         this.setApe2(oResultSet.getString("ape2"));
         this.setLogin(oResultSet.getString("login"));
         this.setPass(oResultSet.getString("pass"));
-        FacturaDao_1 oFacturaDao = new FacturaDao_1(oConnection, "factura");
-        this.setNumFactura(oFacturaDao.getcountFacturaUser(this.id));
+
+        DaoInterface oFacturaDao = DaoFactory.getDao(oConnection, "factura", oUsuarioBeanSession);
+
+        if (oFacturaDao.getClass() == FacturaDao_1.class) {
+            FacturaDao_1 oFacturaDao_1 = (FacturaDao_1) oFacturaDao;
+            this.setLink_factura(oFacturaDao_1.getcountFacturaUser(id));
+        } else {
+            FacturaDao_2 oFacturaDao_2 = (FacturaDao_2) oFacturaDao;
+            this.setLink_factura(oFacturaDao_2.getcountFacturaUser(id));
+        }
 
         if (expand > 0) {
-            TipousuarioDao_1 otipousuarioDao = new TipousuarioDao_1(oConnection, "tipousuario");
+            TipousuarioDao_1 otipousuarioDao = new TipousuarioDao_1(oConnection, "tipousuario",oUsuarioBeanSession);
             this.setObj_tipoUsuario((TipousuarioBean) otipousuarioDao.get(oResultSet.getInt("id_tipoUsuario"), expand - 1));
         } else {
             this.setId_tipoUsuario(oResultSet.getInt("id_tipoUsuario"));
@@ -152,7 +162,7 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
         strColumns += "ape2,";
         strColumns += "login,";
         strColumns += "pass,";
-        strColumns += "id_tipoUsuario";        
+        strColumns += "id_tipoUsuario";
         return strColumns;
     }
 

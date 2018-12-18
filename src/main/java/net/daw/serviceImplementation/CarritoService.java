@@ -24,6 +24,8 @@ import net.daw.constant.ConnectionConstants;
 import net.daw.dao.daoImplementation_1.FacturaDao_1;
 import net.daw.dao.daoImplementation_1.LineaDao_1;
 import net.daw.dao.daoImplementation_1.ProductoDao_1;
+import net.daw.dao.daoImplementation_2.FacturaDao_2;
+import net.daw.dao.daoImplementation_2.ProductoDao_2;
 import net.daw.factory.ConnectionFactory;
 import net.daw.helper.EncodingHelper;
 import net.daw.service.genericServiceImplementation.GenericServiceImplementation;
@@ -41,6 +43,7 @@ public class CarritoService extends GenericServiceImplementation implements Serv
     ReplyBean oReplyBean;
     ArrayList<ItemBean> cart = null;
     Connection oConnection = null;
+    UsuarioBean oUsuarioBeanSession;
 
     public CarritoService(HttpServletRequest oRequest, String ob) {
         super(oRequest, ob);
@@ -68,7 +71,7 @@ public class CarritoService extends GenericServiceImplementation implements Serv
             Integer cant = Integer.parseInt(oRequest.getParameter("cantidad"));
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
-            ProductoDao_1 oProductoDao = new ProductoDao_1(oConnection, "producto");
+            ProductoDao_2 oProductoDao = new ProductoDao_2(oConnection, "producto", oUsuarioBeanSession);
             ProductoBean oProductoBean = (ProductoBean) oProductoDao.get(id, 1);
             Integer existencias = oProductoBean.getExistencias();
 
@@ -262,15 +265,15 @@ public class CarritoService extends GenericServiceImplementation implements Serv
             oFacturaBean.setIva(21.0f);
 
             //ya tenemos el bean relleno, solo falta crear la factura
-            FacturaDao_1 oFacturaDao = new FacturaDao_1(oConnection, "factura");
+            FacturaDao_2 oFacturaDao = new FacturaDao_2(oConnection, "factura", oUsuarioBeanSession);
 
             FacturaBean oFacturaBeanCreada = (FacturaBean) oFacturaDao.create(oFacturaBean);
             int id_factura = oFacturaBeanCreada.getId();
             //YA TENEMOS CREADA LA FACTURA Y FATA HACER BUCLE PARA CREAR LINEAS
             LineaDao_1 oLineaDao;
             LineaBean oLineaBean;
-            ProductoDao_1 oProductoDao = new ProductoDao_1(oConnection, "producto");
-            oLineaDao = new LineaDao_1(oConnection, "linea");
+            ProductoDao_2 oProductoDao = new ProductoDao_2(oConnection, "producto", oUsuarioBeanSession);
+            oLineaDao = new LineaDao_1(oConnection, "linea", oUsuarioBeanSession);
             ProductoBean oProductoBean;
 
             for (ItemBean ib : cart) {
