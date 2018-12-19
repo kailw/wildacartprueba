@@ -34,7 +34,7 @@ moduleProducto.controller('productoPlistUsuarioController', ['$scope', '$http', 
 
 
         $scope.resetOrder = function () {
-            $location.url($scope.ob + "/plist/8/1");
+            $location.url("user/"+$scope.ob + "/plist/8/1");
             $scope.activar = "false";
         };
 
@@ -74,11 +74,8 @@ moduleProducto.controller('productoPlistUsuarioController', ['$scope', '$http', 
             } else {
                 $scope.orderURLServidor += "-" + order + "," + align;
                 $scope.orderURLCliente += "-" + order + "," + align;
-            }
-
-
-            ;
-            $location.url($scope.ob + "/plist/" + $scope.rpp + "/" + $scope.page + "/" + $scope.orderURLCliente);
+            };
+            $location.url("user/"+$scope.ob + "/plist/" + $scope.rpp + "/" + $scope.page + "/" + $scope.orderURLCliente);
         };
 
         //getcount
@@ -116,7 +113,7 @@ moduleProducto.controller('productoPlistUsuarioController', ['$scope', '$http', 
 
 
         $scope.update = function () {
-            $location.url($scope.ob + "/plist/" + $scope.rpp + "/" + $scope.page + "/" + $scope.orderURLCliente);
+            $location.url("user/"+$scope.ob + "/plist/" + $scope.rpp + "/" + $scope.page + "/" + $scope.orderURLCliente);
         };
 
         //paginacion neighbourhood

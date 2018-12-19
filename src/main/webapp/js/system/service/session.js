@@ -4,7 +4,7 @@ moduleService.service('sessionService', ['$location', function ($location) {
         var isSessionActive = false;
         var userName = "";
         var usuariologeadoID = "";
-        var tipoUserId = '';
+        var tipoUserId = "";
         var carrito = 0;
         var observerCallbacks = [];
         return {

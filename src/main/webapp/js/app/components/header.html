@@ -12,7 +12,7 @@
                 </a>
             </li>
 
-            <li class="nav-item"  ng-show="c.loginH" ng-class="{'active': c.isActive('/usuario/plist')}">
+            <li class="nav-item"  ng-show="c.isAdmin && c.loginH" ng-class="{'active': c.isActive('/usuario/plist')}">
                 <a class="nav-link hvr-pop" href="usuario/plist" 
                    ng-class="{'active': (c.isActive('/usuario/plist') || c.isActive('/usuario/view') || c.isActive('/usuario/edit') || c.isActive('/usuario/remove')
                                || c.isActive('/usuario/create') || c.isActive('/factura/newfacturauser'))}">
@@ -20,7 +20,7 @@
                 </a>
             </li>
 
-            <li class="nav-item" ng-show="c.loginH"  ng-class="{'active': c.isActive('/tipousuario/plist')}">
+            <li class="nav-item" ng-show="c.isAdmin && c.loginH"  ng-class="{'active': c.isActive('/tipousuario/plist')}">
                 <a class="nav-link hvr-pop" href="tipousuario/plist"
                    ng-class="{'active': (c.isActive('/tipousuario/plist') || c.isActive('/tipousuario/view') || c.isActive('/tipousuario/edit') || c.isActive('/tipousuario/remove')
                                || c.isActive('/tipousuario/create'))}">
@@ -30,19 +30,19 @@
 
 
 
-            <li class="nav-item"  ng-show="c.loginH"  ng-class="{'active': c.isActive('/producto')}">                        
+            <li class="nav-item"  ng-show="c.isAdmin && c.loginH"  ng-class="{'active': c.isActive('/producto')}">                        
                 <a class="nav-link hvr-pop" href="producto/plist_1" >
                     <i class="fa fa-box-open"></i> <span class="desaparece">Productos</span>
                 </a>
             </li>
 
-            <li class="nav-item"  ng-show="c.loginH"  ng-class="{'active': c.isActive('/tipoproducto')}">                        
+            <li class="nav-item"  ng-show="c.isAdmin && c.loginH"  ng-class="{'active': c.isActive('/tipoproducto')}">                        
                 <a class="nav-link hvr-pop" href="tipoproducto/plist">                    
                     <i class="fa fa-box"></i> <span class="desaparece">Tipo Producto</span>
                 </a>
             </li>
 
-            <li class="nav-item" ng-show="c.loginH" ng-class="{'active': c.isActive('/factura/plist')}">
+            <li class="nav-item" ng-show="c.isAdmin && c.loginH" ng-class="{'active': c.isActive('/factura/plist')}">
                 <a class="nav-link hvr-pop" href="factura/plist" ng-class="{'active': (c.isActive('/factura/plist') || c.isActive('/linea/plist')
                             || c.isActive('/factura/view') || c.isActive('/factura/edit') || c.isActive('/factura/remove') || c.isActive('/linea/view')
                             || c.isActive('/linea/remove') || c.isActive('/linea/edit') || c.isActive('/factura/create'))}">
@@ -51,12 +51,12 @@
             </li>
 
 
-            <li class="nav-item " ng-show="c.loginH" ng-class="{'active': c.isActive('/factura')}">
-                <a class="nav-link hvr-bob" href="user/usuario/plistfactura/{{c.usuariologeadoID}}">
+            <li class="nav-item" ng-if="c.idTipoUsuario === 2 && c.loginH" ng-class="{'active': c.isActive('/factura')}">
+                <a class="nav-link hvr-pop" href="user/usuario/plistfactura/{{c.usuariologeadoID}}">
                     <i class="fas fa-hand-holding-usd"></i> <span class="desaparece"> Mis Facturas </span> </a>
             </li>
-            
-            <li class="nav-item"  ng-show="c.loginH"  ng-class="{'active': c.isActive('/producto')}">                        
+
+            <li class="nav-item" ng-if="c.idTipoUsuario === 2 && c.loginH" ng-class="{'active': c.isActive('/producto')}">                        
                 <a class="nav-link hvr-pop" href="user/producto/plist" >
                     <i class="fas fa-archive"></i> <span class="desaparece"> Ver Productos</span>
                 </a>
@@ -64,13 +64,14 @@
         </ul>
 
         <div ng-show="!c.loginH">
-            <a href="usuario/login"><button type="button" class="btn btn-danger"><i class="fas fa-sign-in-alt"> Login</i></button></a>
+            <a href="/login"><button type="button" class="btn btn-danger"><i class="fas fa-sign-in-alt"> Login</i></button></a>
         </div>
 
-        <div ng-show="c.loginH">            
-            <a href="carrito/plist"><button class="btn btn-warning hvr-wobble-horizontal"> <i class="fa fa-shopping-cart"> <span ng-show="c.carrito > 0">{{c.carrito}}</span></i></button></a>            
-            <a href="usuario/view/{{c.usuariologeadoID}}"><button type="button" class="btn btn-info"><i class="fa fa-user-circle"> Bienvenido/a <strong style="color: black;">{{c.usuariologeado}}</strong> </i></button></a>            
-            <a href="usuario/logout" > <button type="button" class="btn btn-primary" style="width:auto"> <i class="fas fa-sign-out-alt"> </i></button></a>
+        <div ng-show="c.loginH">                   
+            <a href="carrito/plist"><button ng-if="c.idTipoUsuario === 2" class="btn btn-warning hvr-wobble-horizontal"> <i class="fa fa-shopping-cart"> <span ng-show="c.carrito > 0">{{c.carrito}}</span></i></button></a>                        
+            <a href="usuario/view/{{c.usuariologeadoID}}"><button type="button" ng-if="c.idTipoUsuario === 1" class="btn btn-info"><i class="fa fa-user-circle"> Bienvenido/a <strong style="color: black;">{{c.usuariologeado}}</strong> </i></button></a>            
+            <a href="user/usuario/view/{{c.usuariologeadoID}}"><button type="button" ng-if="c.idTipoUsuario === 2" class="btn btn-info"><i class="fa fa-user-circle"> Bienvenido/a <strong style="color: black;">{{c.usuariologeado}}</strong> </i></button></a>            
+            <a href="/logout" > <button type="button" class="btn btn-primary" style="width:auto"> <i class="fas fa-sign-out-alt"> </i></button></a>
         </div>
     </div>
 </nav>

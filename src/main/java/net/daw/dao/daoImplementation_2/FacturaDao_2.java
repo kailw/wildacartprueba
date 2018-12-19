@@ -50,7 +50,6 @@ public class FacturaDao_2 extends GenericDaoImplementation implements DaoInterfa
                 ResultSet oResultSet = null;
                 PreparedStatement oPreparedStatement = null;
                 try {
-
                     oPreparedStatement = oConnection.prepareStatement(strSQL);
                     oPreparedStatement.setInt(1, idUsuario);
                     oResultSet = oPreparedStatement.executeQuery();
@@ -80,10 +79,10 @@ public class FacturaDao_2 extends GenericDaoImplementation implements DaoInterfa
         }
     }
 
-    @Override
-    public int update(BeanInterface oBean) throws Exception {
-        throw new Exception("Error en Dao update de " + ob + ": No autorizado");
-    }
+//    @Override
+//    public int update(BeanInterface oBean) throws Exception {
+//        throw new Exception("Error en Dao update de " + ob + ": No autorizado");
+//    }
 
     @Override
     public ArrayList<BeanInterface> getpage(int iRpp, int iPage, HashMap<String, String> hmOrder, Integer expand) throws Exception {
@@ -96,9 +95,9 @@ public class FacturaDao_2 extends GenericDaoImplementation implements DaoInterfa
         throw new Exception("Error en Dao remove de " + ob + ": No autorizado");
     }
 
-    @Override
-    public BeanInterface create(BeanInterface oBean) throws Exception {
-        throw new Exception("Error en Dao create de " + ob + ": No autorizado");
-    }
+//    @Override
+//    public BeanInterface create(BeanInterface oBean) throws Exception {
+//        throw new Exception("Error en Dao create de " + ob + ": No autorizado");
+//    }
 
 }

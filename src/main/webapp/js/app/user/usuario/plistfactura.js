@@ -31,7 +31,7 @@ moduleUsuario.controller('usuarioPlistFacturaUsuarioController', ['$scope', 'too
 
 
         $scope.resetOrder = function () {
-            $location.url("usuario/plistfactura/" + $scope.id + "/10/1");
+            $location.url("user/usuario/plistfactura/" + $scope.id + "/10/1");
         };
 
 
@@ -43,7 +43,7 @@ moduleUsuario.controller('usuarioPlistFacturaUsuarioController', ['$scope', 'too
                 $scope.orderURLServidor = $scope.orderURLServidor + "-" + order + "," + align;
                 $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
             }
-            $location.url(`usuario/plistfactura/` + $scope.id + `/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
+            $location.url(`user/usuario/plistfactura/` + $scope.id + `/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
         };
 
         //getcount
@@ -91,7 +91,7 @@ moduleUsuario.controller('usuarioPlistFacturaUsuarioController', ['$scope', 'too
         });
 
         $scope.update = function () {
-            $location.url(`usuario/plistfactura/` + $scope.id + `/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
+            $location.url(`user/usuario/plistfactura/` + $scope.id + `/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
         };
 
         //paginacion neighbourhood

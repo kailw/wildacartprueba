@@ -8,17 +8,13 @@ moduleFactura.controller('facturaPlistLineaUsuarioController', ['$scope', 'toolS
         $scope.ob = "factura";
         $scope.select = ["5", "10", "25", "50", "500"];
 
-
-
         $scope.rpp = 500;
-
-
 
         $scope.page = 1;
 
 
         $scope.resetOrder = function () {
-            $location.url("factura/plistlinea/" + $scope.id + "/10/1");
+            $location.url("user/factura/plistlinea/" + $scope.id + "/10/1");
         };
 
 
@@ -30,7 +26,7 @@ moduleFactura.controller('facturaPlistLineaUsuarioController', ['$scope', 'toolS
                 $scope.orderURLServidor = $scope.orderURLServidor + "-" + order + "," + align;
                 $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
             }
-            $location.url(`factura/plistfactura/` + $scope.id + `/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
+            $location.url(`user/factura/plistfactura/` + $scope.id + `/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
         };
 
         //getcount
@@ -80,7 +76,7 @@ moduleFactura.controller('facturaPlistLineaUsuarioController', ['$scope', 'toolS
 
 
         $scope.update = function () {
-            $location.url(`factura/plistlinea/` + $scope.id + `/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
+            $location.url(`user/factura/plistlinea/` + $scope.id + `/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
         };
 
         //paginacion neighbourhood

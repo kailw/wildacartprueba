@@ -4,16 +4,7 @@
         <main role="main" class="col-md-12 col-lg-12" style="margin-top: 70px;">
             <a href="javascript:window.history.back();"> <button class="btn btn-success" style="margin-bottom: 20px;">Volver</button> </a> 
             <div class="d-flex justify-content-between flex-wrap aligpt-3 pb-2 mb-3 border-bottom"> 
-                <h1 class="h2"> <i class="fa fa-user"></i> Usuario:  <a href="usuario/view/{{ajaxDatosUsuarios.id}}"> {{ajaxDatosUsuarios.nombre}} {{ajaxDatosUsuarios.ape1}} </a>|| Lineas de la Factura Nº{{id}}</h1>
-<!--                <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group" style="width:400px;">
-                        <p class="mt-2" style="width:200px;">Selecciona RPP: </p>
-                        <select class="form-control" 
-                                ng-change="update()" 
-                                ng-model="rpp" ng-options="value for value in select">
-                        </select>
-                    </div>
-                </div>-->
+                <h1 class="h2"> <i class="fa fa-user"></i> Usuario:  <a href="/user/usuario/view/{{ajaxDatosUsuarios.id}}"> {{ajaxDatosUsuarios.nombre}} {{ajaxDatosUsuarios.ape1}} </a>|| Lineas de la Factura Nº{{id}}</h1>
             </div>
         </main>
 
@@ -29,23 +20,11 @@
                     <th>Id</th>
                     <th>Cantidad</th>
                     <th>Producto</th>
-                    <th>Acciones</th>
                 </tr>                
                 <tr ng-repeat="fila in ajaxDatoLineaFactura track by $index">
                     <th>{{fila.id}}</th>
                     <td>{{fila.cantidad}}</td>
-                    <td><a href="producto/view/{{fila.obj_Producto.id}}">{{fila.obj_Producto.desc}}</a></td>                       
-                    <td> 
-                        <a  href="linea/view/{{fila.id}}"> 
-                            <button style="font-size:15px" class="btn btn-info"><i class="fa fa-eye"></i></button>
-                        </a> 
-                        <a  href="linea/edit/{{fila.id}}"> 
-                            <button style="font-size:15px" class="btn btn-success"><i class="fa fa-edit"></i></button>
-                        </a> 
-                        <a  href="linea/remove/{{fila.id}}"> 
-                            <button style="font-size:15px" class="btn btn-danger"><i class="fa fa-trash-alt"></i></button>
-                        </a> 
-                    </td> 
+                    <td>{{fila.obj_Producto.desc}}</td>                                          
                 </tr>
 
             </table>

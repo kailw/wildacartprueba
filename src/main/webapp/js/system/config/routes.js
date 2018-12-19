@@ -47,33 +47,33 @@ var autenticacionUsuario = function ($q, $location, $http, sessionService) {
     return deferred.promise;
 };
 
-var sinLogin = function ($q, $location, $http, sessionService, countcarritoService) {
-    var deferred = $q.defer();
-    $http({
-        method: 'GET',
-        url: 'json?ob=usuario&op=check'
-    }).then(function (response) {
-        //comprobar que el usuario en sesión es administrador
-        if (response.data.status !== 401) {
-            if (response.data.message.obj_tipoUsuario.id === 1) {
-                //hay que meter el usuario activo en el sessionService
-                sessionService.setSessionActive();
-                sessionService.setTipoUserId(response.data.message.obj_tipoUsuario.id);
-                sessionService.setUserName(response.data.message.nombre + " " + response.data.message.ape1);
-                sessionService.setId(response.data.message.id);
-                deferred.resolve();
-            }
-            $location.path('/home');
-        } else {
-            $location.path('/login');
-        }
-
-    }, function (response) {
-        sessionService.setSessionInactive;
-        $location.path('/home');
-    });
-    return deferred.promise;
-};
+//var sinLogin = function ($q, $location, $http, sessionService, countcarritoService) {
+//    var deferred = $q.defer();
+//    $http({
+//        method: 'GET',
+//        url: 'json?ob=usuario&op=check'
+//    }).then(function (response) {
+//        //comprobar que el usuario en sesión es administrador
+//        if (response.data.status !== 401) {
+//            if (response.data.message.obj_tipoUsuario.id === 1) {
+//                //hay que meter el usuario activo en el sessionService
+//                sessionService.setSessionActive();
+//                sessionService.setTipoUserId(response.data.message.obj_tipoUsuario.id);
+//                sessionService.setUserName(response.data.message.nombre + " " + response.data.message.ape1);
+//                sessionService.setId(response.data.message.id);
+//                deferred.resolve();
+//            }
+//            $location.path('/home');
+//        } else {
+//            $location.path('/login');
+//        }
+//
+//    }, function (response) {
+//        sessionService.setSessionInactive;
+//        $location.path('/home');
+//    });
+//    return deferred.promise;
+//};
 
 
 wildcart.config(['$routeProvider', function ($routeProvider) {
@@ -110,8 +110,6 @@ wildcart.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/usuario/edit/:id?', {templateUrl: 'js/app/usuario/edit.html', controller: 'usuarioEditController', resolve: {auth: autenticacionAdministrador}});
         $routeProvider.when('/usuario/remove/:id?', {templateUrl: 'js/app/usuario/remove.html', controller: 'usuarioRemoveController', resolve: {auth: autenticacionAdministrador}});
         $routeProvider.when('/usuario/create', {templateUrl: 'js/app/usuario/create.html', controller: 'usuarioCreateController', resolve: {auth: autenticacionAdministrador}});
-        $routeProvider.when('/usuario/login', {templateUrl: 'js/app/usuario/login.html', controller: 'usuarioLoginController'});
-        $routeProvider.when('/usuario/logout', {templateUrl: 'js/app/usuario/logout.html', controller: 'usuarioLogoutController'});
         $routeProvider.when('/usuario/plistfactura/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/usuario/plistfactura.html', controller: 'usuarioPlistFacturaController', resolve: {auth: autenticacionAdministrador}});
 
         $routeProvider.when('/carrito/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/carrito/plist.html', controller: 'carritoPlistController'});
@@ -123,16 +121,21 @@ wildcart.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/tipoproducto/create', {templateUrl: 'js/app/tipoproducto/create.html', controller: 'tipoproductoCreateController', resolve: {auth: autenticacionAdministrador}});
 
 
+        $routeProvider.when('/login', {templateUrl: 'js/app/login.html', controller: 'usuarioLoginController'});
+        $routeProvider.when('/logout', {templateUrl: 'js/app/logout.html', controller: 'usuarioLogoutController'});
+
         $routeProvider.when('/user/usuario/view/:id?', {templateUrl: 'js/app/user/usuario/view.html', controller: 'usuarioViewUsuarioController', resolve: {auth: autenticacionUsuario}});
         $routeProvider.when('/user/usuario/plistfactura/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/user/usuario/plistfactura.html', controller: 'usuarioPlistFacturaUsuarioController', resolve: {auth: autenticacionUsuario}});
-        
+
         $routeProvider.when('/user/factura/plistlinea/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/user/factura/plistlinea.html', controller: 'facturaPlistLineaUsuarioController', resolve: {auth: autenticacionUsuario}});
         $routeProvider.when('/user/factura/view/:id?', {templateUrl: 'js/app/user/factura/view.html', controller: 'facturaViewUsuarioController', resolve: {auth: autenticacionUsuario}});
-        
+
         $routeProvider.when('/user/producto/view/:id?', {templateUrl: 'js/app/user/producto/view.html', controller: 'productoViewUsuarioController', resolve: {auth: autenticacionUsuario}});
         $routeProvider.when('/user/producto/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/user/producto/plist.html', controller: 'productoPlistUsuarioController', resolve: {auth: autenticacionUsuario}});
-                
-        
+
+
+
+
 
         $routeProvider.otherwise({redirectTo: '/'});
     }]);
