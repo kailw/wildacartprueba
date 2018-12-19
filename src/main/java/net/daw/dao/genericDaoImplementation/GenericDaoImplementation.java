@@ -56,17 +56,17 @@ public class GenericDaoImplementation implements DaoInterface {
 
     @Override
     public BeanInterface get(int id, Integer expand) throws Exception {
-        //String strSQL = "SELECT * FROM " + ob + " WHERE id=?";
+        String strSQL = "SELECT * FROM " + ob + " WHERE id=?";
         BeanInterface oBean;
         ResultSet oResultSet = null;
         PreparedStatement oPreparedStatement = null;
         try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL_get);
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
             oPreparedStatement.setInt(1, id);
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
                 oBean = BeanFactory.getBean(ob);
-                oBean.fill(oResultSet, oConnection, expand);
+                oBean.fill(oResultSet, oConnection, expand, oUsuarioBeanSession);
 
             } else {
                 oBean = null;
@@ -125,7 +125,7 @@ public class GenericDaoImplementation implements DaoInterface {
                 oPreparedStatement.close();
             }
         }
-        return res;
+        return res;        
     }
 
     @Override
@@ -194,7 +194,7 @@ public class GenericDaoImplementation implements DaoInterface {
                 alBean = new ArrayList<BeanInterface>();
                 while (oResultSet.next()) {
                     BeanInterface oBean = BeanFactory.getBean(ob);
-                    oBean.fill(oResultSet, oConnection, expand);
+                    oBean.fill(oResultSet, oConnection, expand, oUsuarioBeanSession);
                     alBean.add(oBean);
                 }
             } catch (SQLException e) {

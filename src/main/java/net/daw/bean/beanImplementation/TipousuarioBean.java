@@ -21,7 +21,7 @@ public class TipousuarioBean extends GenericBeanImplementation implements BeanIn
     }
 
     @Override
-    public TipousuarioBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws Exception {
+    public TipousuarioBean fill(ResultSet oResultSet, Connection oConnection, Integer expand, UsuarioBean oUsuarioBeanSession) throws Exception {
         this.setId(oResultSet.getInt("id"));
         this.setDesc(oResultSet.getString("desc"));
         return this;

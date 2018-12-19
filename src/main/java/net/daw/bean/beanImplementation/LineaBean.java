@@ -12,6 +12,10 @@ import net.daw.bean.genericBeanImplementation.GenericBeanImplementation;
 import net.daw.bean.publicBeanInterface.BeanInterface;
 import net.daw.dao.daoImplementation_1.FacturaDao_1;
 import net.daw.dao.daoImplementation_1.ProductoDao_1;
+import net.daw.dao.daoImplementation_2.FacturaDao_2;
+import net.daw.dao.daoImplementation_2.ProductoDao_2;
+import net.daw.dao.publicDaoInterface.DaoInterface;
+import net.daw.factory.DaoFactory;
 
 /**
  *
@@ -74,35 +78,50 @@ public class LineaBean extends GenericBeanImplementation implements BeanInterfac
     }
 
     @Override
-    public LineaBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws Exception {
+    public LineaBean fill(ResultSet oResultSet, Connection oConnection, Integer expand, UsuarioBean oUsuarioBeanSession) throws Exception {
 
         this.setId(oResultSet.getInt("id"));
         this.setCantidad(oResultSet.getInt("cantidad"));
 
         if (expand > 0) {
-            ProductoDao_1 oProductoDao = new ProductoDao_1(oConnection, "producto");
-            this.setObj_Producto((ProductoBean) oProductoDao.get(oResultSet.getInt("id_producto"), expand - 1));
+            DaoInterface oProductoDao = DaoFactory.getDao(oConnection, "producto", oUsuarioBeanSession);
+           this.setObj_Producto((ProductoBean) oProductoDao.get(oResultSet.getInt("id_producto"), expand - 1));
         } else {
             this.setId_producto(oResultSet.getInt("id_producto"));
         }
+
         if (expand > 0) {
-            FacturaDao_1 oFacturaDao = new FacturaDao_1(oConnection, "factura");
+            DaoInterface oFacturaDao = DaoFactory.getDao(oConnection, "factura", oUsuarioBeanSession);
             this.setObj_Factura((FacturaBean) oFacturaDao.get(oResultSet.getInt("id_factura"), expand - 1));
         } else {
             this.setId_factura(oResultSet.getInt("id_factura"));
         }
 
         return this;
+//        if (expand > 0) {
+//            ProductoDao_1 oproductoDao = new ProductoDao_1(oConnection, "producto", oUsuarioBeanSession);
+//            this.setObj_Producto((ProductoBean) oproductoDao.get(oResultSet.getInt("id_producto"), expand - 1));
+//        } else {
+//            this.setId_producto(oResultSet.getInt("id_producto"));
+//        }
+//
+//        if (expand > 0) {
+//            FacturaDao_1 oFacturaDao = new FacturaDao_1(oConnection, "factura", oUsuarioBeanSession);
+//            this.setObj_Factura((FacturaBean) oFacturaDao.get(oResultSet.getInt("id_factura"), expand - 1));
+//        } else {
+//            this.setId_factura(oResultSet.getInt("id_factura"));
+//        }
+//
+//        return this;
     }
 
-    
     @Override
     public String getColumns() {
         String strColumns = "";
         strColumns += "id,";
         strColumns += "cantidad,";
         strColumns += "id_producto,";
-        strColumns += "id_factura";        
+        strColumns += "id_factura";
         return strColumns;
     }
 

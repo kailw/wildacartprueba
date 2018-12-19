@@ -12,13 +12,17 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import net.daw.bean.genericBeanImplementation.GenericBeanImplementation;
 import net.daw.bean.publicBeanInterface.BeanInterface;
+import net.daw.dao.daoImplementation_2.FacturaDao_2;
+import net.daw.dao.daoImplementation_2.TipoproductoDao_2;
+import net.daw.dao.publicDaoInterface.DaoInterface;
+import net.daw.factory.DaoFactory;
 
 /**
  *
  * @author a044531896d
  */
-public class ProductoBean extends GenericBeanImplementation implements BeanInterface{
-    
+public class ProductoBean extends GenericBeanImplementation implements BeanInterface {
+
     @Expose
     private String codigo;
     @Expose
@@ -91,7 +95,7 @@ public class ProductoBean extends GenericBeanImplementation implements BeanInter
     }
 
     @Override
-    public ProductoBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws Exception, Exception {
+    public ProductoBean fill(ResultSet oResultSet, Connection oConnection, Integer expand, UsuarioBean oUsuarioBeanSession) throws Exception, Exception {
         this.setId(oResultSet.getInt("id"));
         this.setCodigo(oResultSet.getString("codigo"));
         this.setDesc(oResultSet.getString("desc"));
@@ -99,13 +103,21 @@ public class ProductoBean extends GenericBeanImplementation implements BeanInter
         this.setPrecio(oResultSet.getFloat("precio"));
         this.setFoto(oResultSet.getString("foto"));
         this.setId_tipoProducto(oResultSet.getInt("id_tipoProducto"));
+//        if (expand > 0) {
+//            DaoInterface otipoproductoDao = DaoFactory.getDao(oConnection, "tipoproducto", oUsuarioBeanSession);
+//            this.setObj_tipoProducto((TipoproductoBean) otipoproductoDao.get(oResultSet.getInt("id_tipoProducto"), expand - 1));
+//        } else {
+//            this.setId_tipoProducto(oResultSet.getInt("id_tipoProducto"));
+//        }
+//        return this;
         if (expand > 0) {
-            TipoproductoDao_1 otipoproductoDao = new TipoproductoDao_1(oConnection, "tipoproducto");
+          TipoproductoDao_1 otipoproductoDao = new TipoproductoDao_1(oConnection, "tipoproducto", oUsuarioBeanSession);
+            //DaoInterface otipoproductoDao = DaoFactory.getDao(oConnection, "tipoproducto", oUsuarioBeanSession);
             this.setObj_tipoProducto((TipoproductoBean) otipoproductoDao.get(oResultSet.getInt("id_tipoProducto"), expand - 1));
         } else {
             this.setId_tipoProducto(oResultSet.getInt("id_tipoProducto"));
         }
-        return this;        
+        return this;
 
     }
 
@@ -114,10 +126,10 @@ public class ProductoBean extends GenericBeanImplementation implements BeanInter
         String strColumns = "";
         strColumns += "id,";
         strColumns += "codigo,";
-        strColumns += "desc,";
+        strColumns += "`desc`,";
         strColumns += "existencias,";
         strColumns += "precio,";
-        strColumns += "foto";
+        strColumns += "foto,";
         strColumns += "id_tipoProducto";
         return strColumns;
     }
@@ -131,7 +143,7 @@ public class ProductoBean extends GenericBeanImplementation implements BeanInter
         strColumns += existencias + ",";
         strColumns += precio + ",";
         strColumns += EncodingHelper.quotate(foto) + ",";
-        strColumns += id_tipoProducto + ",";
+        strColumns += id_tipoProducto;
         return strColumns;
     }
 

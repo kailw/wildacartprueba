@@ -1,0 +1,56 @@
+<header-component></header-component>
+<div class="container-fluid">
+    <div class="row">        
+        <main role="main" class="col-md-9 col-lg-12" style="margin-top: 70px;">
+            <a href="usuario/plist"> <button class="btn btn-success" style="margin-bottom: 20px;">Volver</button> </a> 
+            <div class="d-flex justify-content-between flex-wrap aligpt-3 pb-2 mb-3 border-bottom">                
+                <h1 class="h2"> <i class="fa fa-user"></i> Usuario: <a href="usuario/view/{{ajaxDatosUsuarios.id}}"> {{ajaxDatosUsuarios.nombre}} {{ajaxDatosUsuarios.ape1}}</a></h1>
+                <div class="btn-group" style="width:400px;">
+                    <p class="mt-2" style="width:200px;">Selecciona RPP: </p>
+                    <select class="form-control" 
+                            ng-change="update()" 
+                            ng-model="rpp" ng-options="value for value in select">
+                    </select>
+                </div>
+            </div>     
+        </main>
+    </div>
+
+    <div class="row" style="margin-top: 25px;">
+        <div class="col-12">
+            <table class="table table-striped table-sm" style="text-align: center;">
+                <thead>
+                    <tr class="thead-dark"> 
+                        <th>Id</th>
+                        <th>Fecha</th>
+                        <th>IVA</th>                        
+                        <th>Lineas</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="fila in ajaxDataUsuarios track by $index">
+                        <th>{{fila.id}}</th>
+                        <td>{{fila.fecha}}</td>
+                        <td>{{fila.iva}}</td>                                                
+                        <td>
+                            <a href="user/factura/plistlinea/{{fila.id}}/10/1" class="btn table-warning" ng-if="fila.link_linea >= 1">
+                                <i>{{fila.link_linea}}</i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="user/factura/view/{{fila.id}}">
+                                <button style="font-size:15px" class="btn btn-info"><i class="fa fa-eye"></i></button>
+                            </a>
+
+                            <a ng-click="pdf(fila.id,fila.fecha, fila.iva)" class="btn btn-primary"  ng-class="{'disabled': {{fila.link_linea}} <= 0}">
+                              <i class="fa fa-print" style="color: black"></i>
+                            </a>
+                        </td>                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer class="footer" ng-include="'js/app/footer.html'"></footer>

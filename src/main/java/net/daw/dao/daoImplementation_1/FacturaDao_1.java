@@ -20,28 +20,9 @@ public class FacturaDao_1 extends GenericDaoImplementation implements DaoInterfa
     }
 
     public int getcountFacturaUser(int idusuario) throws Exception {
-        String strSQL = "SELECT COUNT(id) FROM " + ob + " WHERE id_usuario=? ";
-        int res = 0;
-        ResultSet oResultSet = null;
-        PreparedStatement oPreparedStatement = null;
-        try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oPreparedStatement.setInt(1, idusuario);
-            oResultSet = oPreparedStatement.executeQuery();
-            if (oResultSet.next()) {
-                res = oResultSet.getInt(1);
-            }
-        } catch (SQLException e) {
-            throw new Exception("Error en Dao getcountFacturaUser de " + ob, e);
-        } finally {
-            if (oResultSet != null) {
-                oResultSet.close();
-            }
-            if (oPreparedStatement != null) {
-                oPreparedStatement.close();
-            }
-        }
-        return res;
+        strSQL_getcount = "SELECT COUNT(id) FROM " + ob + " WHERE id_usuario=" + idusuario;
+        return super.getcount();
+        
     }
 
     public ArrayList<FacturaBean> getpageXusuario(int iRpp, int iPage, HashMap<String, String> hmOrder, int idUsuario, Integer expand) throws Exception {
@@ -62,7 +43,7 @@ public class FacturaDao_1 extends GenericDaoImplementation implements DaoInterfa
 
                 while (oResultSet.next()) {
                     FacturaBean oFacturaBean = new FacturaBean();
-                    oFacturaBean.fill(oResultSet, oConnection, expand);
+                    oFacturaBean.fill(oResultSet, oConnection, expand, oUsuarioBeanSession);
                     alFacturaBean.add(oFacturaBean);
                 }
             } catch (SQLException e) {

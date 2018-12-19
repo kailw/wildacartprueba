@@ -58,7 +58,7 @@ public class FacturaDao_2 extends GenericDaoImplementation implements DaoInterfa
 
                     while (oResultSet.next()) {
                         FacturaBean oFacturaBean = new FacturaBean();
-                        oFacturaBean.fill(oResultSet, oConnection, expand);
+                        oFacturaBean.fill(oResultSet, oConnection, expand,oUsuarioBeanSession);
                         alFacturaBean.add(oFacturaBean);
                     }
                 } catch (SQLException e) {

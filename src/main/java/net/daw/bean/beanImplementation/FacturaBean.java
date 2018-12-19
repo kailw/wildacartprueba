@@ -16,6 +16,10 @@ import net.daw.bean.genericBeanImplementation.GenericBeanImplementation;
 import net.daw.bean.publicBeanInterface.BeanInterface;
 import net.daw.dao.daoImplementation_1.LineaDao_1;
 import net.daw.dao.daoImplementation_1.UsuarioDao_1;
+import net.daw.dao.daoImplementation_2.LineaDao_2;
+import net.daw.dao.daoImplementation_2.UsuarioDao_2;
+import net.daw.dao.publicDaoInterface.DaoInterface;
+import net.daw.factory.DaoFactory;
 import net.daw.helper.EncodingHelper;
 
 /**
@@ -23,7 +27,7 @@ import net.daw.helper.EncodingHelper;
  * @author a044531896d
  */
 public class FacturaBean extends GenericBeanImplementation implements BeanInterface {
-    
+
     @Expose
     private Date fecha;
     @Expose
@@ -79,16 +83,24 @@ public class FacturaBean extends GenericBeanImplementation implements BeanInterf
     }
 
     @Override
-    public FacturaBean fill(ResultSet oResultSet, Connection oConnection, Integer expand) throws Exception {
+    public FacturaBean fill(ResultSet oResultSet, Connection oConnection, Integer expand, UsuarioBean oUsuarioBeanSession) throws Exception {
 
         this.setId(oResultSet.getInt("id"));
         this.setFecha(oResultSet.getDate("fecha"));
         this.setIva(oResultSet.getFloat("iva"));
-        LineaDao_1 oLineaDao = new LineaDao_1(oConnection, "linea");
-        this.setLink_linea(oLineaDao.getcountxlinea(this.id));
 
+        DaoInterface oLineaDao = DaoFactory.getDao(oConnection, "linea", oUsuarioBeanSession);
+        if (oLineaDao.getClass() == LineaDao_1.class) {
+            LineaDao_1 oLineaDao_1 = (LineaDao_1) oLineaDao;
+            this.setLink_linea(oLineaDao_1.getcountxlinea(this.id));
+        } else {
+            LineaDao_2 oLineaDao_2 = (LineaDao_2) oLineaDao;
+            this.setLink_linea(oLineaDao_2.getcountxlinea(this.id));
+        }
+//        LineaDao_1 oLineaDao = new LineaDao_1(oConnection, "linea");
+//        this.setLink_linea(oLineaDao.getcountxlinea(this.id));
         if (expand > 0) {
-            UsuarioDao_1 oUsuarioDao = new UsuarioDao_1(oConnection, "usuario");
+            DaoInterface oUsuarioDao = DaoFactory.getDao(oConnection, "usuario", oUsuarioBeanSession);
             this.setObj_Usuario((UsuarioBean) oUsuarioDao.get(oResultSet.getInt("id_usuario"), expand - 1));
         } else {
             this.setId_usuario(oResultSet.getInt("id_usuario"));
@@ -96,7 +108,6 @@ public class FacturaBean extends GenericBeanImplementation implements BeanInterf
         return this;
     }
 
-    
     @Override
     public String getPairs() {
         ZoneId defaultZoneId = ZoneId.systemDefault();
@@ -114,7 +125,6 @@ public class FacturaBean extends GenericBeanImplementation implements BeanInterf
         strPairs += " WHERE id=" + id;
         return strPairs;
     }
-    
 
     @Override
     public String getColumns() {

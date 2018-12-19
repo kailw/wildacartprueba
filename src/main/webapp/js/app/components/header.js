@@ -13,9 +13,10 @@ function js(toolService, sessionService) {
     self.usuariologeadoID = sessionService.getId();
     self.isActive = toolService.isActive;
 
+
     self.carrito = sessionService.getCountCarrito();
     sessionService.registerObserverCallback(function () {
-        self.carrito = sessionService.getCountCarrito();       
+        self.carrito = sessionService.getCountCarrito();
     });
 }
 ;

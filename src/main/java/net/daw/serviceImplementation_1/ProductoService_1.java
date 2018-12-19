@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.daw.serviceImplementation;
+package net.daw.serviceImplementation_1;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -32,12 +32,12 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author a044531896d
  */
-public class ProductoService extends GenericServiceImplementation implements ServiceInterface{
+public class ProductoService_1 extends GenericServiceImplementation implements ServiceInterface{
 
     HttpServletRequest oRequest;
     String ob = null;
 
-    public ProductoService(HttpServletRequest oRequest, String ob) {
+    public ProductoService_1(HttpServletRequest oRequest, String ob) {
         super(oRequest, ob);
         this.oRequest = oRequest;
         this.ob = ob;
@@ -48,7 +48,7 @@ public class ProductoService extends GenericServiceImplementation implements Ser
         ReplyBean oReplyBean;
         ConnectionInterface oConnectionPool = null;
         Connection oConnection;
-        RellenarService rellenar = new RellenarService();
+        RellenarService_1 rellenar = new RellenarService_1();
         try {
             Integer numero = Integer.parseInt(oRequest.getParameter("numero"));
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);

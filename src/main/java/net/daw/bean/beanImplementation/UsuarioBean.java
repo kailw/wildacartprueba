@@ -134,17 +134,17 @@ public class UsuarioBean extends GenericBeanImplementation implements BeanInterf
         this.setPass(oResultSet.getString("pass"));
 
         DaoInterface oFacturaDao = DaoFactory.getDao(oConnection, "factura", oUsuarioBeanSession);
-
-        if (oFacturaDao.getClass() == FacturaDao_1.class) {
-            FacturaDao_1 oFacturaDao_1 = (FacturaDao_1) oFacturaDao;
-            this.setLink_factura(oFacturaDao_1.getcountFacturaUser(id));
-        } else {
-            FacturaDao_2 oFacturaDao_2 = (FacturaDao_2) oFacturaDao;
-            this.setLink_factura(oFacturaDao_2.getcountFacturaUser(id));
+        if (oFacturaDao != null) {
+            if (oFacturaDao.getClass() == FacturaDao_1.class) {
+                FacturaDao_1 oFacturaDao_1 = (FacturaDao_1) oFacturaDao;
+                this.setNumFactura(oFacturaDao_1.getcountFacturaUser(this.id));
+            } else {
+                FacturaDao_2 oFacturaDao_2 = (FacturaDao_2) oFacturaDao;
+                this.setNumFactura(oFacturaDao_2.getcountFacturaUser(this.id));
+            }
         }
-
         if (expand > 0) {
-            TipousuarioDao_1 otipousuarioDao = new TipousuarioDao_1(oConnection, "tipousuario",oUsuarioBeanSession);
+            TipousuarioDao_1 otipousuarioDao = new TipousuarioDao_1(oConnection, "tipousuario", oUsuarioBeanSession);
             this.setObj_tipoUsuario((TipousuarioBean) otipousuarioDao.get(oResultSet.getInt("id_tipoUsuario"), expand - 1));
         } else {
             this.setId_tipoUsuario(oResultSet.getInt("id_tipoUsuario"));

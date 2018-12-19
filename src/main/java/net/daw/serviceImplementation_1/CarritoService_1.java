@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.daw.serviceImplementation;
+package net.daw.serviceImplementation_1;
 
+import net.daw.serviceImplementation_2.*;
 import com.google.gson.Gson;
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,6 +25,7 @@ import net.daw.dao.daoImplementation_1.FacturaDao_1;
 import net.daw.dao.daoImplementation_1.LineaDao_1;
 import net.daw.dao.daoImplementation_1.ProductoDao_1;
 import net.daw.dao.daoImplementation_2.FacturaDao_2;
+import net.daw.dao.daoImplementation_2.LineaDao_2;
 import net.daw.dao.daoImplementation_2.ProductoDao_2;
 import net.daw.factory.ConnectionFactory;
 import net.daw.helper.EncodingHelper;
@@ -35,7 +36,7 @@ import net.daw.service.publicServiceInterface.ServiceInterface;
  *
  * @author a024465169t
  */
-public class CarritoService extends GenericServiceImplementation implements ServiceInterface {
+public class CarritoService_1 extends GenericServiceImplementation implements ServiceInterface {
 
     HttpServletRequest oRequest;
     String ob = null;
@@ -45,7 +46,7 @@ public class CarritoService extends GenericServiceImplementation implements Serv
     Connection oConnection = null;
     UsuarioBean oUsuarioBeanSession;
 
-    public CarritoService(HttpServletRequest oRequest, String ob) {
+    public CarritoService_1(HttpServletRequest oRequest, String ob) {
         super(oRequest, ob);
         this.oRequest = oRequest;
         this.ob = ob;
@@ -71,7 +72,7 @@ public class CarritoService extends GenericServiceImplementation implements Serv
             Integer cant = Integer.parseInt(oRequest.getParameter("cantidad"));
             oConnectionPool = ConnectionFactory.getConnection(ConnectionConstants.connectionPool);
             oConnection = oConnectionPool.newConnection();
-            ProductoDao_2 oProductoDao = new ProductoDao_2(oConnection, "producto", oUsuarioBeanSession);
+            ProductoDao_1 oProductoDao = new ProductoDao_1(oConnection, "producto", oUsuarioBeanSession);
             ProductoBean oProductoBean = (ProductoBean) oProductoDao.get(id, 1);
             Integer existencias = oProductoBean.getExistencias();
 
@@ -265,14 +266,14 @@ public class CarritoService extends GenericServiceImplementation implements Serv
             oFacturaBean.setIva(21.0f);
 
             //ya tenemos el bean relleno, solo falta crear la factura
-            FacturaDao_2 oFacturaDao = new FacturaDao_2(oConnection, "factura", oUsuarioBeanSession);
+            FacturaDao_1 oFacturaDao = new FacturaDao_1(oConnection, "factura", oUsuarioBeanSession);
 
             FacturaBean oFacturaBeanCreada = (FacturaBean) oFacturaDao.create(oFacturaBean);
             int id_factura = oFacturaBeanCreada.getId();
             //YA TENEMOS CREADA LA FACTURA Y FATA HACER BUCLE PARA CREAR LINEAS
             LineaDao_1 oLineaDao;
             LineaBean oLineaBean;
-            ProductoDao_2 oProductoDao = new ProductoDao_2(oConnection, "producto", oUsuarioBeanSession);
+            ProductoDao_1 oProductoDao = new ProductoDao_1(oConnection, "producto", oUsuarioBeanSession);
             oLineaDao = new LineaDao_1(oConnection, "linea", oUsuarioBeanSession);
             ProductoBean oProductoBean;
 

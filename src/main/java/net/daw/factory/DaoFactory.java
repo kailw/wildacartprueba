@@ -84,7 +84,7 @@ public class DaoFactory {
                 break;
             case 0:
                 if ("usuario".equals(ob)) {
-                    oDao = new UsuarioDao_0(oConnection, ob);
+                    oDao = new UsuarioDao_0(oConnection, ob,oUsuarioBeanSession);
                     break;
                 }
                 break;

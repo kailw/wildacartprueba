@@ -1,9 +1,10 @@
+package net.daw.dao.daoImplementation_0;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,7 +24,7 @@ import net.daw.dao.publicDaoInterface.DaoInterface;
 public class UsuarioDao_0 extends GenericDaoImplementation implements DaoInterface {
 
     public UsuarioDao_0(Connection oConnection, String ob, UsuarioBean oUsuarioBeanSession) {
-        super(oConnection, ob,oUsuarioBeanSession);
+        super(oConnection, ob, oUsuarioBeanSession);
 
     }
 
@@ -69,7 +70,7 @@ public class UsuarioDao_0 extends GenericDaoImplementation implements DaoInterfa
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
                 oUsuarioBean = new UsuarioBean();
-                oUsuarioBean.fill(oResultSet, oConnection, 1);
+                oUsuarioBean.fill(oResultSet, oConnection, 1, oUsuarioBeanSession);
             } else {
                 oUsuarioBean = null;
             }

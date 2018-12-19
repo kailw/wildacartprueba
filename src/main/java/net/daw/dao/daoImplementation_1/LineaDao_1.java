@@ -20,10 +20,10 @@ import net.daw.dao.publicDaoInterface.DaoInterface;
  * @author a044531896d
  */
 public class LineaDao_1 extends GenericDaoImplementation implements DaoInterface {
-    
+
     public LineaDao_1(Connection oConnection, String ob, UsuarioBean oUsuarioBeanSession) {
         super(oConnection, ob, oUsuarioBeanSession);
-        
+
     }
 
     public int getcountxlinea(int idFactura) throws Exception {
@@ -68,7 +68,7 @@ public class LineaDao_1 extends GenericDaoImplementation implements DaoInterface
                 alLineaBean = new ArrayList<LineaBean>();
                 while (oResultSet.next()) {
                     LineaBean oLineaBean = new LineaBean();
-                    oLineaBean.fill(oResultSet, oConnection, expand);
+                    oLineaBean.fill(oResultSet, oConnection, expand, oUsuarioBeanSession);
                     alLineaBean.add(oLineaBean);
                 }
             } catch (SQLException e) {

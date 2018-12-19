@@ -78,7 +78,7 @@ public class LineaDao_2 extends GenericDaoImplementation implements DaoInterface
                 alLineaBean = new ArrayList<LineaBean>();
                 while (oResultSet.next()) {
                     LineaBean oLineaBean = new LineaBean();
-                    oLineaBean.fill(oResultSet, oConnection, expand);
+                    oLineaBean.fill(oResultSet, oConnection, expand,oUsuarioBeanSession);
                     alLineaBean.add(oLineaBean);
                 }
             } catch (SQLException e) {
