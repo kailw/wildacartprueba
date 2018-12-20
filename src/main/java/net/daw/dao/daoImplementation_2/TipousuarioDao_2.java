@@ -17,8 +17,8 @@ public class TipousuarioDao_2 extends GenericDaoImplementation implements DaoInt
 
     @Override
     public BeanInterface get(int id, Integer expand) throws Exception {
-        TipousuarioBean oTipousuarioBean = (TipousuarioBean) super.get(id, expand);
-        if (oTipousuarioBean.getId() == oUsuarioBeanSession.getId_tipoUsuario()) {
+        if (id == oUsuarioBeanSession.getObj_tipoUsuario().getId()) {
+            TipousuarioBean oTipousuarioBean = (TipousuarioBean) super.get(id, expand);
             return oTipousuarioBean;
         } else {
             throw new Exception("Error en Dao get de " + ob + ": No autorizado");

@@ -1,5 +1,6 @@
-package net.daw.dao.daoImplementation_2;
+package net.daw.dao.daoImplementation_0;
 
+import net.daw.dao.daoImplementation_2.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,16 +14,16 @@ import net.daw.dao.genericDaoImplementation.GenericDaoImplementation;
 import net.daw.dao.publicDaoInterface.DaoInterface;
 import net.daw.helper.SqlBuilder;
 
-public class FacturaDao_2 extends GenericDaoImplementation implements DaoInterface {
+public class FacturaDao_0 extends GenericDaoImplementation implements DaoInterface {
 
-    public FacturaDao_2(Connection oConnection, String ob, UsuarioBean oUsuarioBeanSession) {
+    public FacturaDao_0(Connection oConnection, String ob, UsuarioBean oUsuarioBeanSession) {
         super(oConnection, ob, oUsuarioBeanSession);
     }
 
     @Override
     public BeanInterface get(int id, Integer expand) throws Exception {
-        FacturaBean oFacturaBean = (FacturaBean) super.get(id, expand);
-        if (oFacturaBean.getId_usuario() == oUsuarioBeanSession.getId()) {
+         if (id == oUsuarioBeanSession.getId()) {
+            FacturaBean oFacturaBean = (FacturaBean) super.get(id, expand);
             return oFacturaBean;
         } else {
             throw new Exception("Error en Dao get de " + ob + ": No autorizado");
@@ -31,7 +32,9 @@ public class FacturaDao_2 extends GenericDaoImplementation implements DaoInterfa
 
     @Override
     public int getcount() throws Exception {
-        strSQL_getcount = "SELECT COUNT(id) FROM " + ob + " WHERE id_usuario=" + oUsuarioBeanSession.getId();
+        if (oUsuarioBeanSession != null) {
+            strSQL_getcount = "SELECT COUNT(id) FROM " + ob + " WHERE id_usuario=" + oUsuarioBeanSession.getId();
+        }
         return super.getcount();
     }
 
@@ -54,10 +57,9 @@ public class FacturaDao_2 extends GenericDaoImplementation implements DaoInterfa
                     oPreparedStatement.setInt(1, idUsuario);
                     oResultSet = oPreparedStatement.executeQuery();
                     alFacturaBean = new ArrayList<FacturaBean>();
-
                     while (oResultSet.next()) {
                         FacturaBean oFacturaBean = new FacturaBean();
-                        oFacturaBean.fill(oResultSet, oConnection, expand,oUsuarioBeanSession);
+                        oFacturaBean.fill(oResultSet, oConnection, expand, oUsuarioBeanSession);
                         alFacturaBean.add(oFacturaBean);
                     }
                 } catch (SQLException e) {
@@ -83,7 +85,6 @@ public class FacturaDao_2 extends GenericDaoImplementation implements DaoInterfa
 //    public int update(BeanInterface oBean) throws Exception {
 //        throw new Exception("Error en Dao update de " + ob + ": No autorizado");
 //    }
-
     @Override
     public ArrayList<BeanInterface> getpage(int iRpp, int iPage, HashMap<String, String> hmOrder, Integer expand) throws Exception {
         throw new Exception("Error en Dao getpage de " + ob + ": No autorizado");
@@ -95,9 +96,9 @@ public class FacturaDao_2 extends GenericDaoImplementation implements DaoInterfa
         throw new Exception("Error en Dao remove de " + ob + ": No autorizado");
     }
 
-//    @Override
-//    public BeanInterface create(BeanInterface oBean) throws Exception {
-//        throw new Exception("Error en Dao create de " + ob + ": No autorizado");
-//    }
+    @Override
+    public BeanInterface create(BeanInterface oBean) throws Exception {
+        throw new Exception("Error en Dao create de " + ob + ": No autorizado");
+    }
 
 }

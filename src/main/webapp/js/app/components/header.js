@@ -4,7 +4,7 @@ moduleComponent.component('headerComponent', {
     controller: js
 });
 
-function js(toolService, sessionService, $http, $location) {
+function js(toolService, sessionService, $http, $location, countcarritoService) {
     var self = this;
 
 //    console.log(sessionService.isSessionActive());
@@ -46,11 +46,12 @@ function js(toolService, sessionService, $http, $location) {
                 self.isUser = false;
             }
         } else {
-
+            countcarritoService.updateCarrito(0);
         }
     }, function (response) {
         sessionService.setSessionInactive;
         $location.path("/home");
+        countcarritoService.updateCarrito(0);
     });
 
     self.carrito = sessionService.getCountCarrito();

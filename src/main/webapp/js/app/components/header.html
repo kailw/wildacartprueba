@@ -51,12 +51,12 @@
             </li>
 
 
-            <li class="nav-item" ng-if="c.idTipoUsuario === 2 && c.loginH" ng-class="{'active': c.isActive('/factura')}">
+            <li class="nav-item" ng-if="c.idTipoUsuario === 2 && c.loginH" ng-class="{'active': c.isActive('/user/usuario/plistfactura')}">
                 <a class="nav-link hvr-pop" href="user/usuario/plistfactura/{{c.usuariologeadoID}}">
                     <i class="fas fa-hand-holding-usd"></i> <span class="desaparece"> Mis Facturas </span> </a>
             </li>
 
-            <li class="nav-item" ng-if="c.idTipoUsuario === 2 && c.loginH" ng-class="{'active': c.isActive('/producto')}">                        
+            <li class="nav-item" ng-if="c.idTipoUsuario === 2 && c.loginH" ng-class="{'active': c.isActive('/user/producto')}">                        
                 <a class="nav-link hvr-pop" href="user/producto/plist" >
                     <i class="fas fa-archive"></i> <span class="desaparece"> Ver Productos</span>
                 </a>

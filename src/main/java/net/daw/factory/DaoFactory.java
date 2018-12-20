@@ -83,9 +83,25 @@ public class DaoFactory {
                 }
                 break;
             case 0:
-                if ("usuario".equals(ob)) {
-                    oDao = new UsuarioDao_0(oConnection, ob,oUsuarioBeanSession);
-                    break;
+                switch (ob) {
+                    case "usuario":
+                        oDao = new UsuarioDao_0(oConnection, ob, oUsuarioBeanSession);
+                        break;
+                    case "tipousuario":
+                        oDao = new TipousuarioDao_0(oConnection, ob, oUsuarioBeanSession);
+                        break;
+                    case "tipoproducto":
+                        oDao = new TipoproductoDao_0(oConnection, ob, oUsuarioBeanSession);
+                        break;
+                    case "producto":
+                        oDao = new ProductoDao_0(oConnection, ob, oUsuarioBeanSession);
+                        break;
+                    case "factura":
+                        oDao = new FacturaDao_0(oConnection, ob, oUsuarioBeanSession);
+                        break;
+                    case "linea":
+                        oDao = new LineaDao_0(oConnection, ob, oUsuarioBeanSession);
+                        break;
                 }
                 break;
             default:
