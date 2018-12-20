@@ -55,6 +55,9 @@ moduleService.service('sessionService', ['$location', function ($location) {
             },
             getAdmin: function () {
                 return admin;
+            },
+            setUser: function () {
+                admin = false;
             }
         };
 

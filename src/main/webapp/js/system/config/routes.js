@@ -60,10 +60,12 @@ var autenticacionHome = function ($q, sessionService, $http) {
                 sessionService.setUserName(response.data.message.nombre + " " + response.data.message.ape1);
                 sessionService.setId(response.data.message.id);
                 sessionService.setAdmin();
+                sessionService.setTipoUserId(response.data.message.obj_tipoUsuario.id);
                 deferred.resolve();
             } else if (response.data.message.obj_tipoUsuario.id === 2) {
                 sessionService.setSessionActive();
                 sessionService.setUserName(response.data.message.nombre + " " + response.data.message.ape1);
+                sessionService.setTipoUserId(response.data.message.obj_tipoUsuario.id);
                 sessionService.setId(response.data.message.id);
                 sessionService.setUser();
                 deferred.resolve();
@@ -72,15 +74,15 @@ var autenticacionHome = function ($q, sessionService, $http) {
         deferred.resolve();
 
     }, function (response) {
-        deferred.resolve();
+        deferred.resolve();        
     });
     return deferred.promise;
 };
 
 
 wildcart.config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/', {templateUrl: 'js/app/common/home.html', controller: 'homeController'});
-        $routeProvider.when('/home', {templateUrl: 'js/app/common/home.html', controller: 'homeController'});
+        $routeProvider.when('/', {templateUrl: 'js/app/common/home.html', controller: 'homeController', resolve: {auth: autenticacionHome}});
+        $routeProvider.when('/home', {templateUrl: 'js/app/common/home.html', controller: 'homeController', resolve: {auth: autenticacionHome}});
         $routeProvider.when('/tipousuario/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/tipousuario/plist.html', controller: 'tipousuarioPlistController', resolve: {auth: autenticacionAdministrador}});
         $routeProvider.when('/tipousuario/view/:id?', {templateUrl: 'js/app/tipousuario/view.html', controller: 'tipousuarioViewController', resolve: {auth: autenticacionAdministrador}});
         $routeProvider.when('/tipousuario/edit/:id?', {templateUrl: 'js/app/tipousuario/edit.html', controller: 'tipousuarioEditController', resolve: {auth: autenticacionAdministrador}});
@@ -123,8 +125,8 @@ wildcart.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/tipoproducto/create', {templateUrl: 'js/app/tipoproducto/create.html', controller: 'tipoproductoCreateController', resolve: {auth: autenticacionAdministrador}});
 
 
-        $routeProvider.when('/login', {templateUrl: 'js/app/login.html', controller: 'usuarioLoginController'});
-        $routeProvider.when('/logout', {templateUrl: 'js/app/logout.html', controller: 'usuarioLogoutController'});
+        $routeProvider.when('/login', {templateUrl: 'js/app/login.html', controller: 'usuarioLoginController',resolve: {auth: autenticacionHome}});
+        $routeProvider.when('/logout', {templateUrl: 'js/app/logout.html', controller: 'usuarioLogoutController',resolve: {auth: autenticacionHome}});
 
         $routeProvider.when('/user/usuario/view/:id?', {templateUrl: 'js/app/user/usuario/view.html', controller: 'usuarioViewUsuarioController', resolve: {auth: autenticacionUsuario}});
         $routeProvider.when('/user/usuario/plistfactura/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/user/usuario/plistfactura.html', controller: 'usuarioPlistFacturaUsuarioController', resolve: {auth: autenticacionUsuario}});
