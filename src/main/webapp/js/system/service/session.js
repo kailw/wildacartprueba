@@ -7,6 +7,7 @@ moduleService.service('sessionService', ['$location', function ($location) {
         var tipoUserId = "";
         var carrito = 0;
         var observerCallbacks = [];
+        var admin;
         return {
             getUserName: function () {
                 return userName;
@@ -48,6 +49,12 @@ moduleService.service('sessionService', ['$location', function ($location) {
             },
             setTipoUserId: function (idTipoUsuario) {
                 tipoUserId = idTipoUsuario;
+            },
+            setAdmin: function () {
+                admin = true;
+            },
+            getAdmin: function () {
+                return admin;
             }
         };
 

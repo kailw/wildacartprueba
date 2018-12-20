@@ -9,6 +9,7 @@ var autenticacionAdministrador = function ($q, $location, $http, sessionService,
             //hay que meter el usuario activo en el sessionService
             sessionService.setSessionActive();
             sessionService.setTipoUserId(response.data.message.obj_tipoUsuario.id);
+            sessionService.setAdmin();
             sessionService.setUserName(response.data.message.nombre + " " + response.data.message.ape1);
             sessionService.setId(response.data.message.id);
             deferred.resolve();
@@ -47,33 +48,34 @@ var autenticacionUsuario = function ($q, $location, $http, sessionService) {
     return deferred.promise;
 };
 
-//var sinLogin = function ($q, $location, $http, sessionService, countcarritoService) {
-//    var deferred = $q.defer();
-//    $http({
-//        method: 'GET',
-//        url: 'json?ob=usuario&op=check'
-//    }).then(function (response) {
-//        //comprobar que el usuario en sesión es administrador
-//        if (response.data.status !== 401) {
-//            if (response.data.message.obj_tipoUsuario.id === 1) {
-//                //hay que meter el usuario activo en el sessionService
-//                sessionService.setSessionActive();
-//                sessionService.setTipoUserId(response.data.message.obj_tipoUsuario.id);
-//                sessionService.setUserName(response.data.message.nombre + " " + response.data.message.ape1);
-//                sessionService.setId(response.data.message.id);
-//                deferred.resolve();
-//            }
-//            $location.path('/home');
-//        } else {
-//            $location.path('/login');
-//        }
-//
-//    }, function (response) {
-//        sessionService.setSessionInactive;
-//        $location.path('/home');
-//    });
-//    return deferred.promise;
-//};
+var autenticacionHome = function ($q, sessionService, $http) {
+    var deferred = $q.defer();
+    $http({
+        method: 'GET',
+        url: 'json?ob=usuario&op=check'
+    }).then(function (response) {
+        if (response.data.message !== "No active session") {
+            if (response.data.message.obj_tipoUsuario.id === 1) {
+                sessionService.setSessionActive();
+                sessionService.setUserName(response.data.message.nombre + " " + response.data.message.ape1);
+                sessionService.setId(response.data.message.id);
+                sessionService.setAdmin();
+                deferred.resolve();
+            } else if (response.data.message.obj_tipoUsuario.id === 2) {
+                sessionService.setSessionActive();
+                sessionService.setUserName(response.data.message.nombre + " " + response.data.message.ape1);
+                sessionService.setId(response.data.message.id);
+                sessionService.setUser();
+                deferred.resolve();
+            }
+        }
+        deferred.resolve();
+
+    }, function (response) {
+        deferred.resolve();
+    });
+    return deferred.promise;
+};
 
 
 wildcart.config(['$routeProvider', function ($routeProvider) {
