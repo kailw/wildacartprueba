@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.daw.serviceImplementation_1;
+package net.daw.service.serviceImplementation_1;
 
-import net.daw.serviceImplementation_2.*;
 import com.google.gson.Gson;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -19,7 +18,7 @@ import net.daw.bean.beanImplementation.LineaBean;
 import net.daw.bean.beanImplementation.ProductoBean;
 import net.daw.bean.beanImplementation.ReplyBean;
 import net.daw.bean.beanImplementation.UsuarioBean;
-import net.daw.connection.publicinterface.ConnectionInterface;
+import net.daw.connection.publicConnectionInterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
 import net.daw.dao.daoImplementation_1.FacturaDao_1;
 import net.daw.dao.daoImplementation_1.LineaDao_1;

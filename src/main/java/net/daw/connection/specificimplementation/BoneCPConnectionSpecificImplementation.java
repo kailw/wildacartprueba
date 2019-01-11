@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 
-import net.daw.connection.publicinterface.ConnectionInterface;
+import net.daw.connection.publicConnectionInterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
 
 public class BoneCPConnectionSpecificImplementation implements ConnectionInterface {

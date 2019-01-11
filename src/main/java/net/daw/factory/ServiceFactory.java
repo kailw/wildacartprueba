@@ -4,22 +4,21 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.daw.bean.beanImplementation.ReplyBean;
 import net.daw.bean.beanImplementation.UsuarioBean;
-import net.daw.serviceImplementation_0.UsuarioService_0;
-import net.daw.serviceImplementation_1.CarritoService_1;
-import net.daw.serviceImplementation_1.FacturaService_1;
-import net.daw.serviceImplementation_1.LineaService_1;
-import net.daw.serviceImplementation_1.ProductoService_1;
-import net.daw.serviceImplementation_1.TipoproductoService_1;
-import net.daw.serviceImplementation_1.TipousuarioService_1;
-
-import net.daw.serviceImplementation_1.UsuarioService_1;
-import net.daw.serviceImplementation_2.CarritoService_2;
-import net.daw.serviceImplementation_2.FacturaService_2;
-import net.daw.serviceImplementation_2.LineaService_2;
-import net.daw.serviceImplementation_2.ProductoService_2;
-import net.daw.serviceImplementation_2.TipoproductoService_2;
-import net.daw.serviceImplementation_2.TipousuarioService_2;
-import net.daw.serviceImplementation_2.UsuarioService_2;
+import net.daw.service.serviceImplementation_0.UsuarioService_0;
+import net.daw.service.serviceImplementation_1.CarritoService_1;
+import net.daw.service.serviceImplementation_1.FacturaService_1;
+import net.daw.service.serviceImplementation_1.LineaService_1;
+import net.daw.service.serviceImplementation_1.ProductoService_1;
+import net.daw.service.serviceImplementation_1.TipoproductoService_1;
+import net.daw.service.serviceImplementation_1.TipousuarioService_1;
+import net.daw.service.serviceImplementation_1.UsuarioService_1;
+import net.daw.service.serviceImplementation_2.CarritoService_2;
+import net.daw.service.serviceImplementation_2.FacturaService_2;
+import net.daw.service.serviceImplementation_2.LineaService_2;
+import net.daw.service.serviceImplementation_2.ProductoService_2;
+import net.daw.service.serviceImplementation_2.TipoproductoService_2;
+import net.daw.service.serviceImplementation_2.TipousuarioService_2;
+import net.daw.service.serviceImplementation_2.UsuarioService_2;
 
 public class ServiceFactory {
 
@@ -99,6 +98,9 @@ public class ServiceFactory {
                                 break;
                             case "check":
                                 oReplyBean = oUsuarioService.check();
+                                break;
+                            case "changepassword":
+                                oReplyBean = oUsuarioService.changepassword();
                                 break;
                             default:
                                 oReplyBean = new ReplyBean(500, "Operation doesn't exist");

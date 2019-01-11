@@ -7,7 +7,7 @@ package net.daw.connection.specificimplementation;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import net.daw.connection.publicinterface.ConnectionInterface;
+import net.daw.connection.publicConnectionInterface.ConnectionInterface;
 import net.daw.constant.ConnectionConstants;
 import org.vibur.dbcp.ViburDBCPDataSource;
 

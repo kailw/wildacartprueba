@@ -3,8 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.daw.serviceImplementation_2;
-
+package net.daw.service.serviceImplementation_1;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import net.daw.bean.beanImplementation.UsuarioBean;
  *
  * @author kevin
  */
-public class RellenarService_2 {
+public class RellenarService_1 {
 
     public ArrayList<ProductoBean> fillProducto(int numero) throws Exception {
         ArrayList<ProductoBean> alProdcutoBean = new ArrayList<>();

@@ -74,7 +74,7 @@ var autenticacionHome = function ($q, sessionService, $http) {
         deferred.resolve();
 
     }, function (response) {
-        deferred.resolve();        
+        deferred.resolve();
     });
     return deferred.promise;
 };
@@ -125,12 +125,14 @@ wildcart.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/tipoproducto/create', {templateUrl: 'js/app/tipoproducto/create.html', controller: 'tipoproductoCreateController', resolve: {auth: autenticacionAdministrador}});
 
 
-        $routeProvider.when('/login', {templateUrl: 'js/app/login.html', controller: 'usuarioLoginController',resolve: {auth: autenticacionHome}});
-        $routeProvider.when('/logout', {templateUrl: 'js/app/logout.html', controller: 'usuarioLogoutController',resolve: {auth: autenticacionHome}});
+        $routeProvider.when('/login', {templateUrl: 'js/app/login.html', controller: 'usuarioLoginController', resolve: {auth: autenticacionHome}});
+        $routeProvider.when('/logout', {templateUrl: 'js/app/logout.html', controller: 'usuarioLogoutController', resolve: {auth: autenticacionHome}});
 
         $routeProvider.when('/user/usuario/view/:id?', {templateUrl: 'js/app/user/usuario/view.html', controller: 'usuarioViewUsuarioController', resolve: {auth: autenticacionUsuario}});
         $routeProvider.when('/user/usuario/plistfactura/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/user/usuario/plistfactura.html', controller: 'usuarioPlistFacturaUsuarioController', resolve: {auth: autenticacionUsuario}});
 
+        $routeProvider.when('/user/usuario/edit/:id?', {templateUrl: 'js/app/user/usuario/edit.html', controller: 'usuarioEditUsuarioController', resolve: {auth: autenticacionUsuario}});
+        
         $routeProvider.when('/user/factura/plistlinea/:id?/:rpp?/:page?/:order?', {templateUrl: 'js/app/user/factura/plistlinea.html', controller: 'facturaPlistLineaUsuarioController', resolve: {auth: autenticacionUsuario}});
         $routeProvider.when('/user/factura/view/:id?', {templateUrl: 'js/app/user/factura/view.html', controller: 'facturaViewUsuarioController', resolve: {auth: autenticacionUsuario}});
 

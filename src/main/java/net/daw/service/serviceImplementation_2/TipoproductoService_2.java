@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.daw.serviceImplementation_1;
+package net.daw.service.serviceImplementation_2;
 
 import javax.servlet.http.HttpServletRequest;
 import net.daw.service.genericServiceImplementation.GenericServiceImplementation;
@@ -13,12 +13,12 @@ import net.daw.service.publicServiceInterface.ServiceInterface;
  *
  * @author a044531896d
  */
-public class TipoproductoService_1 extends GenericServiceImplementation implements ServiceInterface {
+public class TipoproductoService_2 extends GenericServiceImplementation implements ServiceInterface {
 
     HttpServletRequest oRequest;
     String ob = null;
 
-    public TipoproductoService_1(HttpServletRequest oRequest, String ob) {
+    public TipoproductoService_2(HttpServletRequest oRequest, String ob) {
         super(oRequest, ob);
         this.oRequest = oRequest;
         this.ob = ob;

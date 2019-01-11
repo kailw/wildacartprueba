@@ -69,6 +69,12 @@
 * {
     box-sizing: border-box;
 }
+.page-item.active .page-link {
+    z-index: 0 !important;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
 
 @media (max-width: 760px){
     .desaparece {        

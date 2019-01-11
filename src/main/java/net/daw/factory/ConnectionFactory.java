@@ -1,6 +1,6 @@
 package net.daw.factory;
 
-import net.daw.connection.publicinterface.ConnectionInterface;
+import net.daw.connection.publicConnectionInterface.ConnectionInterface;
 import net.daw.connection.specificimplementation.DBCPConnectionSpecificImplementation;
 import net.daw.connection.specificimplementation.BoneCPConnectionSpecificImplementation;
 import net.daw.connection.specificimplementation.C3P0ConnectionSpecificImplementation;

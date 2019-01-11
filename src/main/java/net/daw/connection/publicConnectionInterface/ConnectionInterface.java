@@ -1,4 +1,4 @@
-package net.daw.connection.publicinterface;
+package net.daw.connection.publicConnectionInterface;
 
 import java.sql.Connection;
 

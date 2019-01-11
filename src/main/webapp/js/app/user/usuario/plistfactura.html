@@ -37,9 +37,9 @@
                         </a>
                     </td>
                     <td>
-                        <a href="user/factura/view/{{fila.id}}">
+<!--                        <a href="user/factura/view/{{fila.id}}">
                             <button style="font-size:15px" class="btn btn-info"><i class="fa fa-eye"></i></button>
-                        </a>
+                        </a>-->
 
                         <a ng-click="pdf(fila.id, fila.fecha, fila.iva)" class="btn btn-primary"  ng-class="{'disabled': {{fila.link_linea}} <= 0}">
                             <i class="fa fa-print" style="color: black"></i>
