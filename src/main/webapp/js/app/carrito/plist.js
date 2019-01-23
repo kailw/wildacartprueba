@@ -1,7 +1,7 @@
 'use strict';
 
-moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', "sessionService", "$route", "$window", "countcarritoService",
-    function ($scope, $http, $location, toolService, $routeParams, sessionService, $route, $window, countcarritoService) {
+moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', "sessionService", "$route", "$window", "countcarritoService", '$mdDialog',
+    function ($scope, $http, $location, toolService, $routeParams, sessionService, $route, $window, countcarritoService, $mdDialog) {
 
         $scope.totalPages = 1;
         $scope.select = ["5", "10", "25", "50", "500"];
@@ -57,7 +57,7 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
                     $scope.precioProducto += (response.data.message[i].obj_Producto.precio * response.data.message[i].cantidad);
                     $scope.cantidadProducto += response.data.message[i].cantidad;
                 }
-            }            
+            }
         }, function (response) {
             $scope.status = response.status;
             $scope.error += $scope.status + " " + response.message || 'Request failed';
@@ -79,10 +79,17 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
                     $scope.cantidadProducto = 0;
                 } else {
                     if (operacion === "add") {
+
                         for (var i = 0; i < response.data.message.length; i++) {
                             $scope.precioProducto += (response.data.message[i].obj_Producto.precio * response.data.message[i].cantidad);
                             $scope.cantidadProducto += response.data.message[i].cantidad;
+                            if (id === response.data.message[i].obj_Producto.id) {
+                                if (response.data.message[i].obj_Producto.existencias === response.data.message[i].cantidad) {
+                                    $scope.showAlert('Has elgido el maximo de existencias del poducto:' + response.data.message[i].obj_Producto.desc, " Cantidad:" + response.data.message[i].cantidad);
+                                }
+                            }
                         }
+
                     }
 
                     if (operacion === "reduce") {
@@ -143,6 +150,17 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
 
 
         $scope.isActive = toolService.isActive;
+
+        $scope.showAlert = function (titulo, description) {
+            $mdDialog.show(
+                    $mdDialog.alert()
+                    .clickOutsideToClose(false)
+                    .title(titulo)
+                    .textContent(description)
+                    .ariaLabel('Alert Dialog Demo')
+                    .ok('OK!')
+                    );
+        };
 
     }
 

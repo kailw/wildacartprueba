@@ -48,18 +48,18 @@ moduleFactura.controller('facturaPlistLineaUsuarioController', ['$scope', 'toolS
             }).then(function (response) {
                 $scope.status = response.status;
                 $scope.ajaxDatoLineaFactura = response.data.message;
-                $scope.idUsuarioFactura = response.data.message[0].obj_Factura.id_usuario;
-                $scope.idFactura = response.data.message[0].obj_Factura.id;
-                $http({
-                    method: 'GET',
-                    url: '/json?ob=usuario&op=get&id=' + $scope.idUsuarioFactura
-                }).then(function (response) {
-                    $scope.status = response.status;
-                    $scope.ajaxDatosUsuarios = response.data.message;
-                }, function (response) {
-                    $scope.status = response.status;
-                    $scope.ajaxDatosUsuarios = response.data.message || 'Request failed';
-                });
+//                $scope.idUsuarioFactura = response.data.message[0].obj_Factura.obj_usuario.;
+//                $scope.idFactura = response.data.message[0].obj_Factura.id;
+//                $http({
+//                    method: 'GET',
+//                    url: '/json?ob=usuario&op=get&id=' + $scope.idUsuarioFactura
+//                }).then(function (response) {
+//                    $scope.status = response.status;
+//                    $scope.ajaxDatosUsuarios = response.data.message;
+//                }, function (response) {
+//                    $scope.status = response.status;
+//                    $scope.ajaxDatosUsuarios = response.data.message || 'Request failed';
+//                });
             }, function (response) {
                 $scope.status = response.status;
                 $scope.ajaxDatoLineaFactura = response.data.message || 'Request failed';

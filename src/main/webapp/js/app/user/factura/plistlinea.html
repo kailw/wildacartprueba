@@ -4,7 +4,7 @@
         <main role="main" class="col-md-12 col-lg-12" style="margin-top: 70px;">
             <a href="javascript:window.history.back();"> <button class="btn btn-success" style="margin-bottom: 20px;">Volver</button> </a> 
             <div class="d-flex justify-content-between flex-wrap aligpt-3 pb-2 mb-3 border-bottom"> 
-                <h1 class="h2"> <i class="fa fa-user"></i> Usuario:  <a href="/user/usuario/view/{{ajaxDatosUsuarios.id}}"> {{ajaxDatosUsuarios.nombre}} {{ajaxDatosUsuarios.ape1}} </a>|| Lineas de la Factura Nº{{id}}</h1>
+                <h1 class="h2"> <i class="fa fa-user"></i> Usuario:  <a href="/user/usuario/view/{{ajaxDatoLineaFactura[0].obj_Factura.obj_Usuario.id}}"> {{ajaxDatoLineaFactura[0].obj_Factura.obj_Usuario.nombre}} {{ajaxDatosUsuarios.obj_Factura.obj_Usuario.ape1}}</a>|| Lineas de la Factura Nº{{id}}</h1>
 <!--                <h1 class="h2"> Lineas de la Factura Nº{{id}}</h1>-->
             </div>
         </main>

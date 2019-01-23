@@ -28,6 +28,7 @@ public class FacturaBean extends GenericBeanImplementation implements BeanInterf
 
     @Expose
     private Date fecha;
+    
     @Expose
     private float iva;
 

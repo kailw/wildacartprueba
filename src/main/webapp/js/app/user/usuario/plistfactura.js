@@ -70,6 +70,10 @@ moduleUsuario.controller('usuarioPlistFacturaUsuarioController', ['$scope', 'too
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuarios = response.data.message;
+            
+            if (response.data.message.length > 0 ){
+                $scope.facturaVacia = true;
+            }
 
         }, function (response) {
             $scope.status = response.status;

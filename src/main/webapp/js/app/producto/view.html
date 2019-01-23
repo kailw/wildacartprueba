@@ -32,8 +32,11 @@
         </tr>
         <tr>
             <th>Tipo Producto</th>      
-        <td><a href="tipoproducto/view/{{ajaxDatoProducto.obj_tipoProducto.id}}">{{ajaxDatoProducto.obj_tipoProducto.desc}}</a></td>
+            <td><a href="tipoproducto/view/{{ajaxDatoProducto.obj_tipoProducto.id}}">{{ajaxDatoProducto.obj_tipoProducto.desc}}</a></td>
         </tr>      
     </table>
+    <a href="producto/edit/{{ajaxDatoProducto.id}}">
+        <button class="btn btn-default" style="border: 1px solid black">Cambiar Datos</button>
+    </a>
 </main>
 <footer class="footer" ng-include="'js/app/footer.html'"></footer>
